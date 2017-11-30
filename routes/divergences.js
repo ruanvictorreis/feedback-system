@@ -11,7 +11,7 @@ router.post('/', function(req, res) {
 	trace.load(attempt);
 	trace.generate();
 	
-	//res.json(req.body);
+	res.json(attempt);
 });
 
 class Trace {
@@ -36,12 +36,12 @@ class Trace {
 	var resultJs = JSON.stringify(this.results, null, 2);
 	
 	//fs.writeFileSync(path, JSON.stringify(this.results, null, 2))
-	console.log('write finish')
-    console.log('analyzing behavior...')
-    PythonShell.run('get_trace.py', { args: [resultJs] }, (err) => {
-      if (err) throw err
-      console.log('generate finish')
-    })
+	//console.log('write finish')
+    //console.log('analyzing behavior...')
+    //PythonShell.run('get_trace.py', { args: [resultJs] }, (err) => {
+    //  if (err) throw err
+    //  console.log('generate finish')
+    //})
   }
 }
 
@@ -61,7 +61,7 @@ class Item {
 
   generate() {
     this.getDiff()
-	//this.getTest()
+	this.getTest()
     delete this.item
   }
 
@@ -115,24 +115,33 @@ class Item {
     let i = 0
     let testIndex = 0
     let errorIndex = 0
-    for (let text of this.item.failed) {
+	let failed = this.item['failed[]']
+	
+    for (let text of failed) {
       if (text.includes('>>> ')) testIndex = i
       if (text.includes('# Error: expected')) errorIndex = i
       i++
     }
-    let pass = parseInt(this.item.failed[this.item.failed.length-2])
-    let test = this.item.failed[testIndex]
-    test = test.substr(4)
-    // test = test.substr(0, test.indexOf(')') + 1)
-    let expected = this.item.failed[errorIndex+1]
-    expected = parseInt(expected.substr(1))
-    let result = this.item.failed[errorIndex+3]
-    result = result.substr(6)
-    if (!isNaN(parseInt(result))) {
+	
+    let test = failed[testIndex]
+	test = test.substr(4)
+    
+	let expected = failed[errorIndex+1]
+    expected = expected.substr(6).trim()
+	
+	let result = failed[errorIndex+3]
+    result = result.substr(6).trim()
+	
+	if (!isNaN(parseInt(result))) {
       result = parseInt(result)
     }
-    let log = this.item.failed.slice(testIndex, errorIndex+4).join('\n')
-
+	
+	if (!isNaN(parseInt(expected))) {
+      expected = parseInt(expected)
+    }
+	
+    let log = failed.slice(testIndex, errorIndex+4).join('\n')
+	
     this.test = test
     this.expected = expected
     this.result = result
