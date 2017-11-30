@@ -25,6 +25,9 @@ class Trace {
   }
 
   generate() {
+	const path = `./data/generated/attempt.json`
+    console.log(`generating attempt`)  
+	
     let results = []
     let id = 0
     for (let item of this.items) {
@@ -32,16 +35,15 @@ class Trace {
       item.generate()
       this.results.push(item)
     }
-    
-	var resultJs = JSON.stringify(this.results, null, 2);
 	
-	//fs.writeFileSync(path, JSON.stringify(this.results, null, 2))
-	//console.log('write finish')
-    //console.log('analyzing behavior...')
-    //PythonShell.run('get_trace.py', { args: [resultJs] }, (err) => {
-    //  if (err) throw err
-    //  console.log('generate finish')
-    //})
+	var resultJs = JSON.stringify(this.results, null, 2);
+	fs.writeFileSync(path, JSON.stringify(this.results, null, 2))
+	console.log('write finish')
+    console.log('analyzing behavior...')
+    PythonShell.run('python-src/get_trace.py', { args: [resultJs] }, (err) => {
+      if (err) throw err
+      console.log('generate finish')
+    })
   }
 }
 
@@ -124,7 +126,7 @@ class Item {
     }
 	
     let test = failed[testIndex]
-	test = test.substr(4)
+	test = test.substr(8).trim()
     
 	let expected = failed[errorIndex+1]
     expected = expected.substr(6).trim()
@@ -145,7 +147,7 @@ class Item {
     this.test = test
     this.expected = expected
     this.result = result
-    this.log = log
+    this.log = log.trim()
   }
 }
 

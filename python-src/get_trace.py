@@ -5,12 +5,13 @@ import pg_logger
 import json
 import parse
 
-json_data = sys.argv[1]
-path = './product.json'
+question_type = 'attempt'
+#question_type = sys.argv[1]
+path = './data/generated/' + question_type + '.json'
 
-items = json.load(json_data)
-#with open(path) as file:
-#  items = json.load(file)
+items = []
+with open(path) as file:
+  items = json.load(file)
 
 i = 0
 for item in items:
@@ -127,17 +128,20 @@ for item in items:
 
   after += '\n\n'
   after += test
-
+	
+  print(before)
+  
   beforeTraces = pg_logger.exec_script_str(before).trace
   afterTraces = pg_logger.exec_script_str(after).trace
+  
   item['beforeCode'] = before
   item['afterCode'] = after
   item['beforeTraces'] = beforeTraces
   item['afterTraces'] = afterTraces
 
 
-#with open('./examples/' + question_type + '_example.json', 'w') as file:
-#  json.dump([items[0]], file, indent = 2)
+with open('./data/examples/' + question_type + '_example.json', 'w') as file:
+  json.dump([items[0]], file, indent = 2)
 
 with open(path, 'w') as file:
   json.dump(items, file)
