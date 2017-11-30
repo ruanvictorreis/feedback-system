@@ -48,8 +48,8 @@ for item in items:
   term_func = ''
   test = test.split('#')[0]
 
-  before = before.replace('    ', '  ')
-  after = after.replace('    ', '  ')
+  #before = before.replace('    ', '  ')
+  #after = after.replace('    ', '  ')
 
   # e.g.
   # product(3, identity)
@@ -68,68 +68,66 @@ for item in items:
   # >>> ['repeated', 'square', '4', '5']
   #
 
-  if not keywords:
-    continue
-  key = keywords[0]
+  #if not keywords:
+    #continue
+  #key = keywords[0]
 
-  if key == 'product':
-    term = keywords[2]
-  elif key == 'accumulate':
-    combiner = keywords[1]
-    term = keywords[4]
-  elif key == 'repeated':
-    term = keywords[1]
-  elif key == 'add_three':
-    term = "increment"
-    if keywords[1] == '5':
-      test = "repeated(increment, 3)(5)"
-      item['test'] = test
+  #if key == 'product':
+    #term = keywords[2]
+  #elif key == 'accumulate':
+    #combiner = keywords[1]
+    #term = keywords[4]
+  #elif key == 'repeated':
+    #term = keywords[1]
+  #elif key == 'add_three':
+    #term = "increment"
+    #if keywords[1] == '5':
+      #test = "repeated(increment, 3)(5)"
+      #item['test'] = test
 
-  if combiner == 'add':
-    combiner_func = "def add(a, b):\n  return a + b"
-  elif combiner == 'mul':
-    combiner_func = "def mul(a, b):\n  return a * b"
+  #if combiner == 'add':
+    #combiner_func = "def add(a, b):\n  return a + b"
+  #elif combiner == 'mul':
+    #combiner_func = "def mul(a, b):\n  return a * b"
 
-  if term == 'identity':
-    term_func = "def identity(x):\n  return x"
-  elif term == 'square':
-    term_func = "def square(x):\n  return x * x"
-  elif term == 'increment':
-    term_func = "def increment(x):\n  return x + 1"
-  elif term == 'triple':
-    term_func = "def triple(x):\n  return 3 * x"
+  #if term == 'identity':
+    #term_func = "def identity(x):\n  return x"
+  #elif term == 'square':
+    #term_func = "def square(x):\n  return x * x"
+  #elif term == 'increment':
+    #term_func = "def increment(x):\n  return x + 1"
+  #elif term == 'triple':
+    #term_func = "def triple(x):\n  return 3 * x"
 
-  if combiner_func is not '':
-    before += '\n\n'
-    before += combiner_func
+  #if combiner_func is not '':
+    #before += '\n\n'
+    #before += combiner_func
 
-  if key == 'add_three' or key == 'repeated':
-    before += '\n\n'
-    before += "def identity(x):\n  return x"
+  #if key == 'add_three' or key == 'repeated':
+    #before += '\n\n'
+    #before += "def identity(x):\n  return x"
 
-  if term_func is not '':
-    before += '\n\n'
-    before += term_func
+  #if term_func is not '':
+    #before += '\n\n'
+    #before += term_func
 
   before += '\n\n'
   before += test
 
-  if combiner_func is not '':
-    after += '\n\n'
-    after += combiner_func
+  #if combiner_func is not '':
+    #after += '\n\n'
+    #after += combiner_func
 
-  if key == 'add_three' or key == 'repeated':
-    after += '\n\n'
-    after += "def identity(x):\n  return x"
+  #if key == 'add_three' or key == 'repeated':
+    #after += '\n\n'
+    #after += "def identity(x):\n  return x"
 
-  if term_func is not '':
-    after += '\n\n'
-    after += term_func
+  #if term_func is not '':
+    #after += '\n\n'
+    #after += term_func
 
   after += '\n\n'
   after += test
-	
-  print(before)
   
   beforeTraces = pg_logger.exec_script_str(before).trace
   afterTraces = pg_logger.exec_script_str(after).trace

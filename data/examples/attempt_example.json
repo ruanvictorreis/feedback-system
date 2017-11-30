@@ -1,0 +1,6120 @@
+[
+  {
+    "id": 0,
+    "studentId": "0",
+    "rule": "",
+    "before": "def product(n, term):\n  if n==1:\n    return term(1)\n  else:\n    return n*product(n-1, term)\n\ndef square(x):\n    return x * x\n\ndef triple(x):\n    return 3 * x\n\ndef identity(x):\n    return x\n\ndef increment(x):\n    return x + 1",
+    "after": "def product(n, term):\n    if n==1:\n        return term(1)\n    else:\n        return term(n)*product(n-1, term)\ndef square(x):\n    return x*x\ndef triple(x):\n    return 3*x\ndef identity(x):\n    return x\ndef increment(x):\n    return x+1",
+    "code": "def product(n, term):\n  if n==1:\n    return term(1)\n  else:\n    return n*product(n-1, term)\n\n    if n==1:\n        return term(1)\n    else:\n        return term(n)*product(n-1, term)\ndef square(x):\n    return x * x\n\n    return x*x\ndef triple(x):\n    return 3 * x\n\n    return 3*x\ndef identity(x):\n    return x\n\ndef increment(x):\n    return x + 1\n    return x+1\n",
+    "diffs": [
+      {
+        "count": 1,
+        "value": "def product(n, term):\n"
+      },
+      {
+        "count": 5,
+        "removed": true,
+        "value": "  if n==1:\n    return term(1)\n  else:\n    return n*product(n-1, term)\n\n"
+      },
+      {
+        "count": 4,
+        "added": true,
+        "value": "    if n==1:\n        return term(1)\n    else:\n        return term(n)*product(n-1, term)\n"
+      },
+      {
+        "count": 1,
+        "value": "def square(x):\n"
+      },
+      {
+        "count": 2,
+        "removed": true,
+        "value": "    return x * x\n\n"
+      },
+      {
+        "count": 1,
+        "added": true,
+        "value": "    return x*x\n"
+      },
+      {
+        "count": 1,
+        "value": "def triple(x):\n"
+      },
+      {
+        "count": 2,
+        "removed": true,
+        "value": "    return 3 * x\n\n"
+      },
+      {
+        "count": 1,
+        "added": true,
+        "value": "    return 3*x\n"
+      },
+      {
+        "count": 2,
+        "value": "def identity(x):\n    return x\n"
+      },
+      {
+        "count": 1,
+        "removed": true,
+        "value": "\n"
+      },
+      {
+        "count": 1,
+        "value": "def increment(x):\n"
+      },
+      {
+        "count": 1,
+        "removed": true,
+        "value": "    return x + 1"
+      },
+      {
+        "count": 1,
+        "added": true,
+        "value": "    return x+1"
+      }
+    ],
+    "added": [
+      6,
+      7,
+      8,
+      9,
+      13,
+      17,
+      23
+    ],
+    "removed": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      11,
+      12,
+      15,
+      16,
+      20,
+      22
+    ],
+    "addedLine": [
+      {
+        "line": 6,
+        "code": "    if n==1:"
+      },
+      {
+        "line": 7,
+        "code": "        return term(1)"
+      },
+      {
+        "line": 8,
+        "code": "    else:"
+      },
+      {
+        "line": 9,
+        "code": "        return term(n)*product(n-1, term)"
+      },
+      {
+        "line": 13,
+        "code": "    return x*x"
+      },
+      {
+        "line": 17,
+        "code": "    return 3*x"
+      },
+      {
+        "line": 23,
+        "code": "    return x+1"
+      }
+    ],
+    "removedLine": [
+      {
+        "line": 1,
+        "code": "  if n==1:"
+      },
+      {
+        "line": 2,
+        "code": "    return term(1)"
+      },
+      {
+        "line": 3,
+        "code": "  else:"
+      },
+      {
+        "line": 4,
+        "code": "    return n*product(n-1, term)"
+      },
+      {
+        "line": 5,
+        "code": ""
+      },
+      {
+        "line": 11,
+        "code": "    return x * x"
+      },
+      {
+        "line": 12,
+        "code": ""
+      },
+      {
+        "line": 15,
+        "code": "    return 3 * x"
+      },
+      {
+        "line": 16,
+        "code": ""
+      },
+      {
+        "line": 20,
+        "code": ""
+      },
+      {
+        "line": 22,
+        "code": "    return x + 1"
+      }
+    ],
+    "test": "product(3, square) # 1^2 * 2^2 * 3^2",
+    "expected": 36,
+    "result": 6,
+    "log": ">>> product(3, square) # 1^2 * 2^2 * 3^2\n\n    # Error: expected\n    #     36\n    # but got\n    #     6",
+    "beforeAst": [
+      {
+        "error": true
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "Call": {
+                    "func": {
+                      "Name": {
+                        "id": "term",
+                        "ctx": "Load"
+                      }
+                    },
+                    "args": [
+                      {
+                        "Num": {
+                          "n": 1
+                        }
+                      }
+                    ],
+                    "keywords": []
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "BinOp": {
+                    "left": {
+                      "Name": {
+                        "id": "n",
+                        "ctx": "Load"
+                      }
+                    },
+                    "op": "Mult",
+                    "right": {
+                      "Call": {
+                        "func": {
+                          "Name": {
+                            "id": "product",
+                            "ctx": "Load"
+                          }
+                        },
+                        "args": [
+                          {
+                            "BinOp": {
+                              "left": {
+                                "Name": {
+                                  "id": "n",
+                                  "ctx": "Load"
+                                }
+                              },
+                              "op": "Sub",
+                              "right": {
+                                "Num": {
+                                  "n": 1
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Name": {
+                              "id": "term",
+                              "ctx": "Load"
+                            }
+                          }
+                        ],
+                        "keywords": []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Module": {
+          "body": []
+        }
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "BinOp": {
+                    "left": {
+                      "Name": {
+                        "id": "x",
+                        "ctx": "Load"
+                      }
+                    },
+                    "op": "Mult",
+                    "right": {
+                      "Name": {
+                        "id": "x",
+                        "ctx": "Load"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Module": {
+          "body": []
+        }
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "BinOp": {
+                    "left": {
+                      "Num": {
+                        "n": 3
+                      }
+                    },
+                    "op": "Mult",
+                    "right": {
+                      "Name": {
+                        "id": "x",
+                        "ctx": "Load"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Module": {
+          "body": []
+        }
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "Name": {
+                    "id": "x",
+                    "ctx": "Load"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Module": {
+          "body": []
+        }
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "BinOp": {
+                    "left": {
+                      "Name": {
+                        "id": "x",
+                        "ctx": "Load"
+                      }
+                    },
+                    "op": "Add",
+                    "right": {
+                      "Num": {
+                        "n": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "afterAst": [
+      {
+        "error": true
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "Call": {
+                    "func": {
+                      "Name": {
+                        "id": "term",
+                        "ctx": "Load"
+                      }
+                    },
+                    "args": [
+                      {
+                        "Num": {
+                          "n": 1
+                        }
+                      }
+                    ],
+                    "keywords": []
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "BinOp": {
+                    "left": {
+                      "Call": {
+                        "func": {
+                          "Name": {
+                            "id": "term",
+                            "ctx": "Load"
+                          }
+                        },
+                        "args": [
+                          {
+                            "Name": {
+                              "id": "n",
+                              "ctx": "Load"
+                            }
+                          }
+                        ],
+                        "keywords": []
+                      }
+                    },
+                    "op": "Mult",
+                    "right": {
+                      "Call": {
+                        "func": {
+                          "Name": {
+                            "id": "product",
+                            "ctx": "Load"
+                          }
+                        },
+                        "args": [
+                          {
+                            "BinOp": {
+                              "left": {
+                                "Name": {
+                                  "id": "n",
+                                  "ctx": "Load"
+                                }
+                              },
+                              "op": "Sub",
+                              "right": {
+                                "Num": {
+                                  "n": 1
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Name": {
+                              "id": "term",
+                              "ctx": "Load"
+                            }
+                          }
+                        ],
+                        "keywords": []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "BinOp": {
+                    "left": {
+                      "Name": {
+                        "id": "x",
+                        "ctx": "Load"
+                      }
+                    },
+                    "op": "Mult",
+                    "right": {
+                      "Name": {
+                        "id": "x",
+                        "ctx": "Load"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "BinOp": {
+                    "left": {
+                      "Num": {
+                        "n": 3
+                      }
+                    },
+                    "op": "Mult",
+                    "right": {
+                      "Name": {
+                        "id": "x",
+                        "ctx": "Load"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "Name": {
+                    "id": "x",
+                    "ctx": "Load"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "error": true
+      },
+      {
+        "Module": {
+          "body": [
+            {
+              "Return": {
+                "value": {
+                  "BinOp": {
+                    "left": {
+                      "Name": {
+                        "id": "x",
+                        "ctx": "Load"
+                      }
+                    },
+                    "op": "Add",
+                    "right": {
+                      "Num": {
+                        "n": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "beforeCode": "def product(n, term):\n  if n==1:\n    return term(1)\n  else:\n    return n*product(n-1, term)\n\ndef square(x):\n    return x * x\n\ndef triple(x):\n    return 3 * x\n\ndef identity(x):\n    return x\n\ndef increment(x):\n    return x + 1\n\nproduct(3, square) ",
+    "afterCode": "def product(n, term):\n    if n==1:\n        return term(1)\n    else:\n        return term(n)*product(n-1, term)\ndef square(x):\n    return x*x\ndef triple(x):\n    return 3*x\ndef identity(x):\n    return x\ndef increment(x):\n    return x+1\n\nproduct(3, square) ",
+    "beforeTraces": [
+      {
+        "line": 1,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {},
+        "ordered_globals": [],
+        "stack_to_render": [],
+        "heap": {},
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 7,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ]
+        },
+        "ordered_globals": [
+          "product"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 10,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 13,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 16,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 19,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 1,
+        "event": "call",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f1"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 2,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f1"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 5,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f1"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 1,
+        "event": "call",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f2"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 2,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f2"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 5,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f2"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 1,
+        "event": "call",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f2"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f3"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 2,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f2"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f3"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 3,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f2"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f3"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 7,
+        "event": "call",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f2"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 4,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 1
+            },
+            "ordered_varnames": [
+              "x"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f4"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 8,
+        "event": "step_line",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f2"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 4,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 1
+            },
+            "ordered_varnames": [
+              "x"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f4"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 8,
+        "event": "return",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f2"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 4,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 1,
+              "__return__": 1
+            },
+            "ordered_varnames": [
+              "x",
+              "__return__"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f4"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 1,
+              "__return__": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 3,
+        "event": "return",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f2"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1,
+              "__return__": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term",
+              "__return__"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f3"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1,
+              "__return__": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 5,
+        "event": "return",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2,
+              "__return__": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term",
+              "__return__"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f2"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2,
+              "__return__": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 5,
+        "event": "return",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3,
+              "__return__": 6
+            },
+            "ordered_varnames": [
+              "n",
+              "term",
+              "__return__"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f1"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3,
+              "__return__": 6
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 19,
+        "event": "return",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      }
+    ],
+    "afterTraces": [
+      {
+        "line": 1,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {},
+        "ordered_globals": [],
+        "stack_to_render": [],
+        "heap": {},
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 6,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ]
+        },
+        "ordered_globals": [
+          "product"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 8,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 10,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 12,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 15,
+        "event": "step_line",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      },
+      {
+        "line": 1,
+        "event": "call",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f1"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 2,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f1"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 5,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f1"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 6,
+        "event": "call",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 3
+            },
+            "ordered_varnames": [
+              "x"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f2"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 3
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 7,
+        "event": "step_line",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 3
+            },
+            "ordered_varnames": [
+              "x"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f2"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 3
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 7,
+        "event": "return",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 2,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 3,
+              "__return__": 9
+            },
+            "ordered_varnames": [
+              "x",
+              "__return__"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f2"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 3,
+              "__return__": 9
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 1,
+        "event": "call",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f3"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 2,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f3"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 5,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f3"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 6,
+        "event": "call",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 4,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 2
+            },
+            "ordered_varnames": [
+              "x"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f4"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 7,
+        "event": "step_line",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 4,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 2
+            },
+            "ordered_varnames": [
+              "x"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f4"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 7,
+        "event": "return",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 4,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 2,
+              "__return__": 4
+            },
+            "ordered_varnames": [
+              "x",
+              "__return__"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f4"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 2,
+              "__return__": 4
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 1,
+        "event": "call",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 5,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f5"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 2,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 5,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f5"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 3,
+        "event": "step_line",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 5,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f5"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 6,
+        "event": "call",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 5,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f5"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 6,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 1
+            },
+            "ordered_varnames": [
+              "x"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f6"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 7,
+        "event": "step_line",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 5,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f5"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 6,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 1
+            },
+            "ordered_varnames": [
+              "x"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f6"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 7,
+        "event": "return",
+        "func_name": "square",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 5,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f5"
+          },
+          {
+            "func_name": "square",
+            "is_parent": false,
+            "frame_id": 6,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "x": 1,
+              "__return__": 1
+            },
+            "ordered_varnames": [
+              "x",
+              "__return__"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "square_f6"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "square",
+            {
+              "x": 1,
+              "__return__": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 3,
+        "event": "return",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f3"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 5,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1,
+              "__return__": 1
+            },
+            "ordered_varnames": [
+              "n",
+              "term",
+              "__return__"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f5"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 1,
+              "__return__": 1
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 5,
+        "event": "return",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            },
+            "ordered_varnames": [
+              "n",
+              "term"
+            ],
+            "is_zombie": false,
+            "is_highlighted": false,
+            "unique_hash": "product_f1"
+          },
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 3,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2,
+              "__return__": 4
+            },
+            "ordered_varnames": [
+              "n",
+              "term",
+              "__return__"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f3"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 2,
+              "__return__": 4
+            }
+          ],
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 5,
+        "event": "return",
+        "func_name": "product",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [
+          {
+            "func_name": "product",
+            "is_parent": false,
+            "frame_id": 1,
+            "parent_frame_id_list": [],
+            "encoded_locals": {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3,
+              "__return__": 36
+            },
+            "ordered_varnames": [
+              "n",
+              "term",
+              "__return__"
+            ],
+            "is_zombie": false,
+            "is_highlighted": true,
+            "unique_hash": "product_f1"
+          }
+        ],
+        "heap": {
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [
+          [
+            "product",
+            {
+              "term": [
+                "REF",
+                2
+              ],
+              "n": 3,
+              "__return__": 36
+            }
+          ]
+        ],
+        "stdout": ""
+      },
+      {
+        "line": 15,
+        "event": "return",
+        "func_name": "<module>",
+        "globals": {
+          "product": [
+            "REF",
+            1
+          ],
+          "square": [
+            "REF",
+            2
+          ],
+          "triple": [
+            "REF",
+            3
+          ],
+          "identity": [
+            "REF",
+            4
+          ],
+          "increment": [
+            "REF",
+            5
+          ]
+        },
+        "ordered_globals": [
+          "product",
+          "square",
+          "triple",
+          "identity",
+          "increment"
+        ],
+        "stack_to_render": [],
+        "heap": {
+          "1": [
+            "FUNCTION",
+            "product(n, term)",
+            null
+          ],
+          "2": [
+            "FUNCTION",
+            "square(x)",
+            null
+          ],
+          "3": [
+            "FUNCTION",
+            "triple(x)",
+            null
+          ],
+          "4": [
+            "FUNCTION",
+            "identity(x)",
+            null
+          ],
+          "5": [
+            "FUNCTION",
+            "increment(x)",
+            null
+          ]
+        },
+        "stack_locals": [],
+        "stdout": ""
+      }
+    ]
+  }
+]
