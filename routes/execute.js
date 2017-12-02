@@ -4,46 +4,37 @@ var express = require('express');
 var router = express.Router();
 var PythonShell = require('python-shell')
 
-router.post('/', function(req, res) {
-	attempt = req.body;
-	
-	const trace = new Trace();
-	trace.load(attempt);
-	trace.generate();
-	
-	res.json(attempt);
+router.post('/', function(request, response) {
+	const trace = new Trace(request.body);
+  const result = trace.generate();
+  
+  PythonShell.run('python-src/get_trace.py', { args: [result] }, (err) => {
+    if (err) throw err
+    const content = fs.readFileSync(`./data/generated/attempt.json`, 'utf8')
+    response.json(content);
+  })
 });
 
 class Trace {
-  constructor() {
-    this.items = []
+  constructor(attempt) {
     this.results = []
-  }
-
-  load(attempt) {
     this.items = [attempt]
   }
 
   generate() {
-	const path = `./data/generated/attempt.json`
-    console.log(`generating attempt`)  
-	
+	  const path = `./data/generated/attempt.json`
     let results = []
     let id = 0
+
     for (let item of this.items) {
       item = new Item(item, id++)
       item.generate()
       this.results.push(item)
     }
-	
-	var resultJs = JSON.stringify(this.results, null, 2);
-	fs.writeFileSync(path, JSON.stringify(this.results, null, 2))
-	console.log('write finish')
-    console.log('analyzing behavior...')
-    PythonShell.run('python-src/get_trace.py', { args: [resultJs] }, (err) => {
-      if (err) throw err
-      console.log('generate finish')
-    })
+    
+    var resultJson = JSON.stringify(this.results, null, 2)
+    fs.writeFileSync(path, resultJson)
+    return resultJson
   }
 }
 
