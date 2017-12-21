@@ -6,7 +6,7 @@ import json
 import parse
 
 question_type = sys.argv[1]
-path = './data/generated/' + question_type + '.json'
+path = './attempts/generated/' + question_type + '.json'
 
 items = []
 with open(path) as file:

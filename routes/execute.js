@@ -14,7 +14,7 @@ router.post('/', function(request, response) {
   
   PythonShell.run('python-src/get_trace.py', { args: [file] }, (err) => {
     if (err) throw err
-    const content = fs.readFileSync(`./data/generated/${file}.json`, 'utf8')
+    const content = fs.readFileSync(`./attempts/generated/${file}.json`, 'utf8')
     response.json(content);
   })
 });
@@ -27,7 +27,7 @@ class Trace {
   }
 
   generate() {
-	const path = `./data/generated/${this.file}.json`
+	const path = `./attempts/generated/${this.file}.json`
     let results = []
     let id = 0
 
