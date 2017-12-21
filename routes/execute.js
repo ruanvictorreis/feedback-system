@@ -5,24 +5,29 @@ var router = express.Router();
 var PythonShell = require('python-shell')
 
 router.post('/', function(request, response) {
-  const trace = new Trace(request.body);
+  const attempt = request.body
+  const register = attempt.register;
+  const assignment = attempt.assignment;
+  const file = `attempt_${register}_${assignment}`;
+  const trace = new Trace(attempt, file);
   const result = trace.generate();
   
-  PythonShell.run('python-src/get_trace.py', { args: [result] }, (err) => {
+  PythonShell.run('python-src/get_trace.py', { args: [file] }, (err) => {
     if (err) throw err
-    const content = fs.readFileSync(`./data/generated/attempt.json`, 'utf8')
+    const content = fs.readFileSync(`./data/generated/${file}.json`, 'utf8')
     response.json(content);
   })
 });
 
 class Trace {
-  constructor(attempt) {
+  constructor(attempt, file) {
     this.results = []
     this.items = [attempt]
+	this.file = file
   }
 
   generate() {
-	  const path = `./data/generated/attempt.json`
+	const path = `./data/generated/${this.file}.json`
     let results = []
     let id = 0
 

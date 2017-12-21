@@ -5,8 +5,7 @@ import pg_logger
 import json
 import parse
 
-question_type = 'attempt'
-#question_type = sys.argv[1]
+question_type = sys.argv[1]
 path = './data/generated/' + question_type + '.json'
 
 items = []
