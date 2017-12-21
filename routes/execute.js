@@ -5,7 +5,7 @@ var router = express.Router();
 var PythonShell = require('python-shell')
 
 router.post('/', function(request, response) {
-	const trace = new Trace(request.body);
+  const trace = new Trace(request.body);
   const result = trace.generate();
   
   PythonShell.run('python-src/get_trace.py', { args: [result] }, (err) => {
