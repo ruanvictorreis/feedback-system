@@ -137,7 +137,7 @@ for item in items:
   item['afterTraces'] = afterTraces
 
 
-with open('./data/examples/' + question_type + '_example.json', 'w') as file:
+with open('./attempts/examples/' + question_type + '_example.json', 'w') as file:
   json.dump([items[0]], file, indent = 2)
 
 with open(path, 'w') as file:
