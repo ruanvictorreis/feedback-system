@@ -5,7 +5,7 @@ var router = express.Router();
 var PythonShell = require('python-shell')
 
 router.post('/', function (request, response) {
-  const attempt = request.body
+  const attempt = request.body;
   const register = attempt.register;
   const assignment = attempt.assignment;
   const file = `attempt_${register}_${assignment}`;
