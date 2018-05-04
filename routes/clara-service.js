@@ -3,13 +3,13 @@ var express = require('express');
 var router = express.Router();
 var PythonShell = require('python-shell')
 
-router.get('/', function (request, response) {
+router.post('/', function (request, response) {
   const attempt = request.body
   const register = attempt.register
   const assignment = attempt.assignment
   const feedtype = attempt.feedtype
   const parameters = attempt.parameters
-  const student_code = attempt.code
+  const student_code = attempt.student_code
 
   args = [feedtype, register, assignment, parameters, student_code]
 
