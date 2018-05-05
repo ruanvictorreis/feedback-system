@@ -20,4 +20,7 @@ repair_file = '{0}/repairs/{1}/{2}'.format(clara_path, assignment, file_name)
 clara_command = 'clara feedback {0} {1} --entryfnc {2} --args "{3}" --verbose 0 --feedtype "{4}"'
 clara_command = clara_command.format(specs, attempt_path, assignment, parameters, feedtype)
 
+if os.path.isfile(repair_file):
+    os.remove(repair_file)
+
 os.system("{0} >> {1}".format(clara_command, repair_file))

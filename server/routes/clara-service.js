@@ -10,14 +10,15 @@ router.post('/', function (request, response) {
   const feedtype = attempt.feedtype
   const parameters = attempt.parameters
   const student_code = attempt.student_code
-
+  
   args = [feedtype, register, assignment, parameters, student_code]
-
+  
   PythonShell.run('./python_modules/clara/clara_run.py', { args: args }, (err) => {
     if (err) throw err
     file_name = register + '.py'
     repair_path = `./python_modules/clara/repairs/${assignment}/${file_name}`
     const content = fs.readFileSync(repair_path, 'utf8')
+    console.log(content)
     response.send(content);
   })
 });
