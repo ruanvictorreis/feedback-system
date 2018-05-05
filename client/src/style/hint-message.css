@@ -1,0 +1,127 @@
+.hint-message {
+  font-size: 1.3em !important;
+}
+.hint-message code {
+  font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+  height: 100%;
+  line-height: 18pt;
+}
+.hint-message p code {
+  padding: 2px 5px;
+  color: purple;
+  font-size: 8pt;
+}
+.hint-message pre {
+  padding: 10px;
+  font-size: 10pt;
+}
+.hint-message strong {
+  background: #fff2a8;
+  font-size: 1.1em;
+  padding: 2px 5px;
+}
+.hint-message a {
+  color: #4183C4 !important;
+}
+.hint-message a code {
+  color: #4183C4 !important;
+  padding: 0px;
+}
+.hint-message a:hover {
+  text-decoration: underline;
+}
+.hint-message .title {
+  font-size: 2.5em;
+  pading-top: 20px;
+}
+.hint-message .step {
+  margin: 0px;
+  padding-bottom: 30px;
+}
+.hint-message .next {
+  text-align: right;
+  margin-top: 30px;
+}
+.hint-message .CodeMirror {
+  padding: 10px 0;
+}
+.hint-message .CodeMirror pre {
+  padding: 0 4px;
+}
+.hint-message .CodeMirror .CodeMirror-gutters {
+  background-color: #fff !important;
+}
+.hint-message .CodeMirror .CodeMirror-selected {
+  background: rgba(172, 206, 247, 0.5) !important;
+}
+.hint-message .hover {
+  background: #eee;
+}
+.hint-message .hljs p {
+  padding: 2px 0;
+}
+.hint-message .hljs p:hover {
+  background: #eee;
+}
+.hint-message .hljs a {
+  cursor: pointer;
+}
+.hint-message .play-area {
+  height: 40px;
+}
+.hint-message .play-button {
+  float: left;
+}
+.hint-message .rc-slider {
+  margin-bottom: 40px;
+  margin-left: 10%;
+}
+.hint-message .rc-slider .rc-slider-mark {
+  font-size: 1.2em;
+}
+.hint-message .ladder .diff-line {
+  background: rgba(255, 0, 0, 0.2);
+  font-weight: bold;
+}
+.hint-message .ladder .diff-line .hljs-number {
+  color: blue;
+}
+.hint-message .negative.message {
+  font-size: 1em !important;
+}
+.hint-message .inline-hint {
+  font-size: 12pt;
+}
+.hint-message .inline-hint .mini-quiz {
+  margin: 10px 0;
+}
+.hint-message .inline-hint .mini-quiz .question {
+  margin-right: 15px;
+}
+.hint-message .inline-hint .recursive {
+  padding-left: 10px;
+  border-left: 3px solid #777;
+}
+.hint-message .inline-hint .inline-input {
+  border: 1px solid rgba(34, 36, 38, 0.15);
+  padding: 0.3em;
+  margin-left: 10px;
+  width: 70px;
+  border-radius: 0.28em;
+}
+.hint-message .inline-hint .inline-message {
+  margin-left: 10px;
+  display: none;
+}
+.hint-message .inline-hint .inline-input.correct {
+  color: #2c662d;
+  background: #fcfff5;
+  border: 3px solid #a3c293;
+}
+.hint-message .inline-hint .inline-message.correct {
+  color: #2c662d;
+  display: inline;
+}
+#problem-description .hljs {
+  background: none;
+}

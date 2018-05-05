@@ -1,0 +1,48 @@
+#top-title {
+  margin: 50px 0;
+}
+.message {
+  font-size: 1.2em !important;
+}
+.call-label {
+  position: absolute;
+  left: -62px;
+  width: 62px;
+  padding: 5px 3px !important;
+}
+.title {
+  font-size: 4em;
+}
+.hljs-comment,
+.hljs-quote {
+  font-style: normal !important;
+}
+#hint-view {
+  padding: 10px 50px;
+  min-height: 1000px;
+}
+#diff-view {
+  border-right: 3px dashed #bbb;
+  padding: 10px 50px;
+  min-height: 1000px;
+  display: none;
+}
+#diff-view .label {
+  margin: 2px;
+}
+#control-panel .rc-slider {
+  float: left;
+  margin-top: 12px;
+  width: 100%;
+  margin-left: 0px;
+}
+#mockup-view {
+  margin-top: 150px;
+}
+#mockup-view .message {
+  display: none;
+}
+#mockup-view .divider {
+  margin-top: 70px !important;
+  margin-bottom: 50px !important;
+}
