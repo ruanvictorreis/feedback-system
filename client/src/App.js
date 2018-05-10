@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Loader } from 'semantic-ui-react';
 import actions from './redux/actions';
 import logo from './logo.svg';
 import './App.css';
@@ -19,6 +20,7 @@ class App extends Component {
       templateCode: '',
       condition: 0,
       isLocked: false,
+      isLoading: false,
     }
 
     window.app = this;
@@ -49,12 +51,16 @@ class App extends Component {
     }
   }
 
+  toggleLoader() {
+    this.setState({ isLoading: !this.state.isLoading });
+  }
+
   startAssignment() {
     if (!this.state.register) {
       return false
     }
 
-    this.msg.info('Iniciando o exercício ...')
+    this.toggleLoader();
 
     var studentRegister = {
       Register: `${this.state.register}`,
@@ -72,6 +78,7 @@ class App extends Component {
           this.loadAssignmentInfo(response);
         }
 
+        this.toggleLoader();
         this.setState({ isLocked: true });
       })
   }
@@ -101,9 +108,10 @@ class App extends Component {
   }
 
   render() {
+    const { isLoading } = this.state;
+
     return (
       <div>
-
         <div className="ui two column centered grid" style={{ marginTop: '20px' }}>
           <div id="type-links">
             <a id="factorial" className="ui basic button" href="?type=factorial">factorial</a>
@@ -111,25 +119,16 @@ class App extends Component {
           </div>
         </div>
 
-        <div className="loader-wrapper">
-          <AlertContainer ref={a => this.msg = a}
-            {...{
-              offset: 14,
-              position: 'bottom left',
-              theme: 'light',
-              time: 4000,
-              transition: 'scale'
-            }
-            }
-          />
-        </div>
-
-        <div className="ui two column centered grid" style={{ marginTop: '50px', height: '30px' }}>
+        <div className="ui one column centered grid" style={{ marginTop: '50px', height: '30px' }}>
           <input type="text" style={{ 'textAlign': 'center' }} value={this.state.register} onChange={this.registerInput} />
         </div>
 
-        <div className="ui two column centered grid" style={{ marginTop: '20px' }}>
+        <div className="ui one column centered grid" style={{ marginTop: '20px' }}>
           <button className="ui basic button" onClick={this.startAssignment.bind(this)}>Iniciar</button>
+        </div>
+
+        <div className="ui one column centered grid" style={{ marginTop: '30px' }}>
+          <Loader active={isLoading} inline='centered'> Carregando ...</Loader>
         </div>
 
         <div className="ui two column centered grid">
