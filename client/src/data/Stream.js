@@ -134,15 +134,15 @@ class Stream {
         // trace.line = trace.call_line
         trace.change_line = trace.call_line
         trace.return_line = trace.call_line
-        let func = trace.stack_locals[0][0]
-        func += '('
+        //let func = trace.stack_locals[0][0]
+        //func += '('
         let args = trace.stack_locals[0][1]
         for (let key in args) {
           if (key === '__return__') continue
-          let value = args[key]
-          func += value
+          //let value = args[key]
+          //func += value
         }
-        func += ')'
+        //func += ')'
         // trace.outputs[trace.line] = {}
         // trace.outputs[trace.line][func] = trace.stack_locals[0][1]['__return__']
       }

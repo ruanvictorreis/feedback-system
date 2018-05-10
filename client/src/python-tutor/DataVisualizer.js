@@ -7,8 +7,8 @@ var brightRed = '#e93f34';
 var connectorBaseColor = '#005583';
 var connectorHighlightColor = brightRed;
 var connectorInactiveColor = '#cccccc';
-var errorColor = brightRed;
-var breakpointColor = brightRed;
+//var errorColor = brightRed;
+//var breakpointColor = brightRed;
 
 var heapPtrSrcRE = /__heap_pointer_src_/;
 var rightwardNudgeHack = true;

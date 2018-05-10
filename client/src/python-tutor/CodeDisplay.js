@@ -11,14 +11,14 @@ var errorColor = brightRed;
 var breakpointColor = brightRed;
 // Unicode arrow types: '\u21d2', '\u21f0', '\u2907'
 
-var heapPtrSrcRE = /__heap_pointer_src_/;
-var rightwardNudgeHack = true; // suggested by John DeNero, toggle with global
+//var heapPtrSrcRE = /__heap_pointer_src_/;
+//var rightwardNudgeHack = true; // suggested by John DeNero, toggle with global
 
 
 class CodeDisplay {
 
   constructor(owner, domRoot, domRootD3,
-              codToDisplay: string, lang: string, editCodeBaseURL: string) {
+    codToDisplay: string, lang: string, editCodeBaseURL: string) {
 
     this.leftGutterSvgInitialized = false;
 
@@ -43,19 +43,20 @@ class CodeDisplay {
       this.domRoot.find('#editCodeLinkDiv').css('font-size', '10pt');
     }
     this.domRoot.find('#legendDiv')
-        .append('<svg id="prevLegendArrowSVG"/> line that has just executed')
-        .append('<p style="margin-top: 4px"><svg id="curLegendArrowSVG"/> next line to execute</p>');
+      .append('<svg id="prevLegendArrowSVG"/> line that has just executed')
+      .append('<p style="margin-top: 4px"><svg id="curLegendArrowSVG"/> next line to execute</p>');
     this.domRootD3.select('svg#prevLegendArrowSVG')
-        .append('polygon')
-        .attr('points', SVG_ARROW_POLYGON)
-        .attr('fill', lightArrowColor);
+      .append('polygon')
+      .attr('points', SVG_ARROW_POLYGON)
+      .attr('fill', lightArrowColor);
     this.domRootD3.select('svg#curLegendArrowSVG')
-        .append('polygon')
-        .attr('points', SVG_ARROW_POLYGON)
-        .attr('fill', darkArrowColor);
+      .append('polygon')
+      .attr('points', SVG_ARROW_POLYGON)
+      .attr('fill', darkArrowColor);
 
     if (editCodeBaseURL) {
       // kinda kludgy
+      /** 
       var pyVer = '2'; // default
       if (lang === 'js') {
         pyVer = 'js';
@@ -70,7 +71,7 @@ class CodeDisplay {
       } else if (lang === 'cpp') {
         pyVer = 'cpp';
       }
-
+      */
       var urlStr = ''
       // $.param.fragment(editCodeBaseURL,
       //                               {code: this.codToDisplay, py: pyVer},
@@ -80,7 +81,7 @@ class CodeDisplay {
     else {
       this.domRoot.find('#editCodeLinkDiv').hide(); // just hide for simplicity!
       this.domRoot.find('#editBtn').attr('href', "#");
-      this.domRoot.find('#editBtn').click(function(){return false;}); // DISABLE the link!
+      this.domRoot.find('#editBtn').click(function () { return false; }); // DISABLE the link!
     }
 
     if (lang !== undefined) {
@@ -128,9 +129,9 @@ class CodeDisplay {
       .data(this.owner.codeOutputLines)
       .enter().append('tr')
       .selectAll('td')
-      .data(function(d, i){return [d, d] /* map full data item down both columns */;})
+      .data(function (d, i) { return [d, d] /* map full data item down both columns */; })
       .enter().append('td')
-      .attr('class', function(d, i) {
+      .attr('class', function (d, i) {
         // add the togetherjsCloneClick class on here so that we can
         // sync clicks via TogetherJS for setting breakpoints in shared
         // sessions (kinda leaky abstraction since pytutor.ts shouldn't
@@ -150,7 +151,7 @@ class CodeDisplay {
           return this.owner.generateID('cod' + d.lineNumber); // make globally unique (within the page)
         }
       })
-      .html(function(d, i) {
+      .html(function (d, i) {
         if (i == 0) {
           return d.lineNumber;
         }
@@ -162,26 +163,26 @@ class CodeDisplay {
     // create a left-most gutter td that spans ALL rows ...
     // (NB: valign="top" is CRUCIAL for this to work in IE)
     this.domRoot.find('#pyCodeOutput tr:first')
-        .prepend('<td id="gutterTD" valign="top" rowspan="' + this.owner.codeOutputLines.length + '"><svg id="leftCodeGutterSVG"/></td>');
+      .prepend('<td id="gutterTD" valign="top" rowspan="' + this.owner.codeOutputLines.length + '"><svg id="leftCodeGutterSVG"/></td>');
 
     // create prevLineArrow and curLineArrow
     this.domRootD3.select('svg#leftCodeGutterSVG')
-        .append('polygon')
-        .attr('id', 'prevLineArrow')
-        .attr('points', SVG_ARROW_POLYGON)
-        .attr('fill', lightArrowColor);
+      .append('polygon')
+      .attr('id', 'prevLineArrow')
+      .attr('points', SVG_ARROW_POLYGON)
+      .attr('fill', lightArrowColor);
 
     this.domRootD3.select('svg#leftCodeGutterSVG')
-        .append('polygon')
-        .attr('id', 'curLineArrow')
-        .attr('points', SVG_ARROW_POLYGON)
-        .attr('fill', darkArrowColor);
+      .append('polygon')
+      .attr('id', 'curLineArrow')
+      .attr('points', SVG_ARROW_POLYGON)
+      .attr('fill', darkArrowColor);
 
 
     // 2012-09-05: Disable breakpoints for now to simplify UX
     // 2016-05-01: Revive breakpoint functionality
     codeOutputD3
-      .style('cursor', function(d, i) {
+      .style('cursor', function (d, i) {
         // don't do anything if exePts empty (i.e., this line was never executed)
         var exePts = d.executionPoints;
         if (!exePts || exePts.length == 0) {
@@ -190,7 +191,7 @@ class CodeDisplay {
           return 'pointer'
         }
       })
-      .on('click', function(d, i) {
+      .on('click', function (d, i) {
         // don't do anything if exePts empty (i.e., this line was never executed)
         var exePts = d.executionPoints;
         if (!exePts || exePts.length == 0) {
@@ -213,7 +214,7 @@ class CodeDisplay {
       });
   }
 
-  updateCodOutput(smoothTransition=false) {
+  updateCodOutput(smoothTransition = false) {
     var gutterSVG = this.domRoot.find('svg#leftCodeGutterSVG');
 
     // one-time initialization of the left gutter
@@ -259,14 +260,14 @@ class CodeDisplay {
 
     // TODO: get rid of this pesky 'owner' dependency
     var myViz = this.owner;
-    var isLastInstr = (myViz.curInstr === (myViz.curTrace.length-1));
+    var isLastInstr = (myViz.curInstr === (myViz.curTrace.length - 1));
     var curEntry = myViz.curTrace[myViz.curInstr];
     var hasError = (curEntry.event === 'exception' || curEntry.event === 'uncaught_exception');
     var isTerminated = (!myViz.instrLimitReached && isLastInstr);
     var pcod = this.domRoot.find('#pyCodeOutputDiv');
 
     var prevVerticalNudge = myViz.prevLineIsReturn ? Math.floor(this.codeRowHeight / 3) : 0;
-    var curVerticalNudge  = myViz.curLineIsReturn  ? Math.floor(this.codeRowHeight / 3) : 0;
+    var curVerticalNudge = myViz.curLineIsReturn ? Math.floor(this.codeRowHeight / 3) : 0;
 
     // ugly edge case for the final instruction :0
     if (isTerminated && !hasError) {
@@ -283,12 +284,12 @@ class CodeDisplay {
           .transition()
           .duration(200)
           .attr('fill', 'white')
-          .each('end', function() {
-                pla
-                  .attr('transform', translatePrevCmd)
-                  .attr('fill', lightArrowColor);
-                gutterSVG.find('#prevLineArrow').show(); // show at the end to avoid flickering
-            });
+          .each('end', function () {
+            pla
+              .attr('transform', translatePrevCmd)
+              .attr('fill', lightArrowColor);
+            gutterSVG.find('#prevLineArrow').show(); // show at the end to avoid flickering
+          });
       }
       else {
         pla.attr('transform', translatePrevCmd)
@@ -317,7 +318,7 @@ class CodeDisplay {
     }
 
     this.domRootD3.selectAll('#pyCodeOutputDiv td.cod')
-      .style('border-top', function(d) {
+      .style('border-top', function (d) {
         if (hasError && (d.lineNumber == curEntry.line)) {
           return '1px solid ' + errorColor;
         }
@@ -325,7 +326,7 @@ class CodeDisplay {
           return '';
         }
       })
-      .style('border-bottom', function(d) {
+      .style('border-bottom', function (d) {
         // COPY AND PASTE ALERT!
         if (hasError && (d.lineNumber == curEntry.line)) {
           return '1px solid ' + errorColor;
@@ -358,7 +359,7 @@ class CodeDisplay {
       var H = pcod.height();
 
       pcod.stop(); // first stop all previously-queued animations
-      pcod.animate({scrollTop: (ST + (LO - PO - (Math.round(H / 2))))}, 300);
+      pcod.animate({ scrollTop: (ST + (LO - PO - (Math.round(H / 2)))) }, 300);
     }
 
     // smoothly scroll code display
@@ -381,7 +382,7 @@ function assert(cond) {
 }
 
 function htmlspecialchars(str) {
-  if (typeof(str) == "string") {
+  if (typeof (str) == "string") {
     str = str.replace(/&/g, "&amp;"); /* must do &amp; first */
 
     // ignore these for now ...

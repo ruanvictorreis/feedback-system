@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
 import Loader from 'react-loader';
 import AlertContainer from 'react-alert';
-import Ladder from './interactive-hint/Ladder';
+import { Grid } from 'semantic-ui-react';
+import Ladder from './Ladder';
 import Stream from './data/Stream';
 import Record from './data/Record';
 import _ from 'lodash';
@@ -188,10 +189,6 @@ class InteractiveHint extends Component {
 		window.ladder.init()
 	}
 
-	clearPage() {
-		window.location.href = window.location.href
-	}
-
 	showCondition(mode) {
 		switch (mode) {
 			case 1:
@@ -214,58 +211,70 @@ class InteractiveHint extends Component {
 			mode: 'python',
 			lineNumbers: true
 		};
+
 		const { isLoaded } = this.state;
+
 		return (
 			<div>
-				<div className="ui message hint-message">
-					<div className="loader-wrapper">
-						<Loader loaded={isLoaded} />
-						<AlertContainer ref={a => this.msg = a}
-							{...{
-								offset: 14,
-								position: 'bottom left',
-								theme: 'light',
-								time: 10000,
-								transition: 'scale'
-							}
-							}
-						/>
-					</div>
 
-					<div className="ui three column grid">
-						<div className="five wide column">
-							<h2>Código</h2>
-							<div id="hoge">
-								<CodeMirror
-									value={this.state.studentCode}
-									ref="editor"
-									options={options} />
-								<br />
-								<button className="ui basic button" onClick={this.submitCode.bind(this)}>Enviar</button>
-								<button className="ui basic button" onClick={this.clearPage.bind(this)}>Limpar</button>
-							</div>
-						</div>
-						<div className="eleven wide column">
-							<Ladder
-								beforeHistory={this.state.beforeHistory}
-								afterHistory={this.state.afterHistory}
-								beforeEvents={this.state.beforeEvents}
-								afterEvents={this.state.afterEvents}
-								beforeTraces={this.state.beforeTraces}
-								afterTraces={this.state.afterTraces}
-								beforeAst={this.state.beforeAst}
-								afterAst={this.state.afterAst}
-								currentCode={this.state.currentCode}
-								beforeCode={this.state.beforeCode}
-								before={this.state.before}
-								focusKeys={this.state.focusKeys}
-								test={this.state.test}
-								expected={this.state.expected}
-								result={this.state.result}
-								root={this} />
-							<div id="viz" style={{ marginTop: '50px', display: this.state.condition == 3 ? 'none' : 'block' }} />
-						</div>
-					</div>
+				<div className="loader-wrapper">
+					<Loader loaded={isLoaded} />
+					<AlertContainer ref={a => this.msg = a}
+						{...{
+							offset: 14,
+							position: 'bottom left',
+							theme: 'light',
+							time: 10000,
+							transition: 'scale'
+						}
+						}
+					/>
+				</div>
+
+				<div>
+					<Grid>
+						<Grid.Row stretched>
+							<Grid.Column width={6}>
+								<div className="ui message hint-message">
+									<CodeMirror
+										value={this.state.studentCode}
+										ref="editor"
+										options={options} />
+									<br />
+									<button className="ui basic button" onClick={this.submitCode.bind(this)}>Enviar</button>
+								</div>
+							</Grid.Column>
+
+							<Grid.Column width={10}>
+								<div className="ui message hint-message">
+									<Ladder
+										beforeHistory={this.state.beforeHistory}
+										afterHistory={this.state.afterHistory}
+										beforeEvents={this.state.beforeEvents}
+										afterEvents={this.state.afterEvents}
+										beforeTraces={this.state.beforeTraces}
+										afterTraces={this.state.afterTraces}
+										beforeAst={this.state.beforeAst}
+										afterAst={this.state.afterAst}
+										currentCode={this.state.currentCode}
+										beforeCode={this.state.beforeCode}
+										before={this.state.before}
+										focusKeys={this.state.focusKeys}
+										test={this.state.test}
+										expected={this.state.expected}
+										result={this.state.result} />
+								</div>
+							</Grid.Column>
+						</Grid.Row>
+
+						<Grid.Row>
+							<Grid.Column width={16}>
+								<div className="ui message hint-message">
+									<div id="viz" style={{ marginTop: '50px', display: this.state.condition == 3 ? 'none' : 'block' }} />
+								</div>
+							</Grid.Column>
+						</Grid.Row>
+					</Grid>
 				</div>
 			</div>
 		)

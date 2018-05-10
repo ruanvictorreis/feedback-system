@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import Loader from 'react-loader'
-import actions from './redux/actions'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import actions from './redux/actions';
 import logo from './logo.svg';
 import './App.css';
 import $ from 'jquery';
-import Highlight from 'react-highlight'
-import InteractiveHint from './InteractiveHint'
+import Highlight from 'react-highlight';
+import AlertContainer from 'react-alert';
+import InteractiveHint from './InteractiveHint';
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +18,6 @@ class App extends Component {
       assignment: '',
       templateCode: '',
       condition: 0,
-      isLoaded: true,
       isLocked: false,
     }
 
@@ -44,10 +43,6 @@ class App extends Component {
     }
   }
 
-  toggleLoader() {
-    this.setState({ isLoaded: !this.state.isLoaded });
-  }
-
   registerInput(event) {
     if (!this.state.isLocked) {
       this.setState({ register: event.target.value });
@@ -55,10 +50,11 @@ class App extends Component {
   }
 
   startAssignment() {
-
     if (!this.state.register) {
       return false
     }
+
+    this.msg.info('Iniciando o exercício ...')
 
     var studentRegister = {
       Register: `${this.state.register}`,
@@ -66,18 +62,16 @@ class App extends Component {
       DateTime: new Date().toLocaleString()
     }
 
-    this.toggleLoader();
-
     $.ajax({
       method: 'POST',
-      url: 'http://tracediff-logs.azurewebsites.net/api/registerlogs',
+      url: 'http://feedback-logs.azurewebsites.net/api/registerlogs',
       data: studentRegister
     })
       .then((response) => {
         if (response.Permission) {
           this.loadAssignmentInfo(response);
         }
-        this.toggleLoader();
+
         this.setState({ isLocked: true });
       })
   }
@@ -107,7 +101,6 @@ class App extends Component {
   }
 
   render() {
-    const { isLoaded } = this.state;
     return (
       <div>
 
@@ -118,11 +111,21 @@ class App extends Component {
           </div>
         </div>
 
+        <div className="loader-wrapper">
+          <AlertContainer ref={a => this.msg = a}
+            {...{
+              offset: 14,
+              position: 'bottom left',
+              theme: 'light',
+              time: 4000,
+              transition: 'scale'
+            }
+            }
+          />
+        </div>
+
         <div className="ui two column centered grid" style={{ marginTop: '50px', height: '30px' }}>
           <input type="text" style={{ 'textAlign': 'center' }} value={this.state.register} onChange={this.registerInput} />
-          <div className="loader-wrapper">
-            <Loader loaded={isLoaded} />
-          </div>
         </div>
 
         <div className="ui two column centered grid" style={{ marginTop: '20px' }}>
@@ -131,57 +134,14 @@ class App extends Component {
 
         <div className="ui two column centered grid">
           <div id="mixed-hint" className="fifteen wide column">
-
-            <h1 className="title">Problema</h1>
             <div id="problem-description" className="ui message hint-message">
               <Highlight className="python">
                 {this.state.description}
               </Highlight>
             </div>
-
-            <h1 className="title">Tarefa</h1>
-            <InteractiveHint
-              description={this.state.description}
-              code={this.props.code}
-              before={this.props.before}
-              after={this.props.after}
-
-              test={this.props.test}
-              expected={this.props.expected}
-              result={this.props.result}
-              log={this.props.log}
-
-              step={this.props.step}
-              stop={this.props.stop}
-
-              currentCode={this.props.currentCode}
-              beforeCode={this.props.beforeCode}
-              afterCode={this.props.afterCode}
-              added={this.props.added}
-              removed={this.props.removed}
-              addedLine={this.props.addedLine}
-              removedLine={this.props.removedLine}
-              diffs={this.props.diffs}
-
-              traces={this.props.traces}
-              beforeTraces={this.props.beforeTraces}
-              afterTraces={this.props.afterTraces}
-
-              beforeHistory={this.props.beforeHistory}
-              afterHistory={this.props.afterHistory}
-
-              beforeEvents={this.props.beforeEvents}
-              afterEvents={this.props.afterEvents}
-
-              beforeTicks={this.props.beforeTicks}
-              afterTicks={this.props.afterTicks}
-
-              beforeAst={this.props.beforeAst}
-              afterAst={this.props.afterAst}
-
-              commonKeys={this.props.commonKeys}
-              focusKeys={this.props.focusKeys}
-            />
+            <div>
+              <InteractiveHint />
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Highlight from 'react-highlight';
-import Tree from '../data/Tree';
+import Tree from './data/Tree';
 import Slider from 'rc-slider';
 import Tooltip from 'rc-tooltip';
 import _ from 'lodash';
@@ -8,7 +8,7 @@ import $ from 'jquery';
 import jQuery from 'jquery';
 
 import 'rc-slider/assets/index.css';
-import ExecutionVisualizer from '../python-tutor/ExecutionVisualizer';
+import ExecutionVisualizer from './python-tutor/ExecutionVisualizer';
 
 class Ladder extends Component {
   constructor(props) {
@@ -344,7 +344,7 @@ class Ladder extends Component {
     )
   }
 
-  render() { 
+  render() {
     {/** 
     $('#hoge .CodeMirror').popup({
       target: $('#hoge .CodeMirror'),
@@ -354,12 +354,14 @@ class Ladder extends Component {
       on: 'manual',
     })
     */}
-    
+
     return (
       <div id='ladder'>
         <div className="ui two column grid">
           <div className="eight wide column">
-            <h2>Resultado Obtido</h2>
+            {
+              //<h2>Resultado Obtido</h2>
+            }
             <Highlight className="python">
               {`${this.props.test}\n>>> ${this.props.result}`}
             </Highlight>
@@ -372,7 +374,9 @@ class Ladder extends Component {
             </div>
           </div>
           <div className="eight wide column">
-            <h2>Resultado Esperado</h2>
+            {
+              //<h2>Resultado Esperado</h2>
+            }
             <Highlight className="python">
               {`${this.props.test}\n>>> ${this.props.expected}`}
             </Highlight>
@@ -384,7 +388,7 @@ class Ladder extends Component {
               </code></pre>
             </div>
           </div>
-          
+
           <div id="control-ladder" className="ladder" style={{ width: '50%' }}>
             <Slider
               dots
