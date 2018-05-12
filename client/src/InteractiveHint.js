@@ -62,12 +62,32 @@ class InteractiveHint extends Component {
 		this.setCurrentCode();
 
 		var submission = {
+			register: this.state.register,
+			assignment: this.state.assignment,
+			student_code: this.cm.getValue()
+		};
+
+		this.assertImplementation(submission);
+
+		/** 
+		var submission = {
 			EndPoint: `ufcg/tracediff/${this.state.assignment}`,
 			Question: `${this.state.assignment}`,
 			Code: this.cm.getValue()
-		}
+		}*/
 
-		this.synthesizeFixByRefazer(submission);
+		//this.synthesizeFixByRefazer(submission);
+	}
+
+	assertImplementation(submission) {
+		$.ajax({
+			method: 'POST',
+			url: 'http://localhost:8081/api/assert/',
+			data: submission
+		})
+			.then((response) => {
+				console.log('OK')
+			})
 	}
 
 	synthesizeFixByRefazer(submission) {
