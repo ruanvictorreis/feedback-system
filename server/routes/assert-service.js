@@ -66,7 +66,7 @@ class Assert {
       errorMsg = errorMsg.replace(/--expected--/g, expected);
       errorMsg = errorMsg.replace(/--callFunction--/g, callFunction);
 
-      assert = assert.trim()
+      assert = assert.trim();
       var assertLine = `assert ${assert}, ${errorMsg}`;
       content = content + '\n' + assertLine;
     }
