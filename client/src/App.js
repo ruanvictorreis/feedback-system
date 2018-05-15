@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Loader } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import actions from './redux/actions';
 import logo from './logo.svg';
 import './App.css';
@@ -124,11 +124,7 @@ class App extends Component {
         </div>
 
         <div className="ui one column centered grid" style={{ marginTop: '20px' }}>
-          <button className="ui basic button" onClick={this.startAssignment.bind(this)}>Iniciar</button>
-        </div>
-
-        <div className="ui one column centered grid" style={{ marginTop: '30px' }}>
-          <Loader active={isLoading} inline='centered'> Carregando ...</Loader>
+          <Button primary loading={isLoading} onClick={this.startAssignment.bind(this)}>Iniciar</Button>
         </div>
 
         <div className="ui two column centered grid">

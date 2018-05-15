@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
-import { Loader, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import AlertContainer from 'react-alert';
 import { Grid } from 'semantic-ui-react';
 import Ladder from './Ladder';
