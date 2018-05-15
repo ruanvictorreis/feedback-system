@@ -57,7 +57,7 @@ class App extends Component {
 
   startAssignment() {
     if (!this.state.register) {
-      return false
+      return
     }
 
     this.toggleLoader();
