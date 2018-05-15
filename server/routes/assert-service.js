@@ -12,57 +12,44 @@ router.post('/', function (request, response) {
   const assert = new Assert(register, assignment, studentCode);
   const assertFile = assert.createFile();
 
-  PythonShell.run(assertFile, { args: [] }, (err) => {
-    var result = {}
-    var errorMsg = '';
-    var isCorrect = true;
-
-    if (err) {
-      const stackError = err.stack;
-      const resultMsg = err.message;
-
-      const errorIndex = stackError.indexOf('AssertionError');
-      const assertMsg = stackError.substring(errorIndex);
-
-      errorMsg = assertMsg + '  \n  ' + resultMsg;
-      isCorrect = false;
+  PythonShell.run(assertFile, { args: [] }, (error) => {
+    if (error) {
+      assert.errorAnalysis(error);
     }
-
-    result.register = register;
-    result.errorMsg = errorMsg;
-    result.isCorrect = isCorrect;
-    result.assignment = assignment;
-    result.studentCode = studentCode;
-
-    response.json(result);
-  })
+    response.json(assert.getResult());
+  });
 });
 
 class Assert {
   constructor(register, assignment, studentCode) {
+    this.asserts = [];
+    this.errorMsg = '';
+    this.assertFile = '';
+    this.isCorrect = true;
+    this.errorPattern = '';
+    this.syntaxError = false;
     this.register = register;
     this.assignment = assignment;
     this.studentCode = studentCode;
-    this.asserts = [];
-    this.message = '';
-    this.init();
   }
 
   init() {
-    const messagePath = `./assignments/assert_msg`;
+    const errorPatternPath = `./assignments/assert_msg`;
+    this.errorPattern = fs.readFileSync(errorPatternPath, 'utf8').trim();
     const assertsPath = `./assignments/${this.assignment}/asserts/assert_expr`;
-    this.message = fs.readFileSync(messagePath, 'utf8').trim();
     this.asserts = fs.readFileSync(assertsPath, 'utf8').split('\n');
   }
 
   createFile() {
+    this.init()
     var content = this.studentCode + '\n';
+
     for (var assert of this.asserts) {
       const splited = assert.split('==');
       const callFunction = splited[0].trim();
       const expected = splited[splited.length - 1].trim();
 
-      var errorMsg = this.message.trim();
+      var errorMsg = this.errorPattern.trim();
       errorMsg = errorMsg.replace(/--expected--/g, expected);
       errorMsg = errorMsg.replace(/--callFunction--/g, callFunction);
 
@@ -72,9 +59,49 @@ class Assert {
     }
 
     const assertFile = `./assignments/${this.assignment}/asserts/${this.register}.py`;
-    fs.writeFileSync(assertFile, content, 'utf8');
 
-    return assertFile;
+    try {
+      fs.writeFileSync(assertFile, content, 'utf8');
+      this.assertFile = assertFile;
+      return assertFile;
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  errorAnalysis(error) {
+    this.isCorrect = false;
+    this.syntaxError = this.haveSyntaxError(error);
+    this.errorMsg = this.extractErrorDescription(error);
+  }
+
+  haveSyntaxError(error) {
+    const stackError = error.stack;
+    return stackError.indexOf('AssertionError') == -1;
+  }
+
+  extractErrorDescription(error) {
+    const stackError = error.stack;
+    const resultMsg = error.message;
+    const errorIndex = stackError.indexOf('AssertionError');
+
+    if (errorIndex == -1) {
+      return resultMsg.trim()
+    } else {
+      return stackError.substring(errorIndex) + '  \n  ' + resultMsg;
+    }
+  }
+
+  getResult() {
+    var result = {};
+    result.errorMsg = this.errorMsg;
+    result.register = this.register;
+    result.isCorrect = this.isCorrect;
+    result.assignment = this.assignment;
+    result.studentCode = this.studentCode;
+    result.syntaxError = this.syntaxError;   
+    return result;
   }
 }
 

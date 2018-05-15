@@ -81,6 +81,7 @@ class InteractiveHint extends Component {
 			data: submission
 		})
 			.then((attempt) => {
+				console.log(attempt)
 				if (attempt.isCorrect) {
 					this.correctSubmission(attempt);
 				} else {
