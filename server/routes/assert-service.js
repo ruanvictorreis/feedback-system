@@ -16,6 +16,7 @@ router.post('/', function (request, response) {
     if (error) {
       assert.errorAnalysis(error);
     }
+    
     response.json(assert.getResult());
   });
 });
@@ -64,9 +65,9 @@ class Assert {
       fs.writeFileSync(assertFile, content, 'utf8');
       this.assertFile = assertFile;
       return assertFile;
-
-    } catch (err) {
-      console.log(err);
+    }
+    catch (err) {
+      //DO SOMETHING
     }
   }
 
