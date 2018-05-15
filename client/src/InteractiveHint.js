@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
-import Loader from 'react-loader';
+import { Loader, Button } from 'semantic-ui-react';
 import AlertContainer from 'react-alert';
 import { Grid } from 'semantic-ui-react';
 import Ladder from './Ladder';
@@ -20,7 +20,7 @@ class InteractiveHint extends Component {
 			condition: 0,
 			register: '',
 			assignment: '',
-			isLoaded: true,
+			isLoading: false,
 			studentCode: '',
 			afterEvents: [],
 			afterHistory: {},
@@ -50,7 +50,7 @@ class InteractiveHint extends Component {
 	}
 
 	toggleLoader() {
-		this.setState({ isLoaded: !this.state.isLoaded });
+		this.setState({ isLoading: !this.state.isLoading });
 	}
 
 	setCurrentCode() {
@@ -58,25 +58,20 @@ class InteractiveHint extends Component {
 	}
 
 	submitCode() {
+		if (!this.state.register) {
+			return
+		}
+
 		this.toggleLoader();
 		this.setCurrentCode();
 
 		var submission = {
 			register: this.state.register,
-			assignment: this.state.assignment,
-			student_code: this.cm.getValue()
+			studentCode: this.cm.getValue(),
+			assignment: this.state.assignment
 		};
 
 		this.assertImplementation(submission);
-
-		/** 
-		var submission = {
-			EndPoint: `ufcg/tracediff/${this.state.assignment}`,
-			Question: `${this.state.assignment}`,
-			Code: this.cm.getValue()
-		}*/
-
-		//this.synthesizeFixByRefazer(submission);
 	}
 
 	assertImplementation(submission) {
@@ -85,11 +80,17 @@ class InteractiveHint extends Component {
 			url: 'http://localhost:8081/api/assert/',
 			data: submission
 		})
-			.then((response) => {
-				console.log('OK')
+			.then((attempt) => {
+				if (attempt.isCorrect) {
+					this.correctSubmission(attempt);
+				} else {
+					// HERE CALL HINTS
+				}
+				this.toggleLoader();
 			})
 	}
 
+	/** 
 	synthesizeFixByRefazer(submission) {
 		$.ajax({
 			method: 'POST',
@@ -106,7 +107,7 @@ class InteractiveHint extends Component {
 				this.toggleLoader();
 				this.saveLogSubmission(attempt);
 			})
-	}
+	}*/
 
 	saveLogSubmission(attempt) {
 		var submissionLog = {
@@ -232,13 +233,12 @@ class InteractiveHint extends Component {
 			lineNumbers: true
 		};
 
-		const { isLoaded } = this.state;
+		const { isLoading } = this.state;
 
 		return (
 			<div>
 
 				<div className="loader-wrapper">
-					<Loader loaded={isLoaded} />
 					<AlertContainer ref={a => this.msg = a}
 						{...{
 							offset: 14,
@@ -261,7 +261,7 @@ class InteractiveHint extends Component {
 										ref="editor"
 										options={options} />
 									<br />
-									<button className="ui basic button" onClick={this.submitCode.bind(this)}>Enviar</button>
+									<Button primary loading={isLoading} onClick={this.submitCode.bind(this)}>Enviar</Button>
 								</div>
 							</Grid.Column>
 
