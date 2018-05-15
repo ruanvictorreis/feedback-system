@@ -7,12 +7,13 @@ router.post('/', function (request, response) {
   const attempt = request.body;
   const register = attempt.register;
   const assignment = attempt.assignment;
-  const feedtype = attempt.feedtype;
-  const parameters = attempt.parameters;
-  const student_code = attempt.student_code;
-  
-  args = [feedtype, register, assignment, parameters, student_code];
-  
+  const studentCode = attempt.studentCode;
+
+  const feedtype = 'synthesis';
+  const parameters = getInputParameters(assignment);
+
+  args = [feedtype, register, assignment, parameters, studentCode];
+
   PythonShell.run('./python_modules/clara/clara_run.py', { args: args }, (err) => {
     if (err) throw err
     file_name = register + '.py';
@@ -21,5 +22,10 @@ router.post('/', function (request, response) {
     response.send(content);
   })
 });
+
+function getInputParameters(assignment) {
+  const inputPath = `./assignments/${assignment}/input`;
+  return fs.readFileSync(inputPath, 'utf8').trim();
+}
 
 module.exports = router;

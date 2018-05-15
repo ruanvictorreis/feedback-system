@@ -16,7 +16,7 @@ router.post('/', function (request, response) {
     if (error) {
       assert.errorAnalysis(error);
     }
-    
+
     response.json(assert.getResult());
   });
 });
@@ -101,7 +101,7 @@ class Assert {
     result.isCorrect = this.isCorrect;
     result.assignment = this.assignment;
     result.studentCode = this.studentCode;
-    result.syntaxError = this.syntaxError;   
+    result.syntaxError = this.syntaxError;
     return result;
   }
 }

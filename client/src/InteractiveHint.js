@@ -59,7 +59,7 @@ class InteractiveHint extends Component {
 
 	submitCode() {
 		if (!this.state.register) {
-			return
+			return;
 		}
 
 		this.toggleLoader();
@@ -81,34 +81,36 @@ class InteractiveHint extends Component {
 			data: submission
 		})
 			.then((attempt) => {
-				console.log(attempt)
 				if (attempt.isCorrect) {
 					this.correctSubmission(attempt);
 				} else {
-					// HERE CALL HINTS
+					this.synthesizeFixByClara(attempt);
 				}
 				this.toggleLoader();
 			})
 	}
 
-	/** 
-	synthesizeFixByRefazer(submission) {
+	synthesizeFixByClara(attempt) {
+		if (attempt.syntaxError) {
+			this.msg.error('Seu código possui um ou mais erros de sintaxe');
+			return;
+		}
+
 		$.ajax({
 			method: 'POST',
-			url: 'http://refazer-online.azurewebsites.net/api/submissions/',
-			data: submission
+			url: 'http://localhost:8081/api/clara/',
+			data: attempt
 		})
 			.then((attempt) => {
 				console.log(attempt)
-				if (attempt.PassedTests) {
-					this.correctSubmission(attempt)
-				} else {
-					this.tryInteractiveHint(attempt)
-				}
+				//if (attempt.PassedTests) {
+				//	this.correctSubmission();
+				//} else {
+				//	this.tryInteractiveHint(attempt)
+				//}
 				this.toggleLoader();
-				this.saveLogSubmission(attempt);
 			})
-	}*/
+	}
 
 	saveLogSubmission(attempt) {
 		var submissionLog = {
@@ -137,8 +139,10 @@ class InteractiveHint extends Component {
 			})
 	}
 
-	correctSubmission(attempt) {
-		this.msg.success('Parabéns! Seu código está correto')
+	correctSubmission() {
+		this.msg.success('Parabéns! Seu código está correto');
+		//NEED REVIEW
+		//this.saveLogSubmission(attempt);
 	}
 
 	tryInteractiveHint(attempt) {
