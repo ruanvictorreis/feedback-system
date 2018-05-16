@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
-import { Button } from 'semantic-ui-react';
 import AlertContainer from 'react-alert';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Message, Button } from 'semantic-ui-react';
 import Ladder from './Ladder';
 import Stream from './data/Stream';
 import Record from './data/Record';
@@ -20,9 +19,10 @@ class InteractiveHint extends Component {
 			condition: 0,
 			register: '',
 			assignment: '',
-			isLoading: false,
 			studentCode: '',
+			repairs: [],
 			afterEvents: [],
+			isLoading: false,
 			afterHistory: {},
 			beforeEvents: [],
 			beforeHistory: {},
@@ -49,6 +49,10 @@ class InteractiveHint extends Component {
 		}
 	}
 
+	setRepairs(repairs) {
+		this.setState({ repairs: repairs });
+	}
+
 	toggleLoader() {
 		this.setState({ isLoading: !this.state.isLoading });
 	}
@@ -57,7 +61,7 @@ class InteractiveHint extends Component {
 		this.setState({ studentCode: this.cm.getValue() });
 	}
 
-	submitCode() {
+	submitAttempt() {
 		if (!this.state.register) {
 			return;
 		}
@@ -82,11 +86,38 @@ class InteractiveHint extends Component {
 		})
 			.then((response) => {
 				this.toggleLoader();
-				
+
 				if (response.isCorrect) {
 					this.correctSubmission(response);
 				} else {
+					this.repairByClara(response);
 					this.synthesizeFixByClara(response);
+				}
+			})
+	}
+
+	repairByClara(attempt) {
+		if (attempt.syntaxError) {
+			this.syntaxErrorFound(attempt);
+			return;
+		}
+
+		this.toggleLoader();
+		attempt.checkRepair = false;
+		attempt.feedtype = 'python';
+
+		$.ajax({
+			method: 'POST',
+			url: 'http://localhost:8081/api/clara/',
+			data: attempt
+		})
+			.then((response) => {
+				this.toggleLoader();
+
+				if (response.repaired) {
+					
+				} else {
+					this.claraRepairFail(response);
 				}
 			})
 	}
@@ -98,6 +129,8 @@ class InteractiveHint extends Component {
 		}
 
 		this.toggleLoader();
+		attempt.checkRepair = true;
+		attempt.feedtype = 'synthesis';
 
 		$.ajax({
 			method: 'POST',
@@ -106,11 +139,11 @@ class InteractiveHint extends Component {
 		})
 			.then((response) => {
 				this.toggleLoader();
-				
+
 				if (response.repaired) {
-				  this.requestTracesDivergence(response);
+					this.requestTracesDivergence(response);
 				} else {
-				  this.synthesisFail(response);
+					this.claraRepairFail(response);
 				}
 			})
 	}
@@ -173,17 +206,17 @@ saveLogSubmission(attempt) {
 		this.msg.success('Parabéns! Seu código está correto');
 		//this.saveLogSubmission(attempt);
 	}
-	
+
 	syntaxErrorFound(attempt) {
-	    this.msg.error('Seu código possui um ou mais erros de sintaxe');
-	    //this.saveLogSubmission(attempt);
+		this.msg.error('Seu código possui um ou mais erros de sintaxe');
+		//this.saveLogSubmission(attempt);
 	}
-	
-	synthesisFail(attempt) {
-	    this.msg.error('CLARA: Solução muito distante do esperado');
-	    //this.saveLogSubmission(attempt);
+
+	claraRepairFail(attempt) {
+		this.msg.error('CLARA: Solução muito distante do esperado');
+		//this.saveLogSubmission(attempt);
 	}
-	
+
 
 	startInteractiveHint(data) {
 		var item = data[0]
@@ -271,12 +304,13 @@ saveLogSubmission(attempt) {
 										ref="editor"
 										options={options} />
 									<br />
-									<Button primary loading={isLoading} onClick={this.submitCode.bind(this)}>Enviar</Button>
+									<Button primary loading={isLoading} onClick={this.submitAttempt.bind(this)}>Enviar</Button>
 								</div>
 							</Grid.Column>
 
 							<Grid.Column width={10}>
 								<div className="ui message hint-message">
+									{/**<h3>TraceDiff</h3>*/}
 									<Ladder
 										beforeHistory={this.state.beforeHistory}
 										afterHistory={this.state.afterHistory}
@@ -297,9 +331,16 @@ saveLogSubmission(attempt) {
 							</Grid.Column>
 						</Grid.Row>
 
-						<Grid.Row>
-							<Grid.Column width={16}>
+						<Grid.Row stretched>
+							<Grid.Column width={6}>
+								<Message>
+									{/**<Message.Header>Clara</Message.Header>*/}
+									<Message.List items={this.state.repairs} />
+								</Message>
+							</Grid.Column>
+							<Grid.Column width={10}>
 								<div className="ui message hint-message">
+									{/**<h3>Python Tutor</h3>*/}
 									<div id="viz" style={{ marginTop: '50px', display: this.state.condition == 3 ? 'none' : 'block' }} />
 								</div>
 							</Grid.Column>

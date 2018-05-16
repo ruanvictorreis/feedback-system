@@ -6,18 +6,18 @@ var Assert = require('../javascript_src/assert.js');
 
 router.post('/', function (request, response) {
   const attempt = request.body;
+  const feedtype = attempt.feedtype;
   const register = attempt.register;
   const assignment = attempt.assignment;
+  const checkRepair = attempt.checkRepair;
   const studentCode = attempt.studentCode;
-
-  const feedtype = 'synthesis';
   const parameters = getInputParameters(assignment);
 
   args = [feedtype, register, assignment, parameters, studentCode];
 
   PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
     var result = attempt;
-    
+
     if (error) {
       result.repair = '';
       result.repaired = false;
@@ -28,7 +28,13 @@ router.post('/', function (request, response) {
     fileName = register + '.py';
     repairPath = `./assignments/${assignment}/repairs/${fileName}`;
     result.repair = fs.readFileSync(repairPath, 'utf8');
-    
+
+    if (!checkRepair) {
+      result.repaired = true;
+      response.json(result);
+      return;
+    }
+
     const assert = new Assert(register, assignment, result.repair);
     const assertFile = assert.createFile();
 
@@ -36,7 +42,6 @@ router.post('/', function (request, response) {
       if (error) {
         assert.errorAnalysis(error);
       }
-
       result.repaired = assert.isCorrect
       response.json(result);
     });
