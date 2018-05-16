@@ -1,8 +1,8 @@
-var fs = require('fs')
-var jsdiff = require('diff')
+var fs = require('fs');
+var jsdiff = require('diff');
 var express = require('express');
 var router = express.Router();
-var PythonShell = require('python-shell')
+var PythonShell = require('python-shell');
 
 router.post('/', function (request, response) {
   const attempt = request.body;
@@ -12,7 +12,7 @@ router.post('/', function (request, response) {
   const trace = new Trace(attempt, file);
   const result = trace.generate();
 
-  PythonShell.run('python_modules/tracediff/get_trace.py', { args: [assignment, file] }, (err) => {
+  PythonShell.run('python_src/tracediff/get_trace.py', { args: [assignment, file] }, (err) => {
     if (err) throw err
     const content = fs.readFileSync(`./assignments/${assignment}/traces/${file}.json`, 'utf8')
     response.json(content);
@@ -27,7 +27,7 @@ class Trace {
   }
 
   generate() {
-	const assignment = this.items[0].assignment;
+    const assignment = this.items[0].assignment;
     const path = `./assignments/${assignment}/traces/${this.file}.json`;
     let results = [];
     let id = 0;
@@ -115,11 +115,11 @@ class Item {
     let testIndex = 0
     let errorIndex = 0
     let failed = this.item['failed[]']
-	
-	let functionPattern = '>>> '
-	let errorPattern = '# Error: expected'
-	let valuePattern = '#'
-	
+
+    let functionPattern = '>>> '
+    let errorPattern = '# Error: expected'
+    let valuePattern = '#'
+
     for (let text of failed) {
       if (text.includes(functionPattern)) testIndex = i
       if (text.includes(errorPattern)) errorIndex = i
@@ -133,11 +133,11 @@ class Item {
     let expected = failed[errorIndex + 1]
     let expecIndex = expected.indexOf(valuePattern) + valuePattern.length
     expected = expected.substr(expecIndex).trim()
-    
+
     let result = failed[errorIndex + 3]
     let resultIndex = result.indexOf(valuePattern) + valuePattern.length
     result = result.substr(resultIndex).trim()
-    
+
     if (!isNaN(parseInt(result))) {
       result = parseInt(result)
     }
@@ -147,7 +147,7 @@ class Item {
     }
 
     let log = failed.slice(testIndex, errorIndex + 4).join('\n')
-    
+
     this.test = test
     this.expected = expected
     this.result = result

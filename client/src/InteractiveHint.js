@@ -85,7 +85,7 @@ class InteractiveHint extends Component {
 				if (response.isCorrect) {
 					this.correctSubmission(response);
 				} else {
-					this.synthesizeFixByClara(response);
+					//this.synthesizeFixByClara(response);
 				}
 			})
 	}
