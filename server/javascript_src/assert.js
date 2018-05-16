@@ -17,7 +17,7 @@ class Assert {
     const errorPatternPath = `./assignments/assert_msg`;
     this.errorPattern = fs.readFileSync(errorPatternPath, 'utf8').trim();
     const assertsPath = `./assignments/${this.assignment}/asserts/assert_expr`;
-    this.asserts = fs.readFileSync(assertsPath, 'utf8').split('\n');
+    this.asserts = fs.readFileSync(assertsPath, 'utf8').trim().split('\n');
   }
 
   createFile() {
