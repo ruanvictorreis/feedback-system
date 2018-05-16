@@ -19,7 +19,7 @@ router.post('/', function (request, response) {
     var result = attempt;
 
     if (error) {
-      result.repair = '';
+      result.repairs = '';
       result.repaired = false;
       response.json(result);
       return;
@@ -27,7 +27,7 @@ router.post('/', function (request, response) {
 
     fileName = register + '.py';
     repairPath = `./assignments/${assignment}/repairs/${fileName}`;
-    result.repair = fs.readFileSync(repairPath, 'utf8');
+    result.repairs = fs.readFileSync(repairPath, 'utf8');
 
     if (!checkRepair) {
       result.repaired = true;

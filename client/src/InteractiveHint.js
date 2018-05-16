@@ -115,7 +115,7 @@ class InteractiveHint extends Component {
 				this.toggleLoader();
 
 				if (response.repaired) {
-					
+					this.setRepairs(response.repairs);
 				} else {
 					this.claraRepairFail(response);
 				}
@@ -139,7 +139,7 @@ class InteractiveHint extends Component {
 		})
 			.then((response) => {
 				this.toggleLoader();
-
+				
 				if (response.repaired) {
 					this.requestTracesDivergence(response);
 				} else {
