@@ -82,6 +82,7 @@ class InteractiveHint extends Component {
 		})
 			.then((response) => {
 				this.toggleLoader();
+				
 				if (response.isCorrect) {
 					this.correctSubmission(response);
 				} else {
@@ -92,7 +93,7 @@ class InteractiveHint extends Component {
 
 	synthesizeFixByClara(attempt) {
 		if (attempt.syntaxError) {
-			this.msg.error('Seu código possui um ou mais erros de sintaxe');
+			this.syntaxErrorFound(attempt);
 			return;
 		}
 
@@ -105,10 +106,12 @@ class InteractiveHint extends Component {
 		})
 			.then((response) => {
 				this.toggleLoader();
-				console.log(response);
-				//if (response.repair) {
-				//  this.requestTracesDivergence(response);
-				//}
+				
+				if (response.repaired) {
+				  this.requestTracesDivergence(response);
+				} else {
+				  this.synthesisFail(response);
+				}
 			})
 	}
 
@@ -166,11 +169,21 @@ saveLogSubmission(attempt) {
 		})
 }*/
 
-	correctSubmission() {
+	correctSubmission(attempt) {
 		this.msg.success('Parabéns! Seu código está correto');
-		//NEED REVIEW
 		//this.saveLogSubmission(attempt);
 	}
+	
+	syntaxErrorFound(attempt) {
+	    this.msg.error('Seu código possui um ou mais erros de sintaxe');
+	    //this.saveLogSubmission(attempt);
+	}
+	
+	synthesisFail(attempt) {
+	    this.msg.error('CLARA: Solução muito distante do esperado');
+	    //this.saveLogSubmission(attempt);
+	}
+	
 
 	startInteractiveHint(data) {
 		var item = data[0]

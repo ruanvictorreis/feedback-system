@@ -16,15 +16,18 @@ router.post('/', function (request, response) {
   args = [feedtype, register, assignment, parameters, studentCode];
 
   PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
+    var result = attempt;
+    
     if (error) {
-      console.log(err.message);
+      result.repair = '';
+      result.repaired = false;
+      response.json(result);
+      return;
     }
 
-    file_name = register + '.py';
-    repair_path = `./assignments/${assignment}/repairs/${file_name}`;
-
-    var result = attempt;
-    result.repair = fs.readFileSync(repair_path, 'utf8');
+    fileName = register + '.py';
+    repairPath = `./assignments/${assignment}/repairs/${fileName}`;
+    result.repair = fs.readFileSync(repairPath, 'utf8');
     
     const assert = new Assert(register, assignment, result.repair);
     const assertFile = assert.createFile();
