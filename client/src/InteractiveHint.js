@@ -85,7 +85,7 @@ class InteractiveHint extends Component {
 				if (response.isCorrect) {
 					this.correctSubmission(response);
 				} else {
-					//this.synthesizeFixByClara(response);
+					this.synthesizeFixByClara(response);
 				}
 			})
 	}
@@ -95,7 +95,7 @@ class InteractiveHint extends Component {
 			this.msg.error('Seu código possui um ou mais erros de sintaxe');
 			return;
 		}
-		
+
 		this.toggleLoader();
 
 		$.ajax({
@@ -105,13 +105,13 @@ class InteractiveHint extends Component {
 		})
 			.then((response) => {
 				this.toggleLoader();
-				
-				if (response.repair) {
-				  this.requestTracesDivergence(response);
-				}
+				console.log(response);
+				//if (response.repair) {
+				//  this.requestTracesDivergence(response);
+				//}
 			})
 	}
-	
+
 	requestTracesDivergence(attempt) {
 		var info = {
 			studentId: attempt.register,
@@ -123,7 +123,7 @@ class InteractiveHint extends Component {
 			register: attempt.register,
 			assignment: attempt.assignment
 		}
-		
+
 		this.toggleLoader();
 
 		$.ajax({
@@ -137,34 +137,34 @@ class InteractiveHint extends Component {
 				this.startInteractiveHint(data);
 			})
 	}
-	
-    /**
-	saveLogSubmission(attempt) {
-		var submissionLog = {
-			Condition: this.state.condition,
-			Register: this.state.register,
-			Assignment: this.state.assignment,
-			FixedCode: [],
-			IsCorrect: attempt.PassedTests,
-			DateTime: new Date().toLocaleString(),
-			HasFix: attempt.FixedCodeList != null && attempt.FixedCodeList.length > 0,
-			SubmittedCode: this.state.studentCode,
-			LogsInteractionList: window.ladder.getInteractionLogs()
-		}
 
-		if (submissionLog.HasFix) {
-			submissionLog.FixedCode = attempt.FixedCodeList[0];
-		}
+	/**
+saveLogSubmission(attempt) {
+	var submissionLog = {
+		Condition: this.state.condition,
+		Register: this.state.register,
+		Assignment: this.state.assignment,
+		FixedCode: [],
+		IsCorrect: attempt.PassedTests,
+		DateTime: new Date().toLocaleString(),
+		HasFix: attempt.FixedCodeList != null && attempt.FixedCodeList.length > 0,
+		SubmittedCode: this.state.studentCode,
+		LogsInteractionList: window.ladder.getInteractionLogs()
+	}
 
-		$.ajax({
-			method: 'POST',
-			url: 'http://tracediff-logs.azurewebsites.net/api/SubmissionLogs/',
-			data: submissionLog
+	if (submissionLog.HasFix) {
+		submissionLog.FixedCode = attempt.FixedCodeList[0];
+	}
+
+	$.ajax({
+		method: 'POST',
+		url: 'http://tracediff-logs.azurewebsites.net/api/SubmissionLogs/',
+		data: submissionLog
+	})
+		.then((response) => {
+			window.ladder.clearInteractionLogs();
 		})
-			.then((response) => {
-				window.ladder.clearInteractionLogs();
-			})
-	}*/
+}*/
 
 	correctSubmission() {
 		this.msg.success('Parabéns! Seu código está correto');
