@@ -5,8 +5,9 @@ import pg_logger
 import json
 import parse
 
-question_type = sys.argv[1]
-path = './attempts/generated/' + question_type + '.json'
+assignment = sys.argv[1]
+file_name = sys.argv[2]
+path = './assignments/' + assignment + '/traces/' + file_name + '.json'
 
 items = []
 with open(path) as file:
@@ -137,8 +138,8 @@ for item in items:
   item['afterTraces'] = afterTraces
 
 
-with open('./attempts/examples/' + question_type + '_example.json', 'w') as file:
-  json.dump([items[0]], file, indent = 2)
+#with open('./attempts/examples/' + question_type + '_example.json', 'w') as file:
+#  json.dump([items[0]], file, indent = 2)
 
 with open(path, 'w') as file:
   json.dump(items, file)

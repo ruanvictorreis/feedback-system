@@ -14,12 +14,17 @@ router.post('/', function (request, response) {
 
   args = [feedtype, register, assignment, parameters, studentCode];
 
-  PythonShell.run('./python_modules/clara/clara_run.py', { args: args }, (err) => {
-    if (err) throw err
+  PythonShell.run('./python_modules/clara/clara_run.py', { args: args }, (error) => {
+    if (error){
+        console.log(err.message);
+	}
+    
     file_name = register + '.py';
-    repair_path = `./python_modules/clara/repairs/${assignment}/${file_name}`;
-    const content = fs.readFileSync(repair_path, 'utf8');
-    response.send(content);
+    repair_path = `./assignments/${assignment}/repairs/${file_name}`;
+    
+    var result = attempt;
+    result.repair = fs.readFileSync(repair_path, 'utf8');
+    response.json(result);
   })
 });
 

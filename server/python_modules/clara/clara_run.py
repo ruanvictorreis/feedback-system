@@ -8,15 +8,15 @@ parameters = sys.argv[4]
 student_code = sys.argv[5]
 
 file_name = student_id + '.py'
-clara_path = 'python_modules/clara'
-attempt_path = '{0}/attempts/{1}/{2}'.format(clara_path, assignment, file_name)
+assignment_path = './assignments/{0}'.format(assignment)
+attempt_path = '{0}/attempts/{1}'.format(assignment_path, file_name)
 
 with open(attempt_path, 'w') as _file:
 		_file.write(student_code)
 		_file.close()
 
-specs = '{0}/specs/{1}/*.py'.format(clara_path, assignment)
-repair_file = '{0}/repairs/{1}/{2}'.format(clara_path, assignment, file_name)
+specs = '{0}/specs/*.py'.format(assignment_path)
+repair_file = '{0}/repairs/{1}'.format(assignment_path, file_name)
 clara_command = 'clara feedback {0} {1} --entryfnc {2} --args "{3}" --verbose 0 --feedtype "{4}"'
 clara_command = clara_command.format(specs, attempt_path, assignment, parameters, feedtype)
 

@@ -44,7 +44,7 @@ class InteractiveHint extends Component {
 			this.setState({ assignment: info.assignment });
 			this.setState({ studentCode: info.templateCode });
 			this.setState({ condition: info.condition });
-			this.showCondition(info.condition);
+			//this.showCondition(info.condition);
 			this.cm.setValue(info.templateCode);
 		}
 	}
@@ -65,28 +65,28 @@ class InteractiveHint extends Component {
 		this.toggleLoader();
 		this.setCurrentCode();
 
-		var submission = {
+		var attempt = {
 			register: this.state.register,
 			studentCode: this.cm.getValue(),
 			assignment: this.state.assignment
 		};
 
-		this.assertImplementation(submission);
+		this.assertImplementation(attempt);
 	}
 
-	assertImplementation(submission) {
+	assertImplementation(attempt) {
 		$.ajax({
 			method: 'POST',
 			url: 'http://localhost:8081/api/assert/',
-			data: submission
+			data: attempt
 		})
-			.then((attempt) => {
-				if (attempt.isCorrect) {
-					this.correctSubmission(attempt);
-				} else {
-					this.synthesizeFixByClara(attempt);
-				}
+			.then((response) => {
 				this.toggleLoader();
+				if (response.isCorrect) {
+					this.correctSubmission(response);
+				} else {
+					this.synthesizeFixByClara(response);
+				}
 			})
 	}
 
@@ -95,23 +95,50 @@ class InteractiveHint extends Component {
 			this.msg.error('Seu código possui um ou mais erros de sintaxe');
 			return;
 		}
+		
+		this.toggleLoader();
 
 		$.ajax({
 			method: 'POST',
 			url: 'http://localhost:8081/api/clara/',
 			data: attempt
 		})
-			.then((attempt) => {
-				console.log(attempt)
-				//if (attempt.PassedTests) {
-				//	this.correctSubmission();
-				//} else {
-				//	this.tryInteractiveHint(attempt)
-				//}
+			.then((response) => {
 				this.toggleLoader();
+				
+				if (response.repair) {
+				  this.requestTracesDivergence(response);
+				}
 			})
 	}
+	
+	requestTracesDivergence(attempt) {
+		var info = {
+			studentId: attempt.register,
+			date: new Date(),
+			before: attempt.studentCode,
+			SynthesizedAfter: attempt.repair,
+			IsFixed: true,
+			failed: attempt.errorMsg.split('\n'),
+			register: attempt.register,
+			assignment: attempt.assignment
+		}
+		
+		this.toggleLoader();
 
+		$.ajax({
+			method: 'POST',
+			url: 'http://localhost:8081/api/tracediff',
+			data: info
+		})
+			.then((response) => {
+				this.toggleLoader();
+				const data = JSON.parse(response);
+				this.startInteractiveHint(data);
+			})
+	}
+	
+    /**
 	saveLogSubmission(attempt) {
 		var submissionLog = {
 			Condition: this.state.condition,
@@ -137,47 +164,12 @@ class InteractiveHint extends Component {
 			.then((response) => {
 				window.ladder.clearInteractionLogs();
 			})
-	}
+	}*/
 
 	correctSubmission() {
 		this.msg.success('Parabéns! Seu código está correto');
 		//NEED REVIEW
 		//this.saveLogSubmission(attempt);
-	}
-
-	tryInteractiveHint(attempt) {
-		if (attempt.FixedCodeList.length > 0 && attempt.LogsList.length > 0) {
-			this.msg.info('Estamos fornecendo algumas dicas para você')
-			this.requestTracesDivergence(attempt);
-		} else {
-			this.msg.error('Não conseguimos fornecer nenhuma dica para você')
-		}
-	}
-
-	requestTracesDivergence(attempt) {
-		var info = {
-			studentId: 0,
-			date: new Date(),
-			before: attempt.SubmittedCode,
-			SynthesizedAfter: attempt.FixedCodeList[0],
-			IsFixed: true,
-			failed: attempt.LogsList,
-			register: this.state.register,
-			assignment: this.state.assignment
-		}
-
-		this.toggleLoader();
-
-		$.ajax({
-			method: 'POST',
-			url: 'https://tracediff-server.herokuapp.com/api/execute',
-			data: info
-		})
-			.then((response) => {
-				const data = JSON.parse(response);
-				this.startInteractiveHint(data);
-				this.toggleLoader();
-			})
 	}
 
 	startInteractiveHint(data) {

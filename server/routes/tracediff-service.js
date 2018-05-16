@@ -8,13 +8,13 @@ router.post('/', function (request, response) {
   const attempt = request.body;
   const register = attempt.register;
   const assignment = attempt.assignment;
-  const file = `attempt_${register}_${assignment}`;
+  const file = `attempt_${register}`;
   const trace = new Trace(attempt, file);
   const result = trace.generate();
 
-  PythonShell.run('python_modules/tracediff/get_trace.py', { args: [file] }, (err) => {
+  PythonShell.run('python_modules/tracediff/get_trace.py', { args: [assignment, file] }, (err) => {
     if (err) throw err
-    const content = fs.readFileSync(`./attempts/generated/${file}.json`, 'utf8')
+    const content = fs.readFileSync(`./assignments/${assignment}/traces/${file}.json`, 'utf8')
     response.json(content);
   })
 });
@@ -27,9 +27,10 @@ class Trace {
   }
 
   generate() {
-    const path = `./attempts/generated/${this.file}.json`
-    let results = []
-    let id = 0
+	const assignment = this.items[0].assignment;
+    const path = `./assignments/${assignment}/traces/${this.file}.json`;
+    let results = [];
+    let id = 0;
 
     for (let item of this.items) {
       item = new Item(item, id++)
@@ -114,22 +115,29 @@ class Item {
     let testIndex = 0
     let errorIndex = 0
     let failed = this.item['failed[]']
-
+	
+	let functionPattern = '>>> '
+	let errorPattern = '# Error: expected'
+	let valuePattern = '#'
+	
     for (let text of failed) {
-      if (text.includes('>>> ')) testIndex = i
-      if (text.includes('# Error: expected')) errorIndex = i
+      if (text.includes(functionPattern)) testIndex = i
+      if (text.includes(errorPattern)) errorIndex = i
       i++
     }
 
     let test = failed[testIndex]
-    test = test.substr(8).trim()
+    let funcIndex = test.indexOf(functionPattern) + functionPattern.length
+    test = test.substr(funcIndex).trim()
 
     let expected = failed[errorIndex + 1]
-    expected = expected.substr(6).trim()
-
+    let expecIndex = expected.indexOf(valuePattern) + valuePattern.length
+    expected = expected.substr(expecIndex).trim()
+    
     let result = failed[errorIndex + 3]
-    result = result.substr(6).trim()
-
+    let resultIndex = result.indexOf(valuePattern) + valuePattern.length
+    result = result.substr(resultIndex).trim()
+    
     if (!isNaN(parseInt(result))) {
       result = parseInt(result)
     }
@@ -139,7 +147,7 @@ class Item {
     }
 
     let log = failed.slice(testIndex, errorIndex + 4).join('\n')
-
+    
     this.test = test
     this.expected = expected
     this.result = result
