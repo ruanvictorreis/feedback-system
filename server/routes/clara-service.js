@@ -35,7 +35,7 @@ router.post('/', function (request, response) {
       return;
     }
 
-    const assert = new Assert(register, assignment, result.repair);
+    const assert = new Assert(register, assignment, result.repairs);
     const assertFile = assert.createFile();
 
     PythonShell.run(assertFile, { args: [] }, (error) => {

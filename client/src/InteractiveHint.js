@@ -90,34 +90,7 @@ class InteractiveHint extends Component {
 				if (response.isCorrect) {
 					this.correctSubmission(response);
 				} else {
-					this.repairByClara(response);
 					this.synthesizeFixByClara(response);
-				}
-			})
-	}
-
-	repairByClara(attempt) {
-		if (attempt.syntaxError) {
-			this.syntaxErrorFound(attempt);
-			return;
-		}
-
-		this.toggleLoader();
-		attempt.checkRepair = false;
-		attempt.feedtype = 'python';
-
-		$.ajax({
-			method: 'POST',
-			url: 'http://localhost:8081/api/clara/',
-			data: attempt
-		})
-			.then((response) => {
-				this.toggleLoader();
-
-				if (response.repaired) {
-					this.setRepairs(response.repairs);
-				} else {
-					this.claraRepairFail(response);
 				}
 			})
 	}
@@ -129,8 +102,6 @@ class InteractiveHint extends Component {
 		}
 
 		this.toggleLoader();
-		attempt.checkRepair = true;
-		attempt.feedtype = 'synthesis';
 
 		$.ajax({
 			method: 'POST',
@@ -139,7 +110,7 @@ class InteractiveHint extends Component {
 		})
 			.then((response) => {
 				this.toggleLoader();
-				
+                console.log(response)
 				if (response.repaired) {
 					this.requestTracesDivergence(response);
 				} else {
@@ -153,7 +124,7 @@ class InteractiveHint extends Component {
 			studentId: attempt.register,
 			date: new Date(),
 			before: attempt.studentCode,
-			SynthesizedAfter: attempt.repair,
+			SynthesizedAfter: attempt.codeRepair,
 			IsFixed: true,
 			failed: attempt.errorMsg.split('\n'),
 			register: attempt.register,
