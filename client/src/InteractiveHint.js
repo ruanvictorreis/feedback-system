@@ -268,55 +268,52 @@ saveLogSubmission(attempt) {
 
 				<div>
 					<Grid>
-						<Grid.Row stretched>
-							<Grid.Column width={6}>
-								<div className="ui message hint-message">
-									<CodeMirror
-										value={this.state.studentCode}
-										ref="editor"
-										options={options} />
-									<br />
-									<Button primary loading={isLoading} onClick={this.submitAttempt.bind(this)}>Enviar</Button>
-								</div>
-							</Grid.Column>
+						<Grid.Column width={6} style={{ display: 'inline' }}>
+							<div className="ui message hint-message" style={{ height: '100%' }}>
+								<CodeMirror
+									value={this.state.studentCode}
+									ref="editor"
+									options={options} />
+								<br />
+								<Button primary loading={isLoading} onClick={this.submitAttempt.bind(this)}>Enviar</Button>
+							</div>
+						</Grid.Column>
 
-							<Grid.Column width={10}>
-								<div className="ui message hint-message">
-									<h3>TraceDiff</h3>
-									<Ladder
-										beforeHistory={this.state.beforeHistory}
-										afterHistory={this.state.afterHistory}
-										beforeEvents={this.state.beforeEvents}
-										afterEvents={this.state.afterEvents}
-										beforeTraces={this.state.beforeTraces}
-										afterTraces={this.state.afterTraces}
-										beforeAst={this.state.beforeAst}
-										afterAst={this.state.afterAst}
-										currentCode={this.state.currentCode}
-										beforeCode={this.state.beforeCode}
-										before={this.state.before}
-										focusKeys={this.state.focusKeys}
-										test={this.state.test}
-										expected={this.state.expected}
-										result={this.state.result} />
-								</div>
-							</Grid.Column>
-						</Grid.Row>
+						<Grid.Column width={10} style={{ display: 'inline' }}>
+							<div className="ui message hint-message" style={{ height: '100%' }}>
+								<h3>TraceDiff</h3>
+								<Ladder
+									beforeHistory={this.state.beforeHistory}
+									afterHistory={this.state.afterHistory}
+									beforeEvents={this.state.beforeEvents}
+									afterEvents={this.state.afterEvents}
+									beforeTraces={this.state.beforeTraces}
+									afterTraces={this.state.afterTraces}
+									beforeAst={this.state.beforeAst}
+									afterAst={this.state.afterAst}
+									currentCode={this.state.currentCode}
+									beforeCode={this.state.beforeCode}
+									before={this.state.before}
+									focusKeys={this.state.focusKeys}
+									test={this.state.test}
+									expected={this.state.expected}
+									result={this.state.result} />
+							</div>
+						</Grid.Column>
 
-						<Grid.Row stretched>
-							<Grid.Column width={6}>
-								<Message>
-									<Message.Header>Clara</Message.Header>
-									<Message.List items={this.state.repairs} />
-								</Message>
-							</Grid.Column>
-							<Grid.Column width={10}>
-								<div className="ui message hint-message">
-									<h3>Python Tutor</h3>
-									<div id="viz" style={{ marginTop: '50px', display: this.state.condition == 3 ? 'none' : 'block' }} />
-								</div>
-							</Grid.Column>
-						</Grid.Row>
+						<Grid.Column width={6} style={{ display: 'inline' }}>
+							<Message style={{ height: '100%' }}>
+								<Message.Header>Clara</Message.Header>
+								<Message.List items={this.state.repairs} />
+							</Message>
+						</Grid.Column>
+
+						<Grid.Column width={10} style={{ display: 'inline' }}>
+							<div className="ui message hint-message" style={{ height: '100%' }}>
+								<h3>Python Tutor</h3>
+								<div id="viz" />
+							</div>
+						</Grid.Column>
 					</Grid>
 				</div>
 			</div>
