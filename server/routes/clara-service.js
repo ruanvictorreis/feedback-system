@@ -6,14 +6,14 @@ var Assert = require('../javascript_src/assert.js');
 
 router.post('/', function (request, response) {
   const attempt = request.body;
-  const feedtype = attempt.feedtype;
   const register = attempt.register;
   const assignment = attempt.assignment;
-  const checkRepair = attempt.checkRepair;
   const studentCode = attempt.studentCode;
   const parameters = getInputParameters(assignment);
 
   var result = attempt;
+  //var feedtype = 'synthesis';
+  var feedtype = 'python';
 
   args = [feedtype, register, assignment, parameters, studentCode];
 
@@ -24,11 +24,12 @@ router.post('/', function (request, response) {
       response.json(result);
       return;
     }
-
+    
     fileName = register + '.py';
-    repairPath = `./assignments/${assignment}/repairs/${fileName}`;
-    result.repairs = fs.readFileSync(repairPath, 'utf8');
-
+    repairPath = `./assignments/${assignment}/repairs/${fileName}`;  
+    result.repairs = fs.readFileSync(repairPath, 'utf8').split('#');
+	result.repaired = true;
+    
     response.json(result);
   });
 

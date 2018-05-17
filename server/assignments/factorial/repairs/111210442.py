@@ -1,5 +1,2 @@
-def factorial(n):
-  total = 1
-  for i in range(1, n+1):
-    total = total * i
-  return total
+# Change iterated expression of for loop 'range(1, n)' to 'range(n, 1, -1)' at line 3
+# Change 'total = 0' to 'total = 1' at line 2
