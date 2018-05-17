@@ -359,12 +359,12 @@ class Ladder extends Component {
       <div id='ladder'>
         <div className="ui two column grid">
           <div className="eight wide column">
-            {
-              //<h2>Resultado Obtido</h2>
-            }
-            <Highlight className="python">
-              {`${this.props.test}\n>>> ${this.props.result}`}
-            </Highlight>
+            {/**
+              <h2>Resultado Obtido</h2>
+              <Highlight className="python">
+                {`${this.props.test}\n>>> ${this.props.result}`}
+              </Highlight>
+            */}
             <div id="result-ladder" className="ladder">
               <pre><code className="hljs">
                 {this.state.beforeEvents.map((event, index) => {
@@ -374,12 +374,12 @@ class Ladder extends Component {
             </div>
           </div>
           <div className="eight wide column">
-            {
-              //<h2>Resultado Esperado</h2>
-            }
-            <Highlight className="python">
-              {`${this.props.test}\n>>> ${this.props.expected}`}
-            </Highlight>
+            {/**
+              <h2>Resultado Esperado</h2>
+              <Highlight className="python">
+                {`${this.props.test}\n>>> ${this.props.expected}`}
+              </Highlight>
+            */}
             <div id="expected-ladder" className="ladder">
               <pre><code className="hljs">
                 {this.state.afterEvents.map((event, index) => {

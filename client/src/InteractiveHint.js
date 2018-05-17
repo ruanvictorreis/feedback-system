@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
 import AlertContainer from 'react-alert';
+import Highlight from 'react-highlight';
 import { Grid, Message, Button } from 'semantic-ui-react';
 import Ladder from './Ladder';
 import Stream from './data/Stream';
@@ -13,10 +14,6 @@ class InteractiveHint extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			claraWidth: 6,
-			codeMirrorWidth: 6,
-			traceDiffWidth: 10,
-			pythonTutorWidth: 10,
 			test: '',
 			result: 0,
 			expected: 0,
@@ -31,6 +28,7 @@ class InteractiveHint extends Component {
 			beforeEvents: [],
 			isLoading: false,
 			claraView: true,
+			testCaseView: true,
 			traceDiffView: true,
 			pythonTutorView: true,
 		}
@@ -65,33 +63,15 @@ class InteractiveHint extends Component {
 		this.setState({ isLoading: !this.state.isLoading });
 	}
 
+	toggleTestCase() {
+		this.setState({ testCaseView: !this.state.testCaseView });
+	}
+
 	toggleTraceDiff() {
-		if (this.state.traceDiffView) {
-			this.setState({ claraWidth: 10 });
-			this.setState({ pythonTutorWidth: 16 });
-		} else {
-			this.setState({ claraWidth: 6 });
-			this.setState({ pythonTutorWidth: 10 });
-		}
-
-		if (this.state.traceDiffView && !this.state.claraView) {
-			this.setState({ pythonTutorWidth: 10 });
-		}
-
 		this.setState({ traceDiffView: !this.state.traceDiffView });
 	}
 
 	toggleClara() {
-		if (this.state.claraView) {
-			this.setState({ pythonTutorWidth: 16 });
-		} else {
-			this.setState({ pythonTutorWidth: 10 });
-		}
-
-		if (this.state.claraView && !this.state.traceDiffView) {
-			this.setState({ pythonTutorWidth: 10 });
-		}
-
 		this.setState({ claraView: !this.state.claraView });
 	}
 
@@ -308,12 +288,13 @@ saveLogSubmission(attempt) {
 
 				<div>
 					<Grid>
-						<Grid.Column width={this.state.codeMirrorWidth} style={{ display: 'inline' }}>
+						<Grid.Column width={5} style={{ display: 'inline' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<Button.Group floated='right'>
-									<Button toggle active={this.state.traceDiffView} onClick={this.toggleTraceDiff.bind(this)}>TD</Button>
+									<Button toggle active={this.state.testCaseView} onClick={this.toggleTestCase.bind(this)}>TE</Button>
 									<Button toggle active={this.state.claraView} onClick={this.toggleClara.bind(this)}>CL</Button>
-									<Button toggle active={this.state.pythonTutorView} onClick={this.togglePythonTutor.bind(this)}>PT</Button>
+									<Button toggle active={this.state.traceDiffView} onClick={this.toggleTraceDiff.bind(this)}>TR</Button>
+									<Button toggle active={this.state.pythonTutorView} onClick={this.togglePythonTutor.bind(this)}>PY</Button>
 								</Button.Group>
 
 								<br />
@@ -327,7 +308,35 @@ saveLogSubmission(attempt) {
 							</div>
 						</Grid.Column>
 
-						<Grid.Column width={this.state.traceDiffWidth} style={{ display: (this.state.traceDiffView) ? 'inline' : 'none' }}>
+						<Grid.Column width={6} style={{ display: (this.state.testCaseView) ? 'inline' : 'none' }}>
+							<div className="ui message hint-message" style={{ height: '100%' }}>
+								<h3>Teste</h3>
+								<div className="ui two column grid">								
+									<div className="eight wide column">	
+										<h6>Obtido</h6>
+										<Highlight className="python">
+											{`${this.state.test}\n>>> ${this.state.result}`}
+										</Highlight>
+									</div>
+									
+									<div className="eight wide column">
+										<h6>Esperado</h6>
+										<Highlight className="python">
+											{`${this.state.test}\n>>> ${this.state.expected}`}
+										</Highlight>
+									</div>
+								</div>
+							</div>
+						</Grid.Column>
+
+						<Grid.Column width={5} style={{ display: (this.state.claraView) ? 'inline' : 'none' }}>
+							<Message style={{ height: '100%' }}>
+								<Message.Header>Clara</Message.Header>
+								<Message.List items={this.state.repairs} />
+							</Message>
+						</Grid.Column>
+
+						<Grid.Column width={8} style={{ display: (this.state.traceDiffView) ? 'inline' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<h3>TraceDiff</h3>
 								<Ladder
@@ -349,14 +358,7 @@ saveLogSubmission(attempt) {
 							</div>
 						</Grid.Column>
 
-						<Grid.Column width={this.state.claraWidth} style={{ display: (this.state.claraView) ? 'inline' : 'none' }}>
-							<Message style={{ height: '100%' }}>
-								<Message.Header>Clara</Message.Header>
-								<Message.List items={this.state.repairs} />
-							</Message>
-						</Grid.Column>
-
-						<Grid.Column width={this.state.pythonTutorWidth} style={{ display: (this.state.pythonTutorView) ? 'inline' : 'none' }}>
+						<Grid.Column width={8} style={{ display: (this.state.pythonTutorView) ? 'inline' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<h3>Python Tutor</h3>
 								<div id="viz" />
