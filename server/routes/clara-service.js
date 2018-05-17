@@ -29,9 +29,8 @@ router.post('/', function (request, response) {
     var repairPath = `./assignments/${assignment}/repairs/${fileName}`;
     result.repairs = fs.readFileSync(repairPath, 'utf8').split('#');
     result.isRepaired = true;
-  });
-
-  args[0] = feedSynthesis
+    
+    args[0] = feedSynthesis
 
   PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
     if (error) {
@@ -43,11 +42,10 @@ router.post('/', function (request, response) {
 
     var fileName = register + '.py';
     var repairPath = `./assignments/${assignment}/repairs/${fileName}`;
-    result.codeRepaired = fs.readFileSync(repairPath, 'utf8').split('#');
+    result.codeRepaired = fs.readFileSync(repairPath, 'utf8');
     result.isCodeRepaired = true;
-  });
-
-  const assert = new Assert(register, assignment, result.codeRepaired);
+    
+    const assert = new Assert(register, assignment, result.codeRepaired);
   const assertFile = assert.createFile();
 
   PythonShell.run(assertFile, { args: [] }, (error) => {
@@ -58,39 +56,9 @@ router.post('/', function (request, response) {
     result.isCodeRepaired = assert.isCorrect
     response.json(result);
   });
-
-
-
-
-  /** 
-  PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
-
-
-    if (error) {
-      result.repairs = '';
-      result.repaired = false;
-      response.json(result);
-      return;
-    }
-
-    fileName = register + '.py';
-    repairPath = `./assignments/${assignment}/repairs/${fileName}`;
-    result.repairs = fs.readFileSync(repairPath, 'utf8');
-
-    if (!checkRepair) {
-      result.repaired = true;
-      response.json(result);
-      return;
-    }
-
-
-
-
-  });*/
-
-
-
-
+  });
+    
+  });
 });
 
 function getInputParameters(assignment) {
