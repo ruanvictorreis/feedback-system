@@ -282,7 +282,7 @@ saveLogSubmission(attempt) {
 
 							<Grid.Column width={10}>
 								<div className="ui message hint-message">
-									{/**<h3>TraceDiff</h3>*/}
+									<h3>TraceDiff</h3>
 									<Ladder
 										beforeHistory={this.state.beforeHistory}
 										afterHistory={this.state.afterHistory}
