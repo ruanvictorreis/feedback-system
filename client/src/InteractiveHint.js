@@ -22,10 +22,13 @@ class InteractiveHint extends Component {
 			studentCode: '',
 			repairs: [],
 			afterEvents: [],
-			isLoading: false,
 			afterHistory: {},
 			beforeEvents: [],
 			beforeHistory: {},
+			clara: true,
+			isLoading: false,
+			traceDiff: true,
+			pythonTutor: true,
 		}
 		window.interactiveHint = this
 	}
@@ -55,6 +58,18 @@ class InteractiveHint extends Component {
 
 	toggleLoader() {
 		this.setState({ isLoading: !this.state.isLoading });
+	}
+
+	toggleTraceDiff() {
+		this.setState({ traceDiff: !this.state.traceDiff });
+	}
+
+	toggleClara() {
+		this.setState({ clara: !this.state.clara });
+	}
+
+	togglePythonTutor() {
+		this.setState({ pythonTutor: !this.state.pythonTutor });
 	}
 
 	setCurrentCode() {
@@ -262,24 +277,31 @@ saveLogSubmission(attempt) {
 							time: 10000,
 							transition: 'scale'
 						}
-						}
-					/>
+						} />
 				</div>
 
 				<div>
 					<Grid>
 						<Grid.Column width={6} style={{ display: 'inline' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
+								<Button.Group floated='right'>
+									<Button toggle active={this.state.traceDiff} onClick={this.toggleTraceDiff.bind(this)}>TD</Button>
+									<Button toggle active={this.state.clara} onClick={this.toggleClara.bind(this)}>CL</Button>
+									<Button toggle active={this.state.pythonTutor} onClick={this.togglePythonTutor.bind(this)}>PT</Button>
+								</Button.Group>
+
+								<br />
 								<CodeMirror
 									value={this.state.studentCode}
 									ref="editor"
 									options={options} />
+
 								<br />
 								<Button primary loading={isLoading} onClick={this.submitAttempt.bind(this)}>Enviar</Button>
 							</div>
 						</Grid.Column>
 
-						<Grid.Column width={10} style={{ display: 'inline' }}>
+						<Grid.Column width={10} style={{ display: (this.state.traceDiff) ? 'inline' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<h3>TraceDiff</h3>
 								<Ladder
@@ -301,14 +323,14 @@ saveLogSubmission(attempt) {
 							</div>
 						</Grid.Column>
 
-						<Grid.Column width={6} style={{ display: 'inline' }}>
+						<Grid.Column width={6} style={{ display: (this.state.clara) ? 'inline' : 'none' }}>
 							<Message style={{ height: '100%' }}>
 								<Message.Header>Clara</Message.Header>
 								<Message.List items={this.state.repairs} />
 							</Message>
 						</Grid.Column>
 
-						<Grid.Column width={10} style={{ display: 'inline' }}>
+						<Grid.Column width={10} style={{ display: (this.state.pythonTutor) ? 'inline' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<h3>Python Tutor</h3>
 								<div id="viz" />
