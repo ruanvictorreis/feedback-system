@@ -110,13 +110,13 @@ class InteractiveHint extends Component {
 		})
 			.then((response) => {
 				this.toggleLoader();
-				console.log(response);
-				//if (response.repaired) {
-				//	this.setRepairs(response.repairs)
-				//	this.requestTracesDivergence(response);
-				//} else {
-				//	this.claraRepairFail(response);
-				//}
+
+				if (response.isRepaired) {
+					this.setRepairs(response.repairs);
+					this.requestTracesDivergence(response);
+				} else {
+					this.claraRepairFail(response);
+				}
 			})
 	}
 
@@ -306,13 +306,13 @@ saveLogSubmission(attempt) {
 						<Grid.Row stretched>
 							<Grid.Column width={6}>
 								<Message>
-									{/**<Message.Header>Clara</Message.Header>*/}
+									<Message.Header>Clara</Message.Header>
 									<Message.List items={this.state.repairs} />
 								</Message>
 							</Grid.Column>
 							<Grid.Column width={10}>
 								<div className="ui message hint-message">
-									{/**<h3>Python Tutor</h3>*/}
+									<h3>Python Tutor</h3>
 									<div id="viz" style={{ marginTop: '50px', display: this.state.condition == 3 ? 'none' : 'block' }} />
 								</div>
 							</Grid.Column>
