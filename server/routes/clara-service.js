@@ -12,28 +12,52 @@ router.post('/', function (request, response) {
   const parameters = getInputParameters(assignment);
 
   var result = attempt;
-  //var feedtype = 'synthesis';
-  var feedtype = 'python';
+  var feedPython = 'python';
+  var feedSynthesis = 'synthesis';
 
-  args = [feedtype, register, assignment, parameters, studentCode];
+  var args = [feedPython, register, assignment, parameters, studentCode];
 
   PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
     if (error) {
       result.repairs = [];
-      result.repaired = false;
+      result.isRepaired = false;
       response.json(result);
       return;
     }
-    
-    fileName = register + '.py';
-    repairPath = `./assignments/${assignment}/repairs/${fileName}`;  
+
+    var fileName = register + '.py';
+    var repairPath = `./assignments/${assignment}/repairs/${fileName}`;
     result.repairs = fs.readFileSync(repairPath, 'utf8').split('#');
-	result.repaired = true;
-    
-    response.json(result);
+    result.isRepaired = true;
   });
 
+  args[0] = feedSynthesis
 
+  PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
+    if (error) {
+      result.codeRepaired = '';
+      result.isCodeRepaired = false;
+      response.json(result);
+      return;
+    }
+
+    var fileName = register + '.py';
+    var repairPath = `./assignments/${assignment}/repairs/${fileName}`;
+    result.codeRepaired = fs.readFileSync(repairPath, 'utf8').split('#');
+    result.isCodeRepaired = true;
+  });
+
+  const assert = new Assert(register, assignment, result.codeRepaired);
+  const assertFile = assert.createFile();
+
+  PythonShell.run(assertFile, { args: [] }, (error) => {
+    if (error) {
+      assert.errorAnalysis(error);
+    }
+
+    result.isCodeRepaired = assert.isCorrect
+    response.json(result);
+  });
 
 
 
@@ -59,16 +83,9 @@ router.post('/', function (request, response) {
       return;
     }
 
-    const assert = new Assert(register, assignment, result.repairs);
-    const assertFile = assert.createFile();
 
-    PythonShell.run(assertFile, { args: [] }, (error) => {
-      if (error) {
-        assert.errorAnalysis(error);
-      }
-      result.repaired = assert.isCorrect
-      response.json(result);
-    });
+
+
   });*/
 
 

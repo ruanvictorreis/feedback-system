@@ -110,22 +110,22 @@ class InteractiveHint extends Component {
 		})
 			.then((response) => {
 				this.toggleLoader();
-				
-				if (response.repaired) {
-					this.setRepairs(response.repairs)
+				console.log(response);
+				//if (response.repaired) {
+				//	this.setRepairs(response.repairs)
 				//	this.requestTracesDivergence(response);
-				} else {
-					this.claraRepairFail(response);
-				}
+				//} else {
+				//	this.claraRepairFail(response);
+				//}
 			})
 	}
 
 	requestTracesDivergence(attempt) {
 		var info = {
 			studentId: attempt.register,
-			date: new Date(),
+			date: new Date().toLocaleString(),
 			before: attempt.studentCode,
-			SynthesizedAfter: attempt.codeRepair,
+			SynthesizedAfter: attempt.codeRepaired,
 			IsFixed: true,
 			failed: attempt.errorMsg.split('\n'),
 			register: attempt.register,
