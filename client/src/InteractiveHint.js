@@ -287,7 +287,7 @@ saveLogSubmission(attempt) {
 				</div>
 
 				<div>
-					<Grid>
+					<Grid centered>
 						<Grid.Column width={6} style={{ display: 'inline' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<Button.Group floated='right'>
@@ -308,35 +308,31 @@ saveLogSubmission(attempt) {
 							</div>
 						</Grid.Column>
 
-						<Grid.Column width={5} style={{ display: (this.state.testCaseView) ? 'inline' : 'none' }}>
-							<div className="ui message hint-message" style={{ height: '100%' }}>
+						<Grid.Column width={10}>
+							<div className="ui message hint-message" style={{ height: '48%', display: (this.state.testCaseView) ? 'block' : 'none' }}>
 								<h3>Teste</h3>
-								<div className="ui two column grid">								
-									<div className="eight wide column">	
-										<h6>Obtido</h6>
+								<div className="ui two column grid">
+									<div className="eight wide column">
 										<Highlight className="python">
 											{`${this.state.test}\n>>> ${this.state.result}`}
 										</Highlight>
 									</div>
-									
+
 									<div className="eight wide column">
-										<h6>Esperado</h6>
 										<Highlight className="python">
 											{`${this.state.test}\n>>> ${this.state.expected}`}
 										</Highlight>
 									</div>
 								</div>
 							</div>
-						</Grid.Column>
 
-						<Grid.Column width={5} style={{ display: (this.state.claraView) ? 'inline' : 'none' }}>
-							<Message style={{ height: '100%' }}>
+							<Message style={{ height: '48%', display: (this.state.claraView) ? 'block' : 'none' }}>
 								<Message.Header>Clara</Message.Header>
 								<Message.List items={this.state.repairs} />
 							</Message>
 						</Grid.Column>
 
-						<Grid.Column width={8} style={{ display: (this.state.traceDiffView) ? 'inline' : 'none' }}>
+						<Grid.Column width={6} style={{ display: (this.state.traceDiffView) ? 'block' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<h3>TraceDiff</h3>
 								<Ladder
@@ -358,7 +354,7 @@ saveLogSubmission(attempt) {
 							</div>
 						</Grid.Column>
 
-						<Grid.Column width={8} style={{ display: (this.state.pythonTutorView) ? 'inline' : 'none' }}>
+						<Grid.Column width={10} style={{ display: (this.state.pythonTutorView) ? 'block' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<h3>Python Tutor</h3>
 								<div id="viz" />
