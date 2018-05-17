@@ -288,7 +288,7 @@ saveLogSubmission(attempt) {
 
 				<div>
 					<Grid>
-						<Grid.Column width={5} style={{ display: 'inline' }}>
+						<Grid.Column width={6} style={{ display: 'inline' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<Button.Group floated='right'>
 									<Button toggle active={this.state.testCaseView} onClick={this.toggleTestCase.bind(this)}>TE</Button>
@@ -308,7 +308,7 @@ saveLogSubmission(attempt) {
 							</div>
 						</Grid.Column>
 
-						<Grid.Column width={6} style={{ display: (this.state.testCaseView) ? 'inline' : 'none' }}>
+						<Grid.Column width={5} style={{ display: (this.state.testCaseView) ? 'inline' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<h3>Teste</h3>
 								<div className="ui two column grid">								
