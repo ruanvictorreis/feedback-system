@@ -13,10 +13,33 @@ router.post('/', function (request, response) {
   const studentCode = attempt.studentCode;
   const parameters = getInputParameters(assignment);
 
+  var result = attempt;
+
   args = [feedtype, register, assignment, parameters, studentCode];
 
   PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
-    var result = attempt;
+    if (error) {
+      result.repairs = [];
+      result.repaired = false;
+      response.json(result);
+      return;
+    }
+
+    fileName = register + '.py';
+    repairPath = `./assignments/${assignment}/repairs/${fileName}`;
+    result.repairs = fs.readFileSync(repairPath, 'utf8');
+
+    response.json(result);
+  });
+
+
+
+
+
+
+  /** 
+  PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
+
 
     if (error) {
       result.repairs = '';
@@ -45,7 +68,11 @@ router.post('/', function (request, response) {
       result.repaired = assert.isCorrect
       response.json(result);
     });
-  })
+  });*/
+
+
+
+
 });
 
 function getInputParameters(assignment) {

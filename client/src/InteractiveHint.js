@@ -110,12 +110,12 @@ class InteractiveHint extends Component {
 		})
 			.then((response) => {
 				this.toggleLoader();
-                console.log(response)
-				if (response.repaired) {
-					this.requestTracesDivergence(response);
-				} else {
-					this.claraRepairFail(response);
-				}
+        console.log(response)
+				//if (response.repaired) {
+				//	this.requestTracesDivergence(response);
+				//} else {
+				//	this.claraRepairFail(response);
+				//}
 			})
 	}
 
