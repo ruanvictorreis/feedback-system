@@ -323,79 +323,77 @@ saveLogSubmission(attempt) {
 						} />
 				</div>
 
-				<div>
-					<Grid>
-						<Grid.Row>
-							<Grid.Column width={5} style={{ display: 'inline' }}>
-								<Message>
-									<Button.Group floated='right'>
-										<Button toggle active={this.state.conditionOne} onClick={this.toggleConditionOne.bind(this)}>1</Button>
-										<Button toggle active={this.state.conditionTwo} onClick={this.toggleConditionTwo.bind(this)}>2</Button>
-										<Button toggle active={this.state.conditionThree} onClick={this.toggleConditionThree.bind(this)}>3</Button>
-										<Button toggle active={this.state.conditionFour} onClick={this.toggleConditionFour.bind(this)}>4</Button>
-									</Button.Group>
+				<Grid>
+					<Grid.Row>
+						<Grid.Column width={5}>
+							<Message>
+								<Button.Group floated='right'>
+									<Button toggle active={this.state.conditionOne} onClick={this.toggleConditionOne.bind(this)}>1</Button>
+									<Button toggle active={this.state.conditionTwo} onClick={this.toggleConditionTwo.bind(this)}>2</Button>
+									<Button toggle active={this.state.conditionThree} onClick={this.toggleConditionThree.bind(this)}>3</Button>
+									<Button toggle active={this.state.conditionFour} onClick={this.toggleConditionFour.bind(this)}>4</Button>
+								</Button.Group>
 
-									<br />
-									<CodeMirror
-										value={this.state.studentCode}
-										ref="editor"
-										options={options} />
+								<br />
+								<CodeMirror
+									value={this.state.studentCode}
+									ref="editor"
+									options={options} />
 
-									<br />
-									<Button primary loading={isLoading} onClick={this.submitAttempt.bind(this)}>Enviar</Button>
-								</Message>
-							</Grid.Column>
+								<br />
+								<Button primary loading={isLoading} onClick={this.submitAttempt.bind(this)}>Enviar</Button>
+							</Message>
+						</Grid.Column>
 
-							<Grid.Column width={11}>
-								<div className="ui message hint-message" style={{ display: (this.state.testCaseView) ? 'block' : 'none' }}>
-									<h3>Teste</h3>
-									<Grid centered>
-										<Grid.Column width={8}>
-											<Highlight className="python">
-												{`${this.state.test}\n>>> ${this.state.result}`}
-											</Highlight>
-										</Grid.Column>
-										<Grid.Column width={8}>
-											<Highlight className="python">
-												{`${this.state.test}\n>>> ${this.state.expected}`}
-											</Highlight>
-										</Grid.Column>
-									</Grid>
-								</div>
+						<Grid.Column width={11}>
+							<Message style={{ display: this.state.testCaseView ? 'block' : 'none' }}>
+								<h3>Teste</h3>
+								<Grid centered>
+									<Grid.Column width={8}>
+										<Highlight className="python">
+											{`# Obtido:${this.state.test}\n>>> ${this.state.result}`}
+										</Highlight>
+									</Grid.Column>
+									<Grid.Column width={8}>
+										<Highlight className="python">
+											{`# Esperado: ${this.state.test}\n>>> ${this.state.expected}`}
+										</Highlight>
+									</Grid.Column>
+								</Grid>
+							</Message>
 
-								<Message style={{ display: (this.state.claraView) ? 'block' : 'none' }}>
-									<Message.Header>Clara</Message.Header>
-									<Message.List items={this.state.repairs} />
-								</Message>
+							<Message style={{ display: this.state.claraView ? 'block' : 'none' }}>
+								<Message.Header>Clara</Message.Header>
+								<Message.List items={this.state.repairs} />
+							</Message>
 
-								<div className="ui message hint-message" style={{ display: (this.state.pythonTutorView) ? 'block' : 'none' }}>
-									<h3>Python Tutor</h3>
-									<div id="viz" />
-								</div>
+							<Message className="ui message hint-message" style={{ display: this.state.pythonTutorView ? 'block' : 'none' }}>
+								<h3>Python Tutor</h3>
+								<div id="viz" />
+							</Message>
 
-								<div className="ui message hint-message" style={{ display: (this.state.traceDiffView) ? 'block' : 'none' }}>
-									<h3>TraceDiff</h3>
-									<Ladder
-										beforeHistory={this.state.beforeHistory}
-										afterHistory={this.state.afterHistory}
-										beforeEvents={this.state.beforeEvents}
-										afterEvents={this.state.afterEvents}
-										beforeTraces={this.state.beforeTraces}
-										afterTraces={this.state.afterTraces}
-										beforeAst={this.state.beforeAst}
-										afterAst={this.state.afterAst}
-										currentCode={this.state.currentCode}
-										beforeCode={this.state.beforeCode}
-										before={this.state.before}
-										focusKeys={this.state.focusKeys}
-										test={this.state.test}
-										expected={this.state.expected}
-										result={this.state.result} />
-								</div>
-							</Grid.Column>
-						</Grid.Row>
-					</Grid>
-				</div>
+							<Message className="ui message hint-message" style={{ display: this.state.traceDiffView ? 'block' : 'none' }}>
+								<h3>TraceDiff</h3>
+								<Ladder
+									beforeHistory={this.state.beforeHistory}
+									afterHistory={this.state.afterHistory}
+									beforeEvents={this.state.beforeEvents}
+									afterEvents={this.state.afterEvents}
+									beforeTraces={this.state.beforeTraces}
+									afterTraces={this.state.afterTraces}
+									beforeAst={this.state.beforeAst}
+									afterAst={this.state.afterAst}
+									currentCode={this.state.currentCode}
+									beforeCode={this.state.beforeCode}
+									before={this.state.before}
+									focusKeys={this.state.focusKeys}
+									test={this.state.test}
+									expected={this.state.expected}
+									result={this.state.result} />
+							</Message>
+						</Grid.Column>
+					</Grid.Row>
+				</Grid>
 			</div>
 		)
 	}
