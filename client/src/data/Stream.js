@@ -96,7 +96,7 @@ class Stream {
         if (!trace.locals[key]) {
           let locals = stack_local[1]
           for (let name in locals) {
-            if (locals[name][0] === 'REF') {
+            if (locals[name] && locals[name][0] === 'REF') {
               let id = locals[name][1]
               let func_name = trace.refs[id]
               locals[name] = func_name
