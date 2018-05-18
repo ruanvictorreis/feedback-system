@@ -14,22 +14,25 @@ class InteractiveHint extends Component {
 		super(props)
 		this.state = {
 			test: '',
-			result: 0,
-			expected: 0,
-			condition: 0,
-			register: '',
-			assignment: '',
-			studentCode: '',
 			repairs: [],
 			afterHistory: {},
 			beforeHistory: {},
 			afterEvents: [],
 			beforeEvents: [],
+			register: '',
+			assignment: '',
+			studentCode: '',
 			isLoading: false,
-			claraView: true,
-			testCaseView: true,
-			traceDiffView: true,
-			pythonTutorView: true,
+			conditionOne: false,
+			conditionTwo: false,
+			conditionThree: false,
+			conditionFour: false,
+			result: 0,
+			expected: 0,
+			claraView: false,
+			testCaseView: false,
+			traceDiffView: false,
+			pythonTutorView: false,
 		}
 
 		window.interactiveHint = this
@@ -48,8 +51,9 @@ class InteractiveHint extends Component {
 			this.setState({ register: info.register });
 			this.setState({ assignment: info.assignment });
 			this.setState({ studentCode: info.templateCode });
-			this.setState({ condition: info.condition });
+			//this.setState({ condition: info.condition });
 			//this.showCondition(info.condition);
+			this.toggleConditionOne();
 			this.cm.setValue(info.templateCode);
 		}
 	}
@@ -62,20 +66,52 @@ class InteractiveHint extends Component {
 		this.setState({ isLoading: !this.state.isLoading });
 	}
 
-	toggleTestCase() {
-		this.setState({ testCaseView: !this.state.testCaseView });
+	toggleConditionOne() {
+		this.setState({ conditionOne: true });
+		this.setState({ conditionTwo: false });
+		this.setState({ conditionThree: false });
+		this.setState({ conditionFour: false });
+
+		this.setState({ testCaseView: true });
+		this.setState({ claraView: false });
+		this.setState({ traceDiffView: false });
+		this.setState({ pythonTutorView: false });
 	}
 
-	toggleTraceDiff() {
-		this.setState({ traceDiffView: !this.state.traceDiffView });
+	toggleConditionTwo() {
+		this.setState({ conditionTwo: true });
+		this.setState({ conditionOne: false });
+		this.setState({ conditionThree: false });
+		this.setState({ conditionFour: false });
+
+		this.setState({ testCaseView: true });
+		this.setState({ claraView: true });
+		this.setState({ traceDiffView: false });
+		this.setState({ pythonTutorView: false });
 	}
 
-	toggleClara() {
-		this.setState({ claraView: !this.state.claraView });
+	toggleConditionThree() {
+		this.setState({ conditionThree: true });
+		this.setState({ conditionTwo: false });
+		this.setState({ conditionOne: false });
+		this.setState({ conditionFour: false });
+
+		this.setState({ testCaseView: true });
+		this.setState({ traceDiffView: true });
+		this.setState({ claraView: false });
+		this.setState({ pythonTutorView: false });
 	}
 
-	togglePythonTutor() {
-		this.setState({ pythonTutorView: !this.state.pythonTutorView });
+	toggleConditionFour() {
+		this.setState({ conditionFour: true });
+		this.setState({ conditionThree: false });
+		this.setState({ conditionTwo: false });
+		this.setState({ conditionOne: false });
+
+		this.setState({ testCaseView: true });
+		this.setState({ pythonTutorView: true });
+		this.setState({ traceDiffView: false });
+		this.setState({ claraView: false });
 	}
 
 	setCurrentCode() {
@@ -245,22 +281,24 @@ saveLogSubmission(attempt) {
 		window.ladder.init()
 	}
 
+	/** 
 	showCondition(mode) {
 		switch (mode) {
 			case 1:
-				$('.ladder').show()
+
 				break
 			case 2:
-				$('.ladder').hide()
+
 				break
 			case 3:
-				$('.ladder').hide()
+
 				break
 			case 4:
-				$('.ladder').hide()
+
 				break
 		}
 	}
+	*/
 
 	render() {
 		var options = {
@@ -276,7 +314,7 @@ saveLogSubmission(attempt) {
 				<div className="loader-wrapper">
 					<AlertContainer ref={a => this.msg = a}
 						{...{
-							offset: 14,
+							offset: 12,
 							position: 'bottom left',
 							theme: 'light',
 							time: 10000,
@@ -287,78 +325,75 @@ saveLogSubmission(attempt) {
 
 				<div>
 					<Grid>
-						<Grid.Column width={6} style={{ display: 'inline' }}>
-							<div className="ui message hint-message" style={{ height: '100%' }}>
-								<Button.Group floated='right'>
-									<Button toggle active={this.state.testCaseView} onClick={this.toggleTestCase.bind(this)}>TE</Button>
-									<Button toggle active={this.state.claraView} onClick={this.toggleClara.bind(this)}>CL</Button>
-									<Button toggle active={this.state.traceDiffView} onClick={this.toggleTraceDiff.bind(this)}>TR</Button>
-									<Button toggle active={this.state.pythonTutorView} onClick={this.togglePythonTutor.bind(this)}>PY</Button>
-								</Button.Group>
+						<Grid.Row>
+							<Grid.Column width={5} style={{ display: 'inline' }}>
+								<Message>
+									<Button.Group floated='right'>
+										<Button toggle active={this.state.conditionOne} onClick={this.toggleConditionOne.bind(this)}>1</Button>
+										<Button toggle active={this.state.conditionTwo} onClick={this.toggleConditionTwo.bind(this)}>2</Button>
+										<Button toggle active={this.state.conditionThree} onClick={this.toggleConditionThree.bind(this)}>3</Button>
+										<Button toggle active={this.state.conditionFour} onClick={this.toggleConditionFour.bind(this)}>4</Button>
+									</Button.Group>
 
-								<br />
-								<CodeMirror
-									value={this.state.studentCode}
-									ref="editor"
-									options={options} />
+									<br />
+									<CodeMirror
+										value={this.state.studentCode}
+										ref="editor"
+										options={options} />
 
-								<br />
-								<Button primary loading={isLoading} onClick={this.submitAttempt.bind(this)}>Enviar</Button>
-							</div>
-						</Grid.Column>
+									<br />
+									<Button primary loading={isLoading} onClick={this.submitAttempt.bind(this)}>Enviar</Button>
+								</Message>
+							</Grid.Column>
 
-						<Grid.Column width={10} style={{ display: (this.state.testCaseView || this.state.claraView) ? 'block' : 'none' }}>
-							<div className="ui message hint-message" style={{ height: '48%', display: (this.state.testCaseView) ? 'block' : 'none' }}>
-								<h3>Teste</h3>
-								<div className="ui two column grid">
-									<div className="eight wide column">
-										<Highlight className="python">
-											{`${this.state.test}\n>>> ${this.state.result}`}
-										</Highlight>
-									</div>
-
-									<div className="eight wide column">
-										<Highlight className="python">
-											{`${this.state.test}\n>>> ${this.state.expected}`}
-										</Highlight>
-									</div>
+							<Grid.Column width={11}>
+								<div className="ui message hint-message" style={{ display: (this.state.testCaseView) ? 'block' : 'none' }}>
+									<h3>Teste</h3>
+									<Grid centered>
+										<Grid.Column width={8}>
+											<Highlight className="python">
+												{`${this.state.test}\n>>> ${this.state.result}`}
+											</Highlight>
+										</Grid.Column>
+										<Grid.Column width={8}>
+											<Highlight className="python">
+												{`${this.state.test}\n>>> ${this.state.expected}`}
+											</Highlight>
+										</Grid.Column>
+									</Grid>
 								</div>
-							</div>
 
-							<Message style={{ height: '48%', display: (this.state.claraView) ? 'block' : 'none' }}>
-								<Message.Header>Clara</Message.Header>
-								<Message.List items={this.state.repairs} />
-							</Message>
-						</Grid.Column>
+								<Message style={{ display: (this.state.claraView) ? 'block' : 'none' }}>
+									<Message.Header>Clara</Message.Header>
+									<Message.List items={this.state.repairs} />
+								</Message>
 
-						<Grid.Column width={7} style={{ display: (this.state.traceDiffView) ? 'block' : 'none' }}>
-							<div className="ui message hint-message" style={{ height: '100%' }}>
-								<h3>TraceDiff</h3>
-								<Ladder
-									beforeHistory={this.state.beforeHistory}
-									afterHistory={this.state.afterHistory}
-									beforeEvents={this.state.beforeEvents}
-									afterEvents={this.state.afterEvents}
-									beforeTraces={this.state.beforeTraces}
-									afterTraces={this.state.afterTraces}
-									beforeAst={this.state.beforeAst}
-									afterAst={this.state.afterAst}
-									currentCode={this.state.currentCode}
-									beforeCode={this.state.beforeCode}
-									before={this.state.before}
-									focusKeys={this.state.focusKeys}
-									test={this.state.test}
-									expected={this.state.expected}
-									result={this.state.result} />
-							</div>
-						</Grid.Column>
+								<div className="ui message hint-message" style={{ display: (this.state.pythonTutorView) ? 'block' : 'none' }}>
+									<h3>Python Tutor</h3>
+									<div id="viz" />
+								</div>
 
-						<Grid.Column width={9} style={{ display: (this.state.pythonTutorView) ? 'block' : 'none' }}>
-							<div className="ui message hint-message" style={{ height: '100%' }}>
-								<h3>Python Tutor</h3>
-								<div id="viz" />
-							</div>
-						</Grid.Column>
+								<div className="ui message hint-message" style={{ display: (this.state.traceDiffView) ? 'block' : 'none' }}>
+									<h3>TraceDiff</h3>
+									<Ladder
+										beforeHistory={this.state.beforeHistory}
+										afterHistory={this.state.afterHistory}
+										beforeEvents={this.state.beforeEvents}
+										afterEvents={this.state.afterEvents}
+										beforeTraces={this.state.beforeTraces}
+										afterTraces={this.state.afterTraces}
+										beforeAst={this.state.beforeAst}
+										afterAst={this.state.afterAst}
+										currentCode={this.state.currentCode}
+										beforeCode={this.state.beforeCode}
+										before={this.state.before}
+										focusKeys={this.state.focusKeys}
+										test={this.state.test}
+										expected={this.state.expected}
+										result={this.state.result} />
+								</div>
+							</Grid.Column>
+						</Grid.Row>
 					</Grid>
 				</div>
 			</div>
