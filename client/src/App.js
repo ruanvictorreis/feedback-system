@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button, Message } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import actions from './redux/actions';
-import logo from './logo.svg';
 import './App.css';
 import $ from 'jquery';
 import Highlight from 'react-highlight';
-import AlertContainer from 'react-alert';
 import InteractiveHint from './InteractiveHint';
 
 class App extends Component {

@@ -6,7 +6,6 @@ import { Grid, Message, Button } from 'semantic-ui-react';
 import Ladder from './Ladder';
 import Stream from './data/Stream';
 import Record from './data/Record';
-import _ from 'lodash';
 import $ from 'jquery';
 import 'codemirror/mode/python/python';
 

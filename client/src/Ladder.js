@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import Highlight from 'react-highlight';
 import Tree from './data/Tree';
 import Slider from 'rc-slider';
 import Tooltip from 'rc-tooltip';
 import _ from 'lodash';
 import $ from 'jquery';
-import jQuery from 'jquery';
 
 import 'rc-slider/assets/index.css';
 import ExecutionVisualizer from './python-tutor/ExecutionVisualizer';
@@ -320,7 +318,6 @@ class Ladder extends Component {
     let className = 'history-line'
     className += ` line-${index} `
     if (this.state.diffIndex === index && (this.state.condition === 0 || this.state.condition === 3)) className += ' diff-line'
-    let conditions = [0, 3]
     return (
       <div className={className} data-index={index} key={index}>
         <p style={{ paddingLeft: `${10 * event.indent}px`, cursor: 'pointer' }}
