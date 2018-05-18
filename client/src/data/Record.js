@@ -208,7 +208,7 @@ class Record {
       Object.keys(this.afterHistory)
     )
 
-    let line
+    //let line
     this.focusKeys = []
     for (let key of this.commonKeys) {
       if (key === '__return__') continue

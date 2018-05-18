@@ -389,6 +389,7 @@ const handle = (props) => {
   const { value, dragging, index, ...restProps } = props;
   return (
     <Tooltip
+      overlay=""
       visible={dragging}
       placement="bottom"
       key={index}>
