@@ -351,12 +351,12 @@ saveLogSubmission(attempt) {
 								<Grid centered>
 									<Grid.Column width={8}>
 										<Highlight className="python">
-											{`# Obtido:${this.state.test}\n>>> ${this.state.result}`}
+											{`# Obtido:\n${this.state.test}\n>>> ${this.state.result}`}
 										</Highlight>
 									</Grid.Column>
 									<Grid.Column width={8}>
 										<Highlight className="python">
-											{`# Esperado: ${this.state.test}\n>>> ${this.state.expected}`}
+											{`# Esperado:\n${this.state.test}\n>>> ${this.state.expected}`}
 										</Highlight>
 									</Grid.Column>
 								</Grid>

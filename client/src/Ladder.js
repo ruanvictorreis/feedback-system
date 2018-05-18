@@ -312,7 +312,7 @@ class Ladder extends Component {
 
 
   renderEvent(event, index) {
-    let showWhy = true
+    let showWhy = false
     if (event.type === 'call') showWhy = false
     if (event.updates.length < 2) showWhy = false
     let className = 'history-line'
