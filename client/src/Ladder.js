@@ -345,26 +345,10 @@ class Ladder extends Component {
   }
 
   render() {
-    {/** 
-    $('#hoge .CodeMirror').popup({
-      target: $('#hoge .CodeMirror'),
-      position: 'bottom center',
-      inline: true,
-      popup: $(`.inline-hint`),
-      on: 'manual',
-    })
-    */}
-
     return (
       <div id='ladder'>
         <div className="ui two column grid">
           <div className="eight wide column">
-            {/**
-              <h2>Resultado Obtido</h2>
-              <Highlight className="python">
-                {`${this.props.test}\n>>> ${this.props.result}`}
-              </Highlight>
-            */}
             <div id="result-ladder" className="ladder">
               <pre><code className="hljs">
                 {this.state.beforeEvents.map((event, index) => {
@@ -374,12 +358,6 @@ class Ladder extends Component {
             </div>
           </div>
           <div className="eight wide column">
-            {/**
-              <h2>Resultado Esperado</h2>
-              <Highlight className="python">
-                {`${this.props.test}\n>>> ${this.props.expected}`}
-              </Highlight>
-            */}
             <div id="expected-ladder" className="ladder">
               <pre><code className="hljs">
                 {this.state.afterEvents.map((event, index) => {
@@ -388,8 +366,8 @@ class Ladder extends Component {
               </code></pre>
             </div>
           </div>
-
-          <div id="control-ladder" className="ladder" style={{ width: '50%' }}>
+		
+          <div id="control-ladder" className="ladder" style={{ width: '84%' }}>
             <Slider
               dots
               min={0}
@@ -400,40 +378,6 @@ class Ladder extends Component {
               onChange={this.onChange.bind(this)}
             />
           </div>
-        </div>
-
-        <div className="ui fluid popup bottom center transition inline-hint">
-          {this.state.beforeEvents.map((event, index) => {
-            if (event.type === 'call') return null
-            let question = ''
-            question += 'Q. Why '
-            question += event.key
-            if (event.type === 'return') {
-              question += ' returns '
-            }
-            if (event.type === 'assign') {
-              if (event.index === 0) {
-                question += ' is initialized with '
-              } else {
-                question += ' is updated to '
-              }
-            }
-            question += event.value
-            question += ' ?'
-            let events = this.props.beforeEvents.slice(0, event.id)
-            let history = {}
-            for (let e of events) {
-              history[e.key] = e
-            }
-
-            return (
-              <div id={`quiz-${index} `} key={index} >
-                <h1><b>{question}</b></h1>
-
-              </div>
-            )
-          })}
-          <button className="ui basic button close-button" onClick={this.onClose.bind(this)} style={{ float: 'right' }}>Close</button>
         </div>
       </div>
     )
@@ -448,11 +392,9 @@ const handle = (props) => {
   const { value, dragging, index, ...restProps } = props;
   return (
     <Tooltip
-      overlay={value === 0 ? 'concrete value' : `${value}-step abstract`}
       visible={dragging}
       placement="bottom"
-      key={index}
-    >
+      key={index}>
       <Handle {...restProps} />
     </Tooltip>
   );

@@ -287,7 +287,7 @@ saveLogSubmission(attempt) {
 				</div>
 
 				<div>
-					<Grid centered>
+					<Grid>
 						<Grid.Column width={6} style={{ display: 'inline' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<Button.Group floated='right'>
@@ -308,7 +308,7 @@ saveLogSubmission(attempt) {
 							</div>
 						</Grid.Column>
 
-						<Grid.Column width={10}>
+						<Grid.Column width={10} style={{display: (this.state.testCaseView || this.state.claraView) ? 'block' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '48%', display: (this.state.testCaseView) ? 'block' : 'none' }}>
 								<h3>Teste</h3>
 								<div className="ui two column grid">
@@ -332,7 +332,7 @@ saveLogSubmission(attempt) {
 							</Message>
 						</Grid.Column>
 
-						<Grid.Column width={6} style={{ display: (this.state.traceDiffView) ? 'block' : 'none' }}>
+						<Grid.Column width={7} style={{ display: (this.state.traceDiffView) ? 'block' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<h3>TraceDiff</h3>
 								<Ladder
@@ -354,7 +354,7 @@ saveLogSubmission(attempt) {
 							</div>
 						</Grid.Column>
 
-						<Grid.Column width={10} style={{ display: (this.state.pythonTutorView) ? 'block' : 'none' }}>
+						<Grid.Column width={9} style={{ display: (this.state.pythonTutorView) ? 'block' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '100%' }}>
 								<h3>Python Tutor</h3>
 								<div id="viz" />
