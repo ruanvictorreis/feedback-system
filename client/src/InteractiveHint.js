@@ -307,7 +307,7 @@ saveLogSubmission(attempt) {
 							</div>
 						</Grid.Column>
 
-						<Grid.Column width={10} style={{display: (this.state.testCaseView || this.state.claraView) ? 'block' : 'none' }}>
+						<Grid.Column width={10} style={{ display: (this.state.testCaseView || this.state.claraView) ? 'block' : 'none' }}>
 							<div className="ui message hint-message" style={{ height: '48%', display: (this.state.testCaseView) ? 'block' : 'none' }}>
 								<h3>Teste</h3>
 								<div className="ui two column grid">

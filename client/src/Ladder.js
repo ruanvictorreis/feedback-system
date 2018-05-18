@@ -363,7 +363,7 @@ class Ladder extends Component {
               </code></pre>
             </div>
           </div>
-		
+
           <div id="control-ladder" className="ladder" style={{ width: '84%' }}>
             <Slider
               dots

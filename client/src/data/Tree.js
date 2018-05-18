@@ -284,7 +284,7 @@ class Tree {
     for (let i = 0; i < args.length; i++) {
       let arg = args[i]
       let a0 = args.slice(0, i)
-      let a1 = args.slice(i+1)
+      let a1 = args.slice(i + 1)
       for (let j = 0; j < arg.updates.length; j++) {
         let a = []
         a = a.concat(a0.map(i => i.value))
