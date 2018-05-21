@@ -1,6 +1,5 @@
 def factorial(n):
-  num = 1
-  while n > 1:
-    num = num * n
-    n = n - 1
-  return num
+  total = 1
+  for i in range(n, 0, -1):
+    total = total * i
+  return total
