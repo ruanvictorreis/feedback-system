@@ -1,13 +1,10 @@
 ﻿Exercício: Factorial
 
-Escreva uma função chamada “factorial” que recebe um inteiro (n) positivo e retorna o produto de uma sequência de 1 até n (1 * 2 * 3 * … * n).
+Escreva uma função chamada “factorial” que recebe um inteiro (n) positivo e retorna o produto da sequência de 1 até n (1 * 2 * 3 * … * n).
 Utilize operações de multiplicação para encontrar o produto desta sequência.
 
 def factorial(n):
-  """ Retorne o produto dos primeiros n termos de uma sequência
-
-  n    -- um inteiro positivo
-
+  """
   >>> factorial(3) # 1 * 2 * 3
   6
   >>> factorial(5) # 1 * 2 * 3 * 4 * 5

@@ -1,4 +1,0 @@
-sum_of_squares_base(0, 4) == 30
-sum_of_squares_base(5, 3) == 19
-sum_of_squares_base(11, 0) == 11
-sum_of_squares_base(11, 2) == 16

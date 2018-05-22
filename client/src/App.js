@@ -113,7 +113,7 @@ class App extends Component {
         <div className="ui two column centered grid" style={{ marginTop: '20px' }}>
           <div id="type-links">
             <a id="factorial" className="ui basic button" href="?type=factorial">factorial</a>
-            <a id="sum_of_squares_base" className="ui basic button" href="?type=sum_of_squares_base">sum of squares</a>
+            <a id="sum_of_squares" className="ui basic button" href="?type=sum_of_squares">sum of squares</a>
           </div>
         </div>
 
