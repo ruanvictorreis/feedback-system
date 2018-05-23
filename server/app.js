@@ -5,8 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var quiz = require('./routes/quiz');
 var index = require('./routes/index');
+var quiz = require('./routes/quiz-service');
 var clara = require('./routes/clara-service');
 var assert = require('./routes/assert-service');
 var tracediff = require('./routes/tracediff-service');

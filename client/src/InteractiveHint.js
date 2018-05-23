@@ -7,37 +7,44 @@ import Stream from './data/Stream';
 import Record from './data/Record';
 import $ from 'jquery';
 import 'codemirror/mode/python/python';
-import { Modal, Checkbox, Header, Segment, Grid, Message, Button } from 'semantic-ui-react';
+import { Modal, Header, Segment, Grid, Message, Button } from 'semantic-ui-react';
 
 class InteractiveHint extends Component {
   constructor(props) {
     super(props)
     this.state = {
       test: '',
-      quiz: false,
       repairs: [],
+
       afterHistory: {},
       beforeHistory: {},
       afterEvents: [],
       beforeEvents: [],
+
       register: '',
       assignment: '',
       studentCode: '',
+
       isLoading: false,
       conditionOne: false,
       conditionTwo: false,
       conditionThree: false,
       conditionFour: false,
+
       result: 0,
       expected: 0,
+
       claraView: false,
       testCaseView: false,
       traceDiffView: false,
       pythonTutorView: false,
+
+      quizView: false,
       quizOptionOne: false,
       quizOptionTwo: false,
       quizOptionThree: false,
       quizOptionFour: false,
+      quizItems: [],
     }
 
     window.interactiveHint = this
@@ -72,7 +79,7 @@ class InteractiveHint extends Component {
   }
 
   toggleQuiz() {
-    this.setState({ quiz: !this.state.quiz });
+    this.setState({ quizView: !this.state.quizView });
   }
 
   toggleQuizOptionOne() {
@@ -96,7 +103,6 @@ class InteractiveHint extends Component {
     this.setState({ conditionTwo: false });
     this.setState({ conditionThree: false });
     this.setState({ conditionFour: false });
-
     this.setState({ testCaseView: true });
     this.setState({ claraView: false });
     this.setState({ traceDiffView: false });
@@ -108,7 +114,6 @@ class InteractiveHint extends Component {
     this.setState({ conditionOne: false });
     this.setState({ conditionThree: false });
     this.setState({ conditionFour: false });
-
     this.setState({ testCaseView: true });
     this.setState({ claraView: true });
     this.setState({ traceDiffView: false });
@@ -120,7 +125,6 @@ class InteractiveHint extends Component {
     this.setState({ conditionTwo: false });
     this.setState({ conditionOne: false });
     this.setState({ conditionFour: false });
-
     this.setState({ testCaseView: true });
     this.setState({ traceDiffView: true });
     this.setState({ claraView: false });
@@ -132,7 +136,6 @@ class InteractiveHint extends Component {
     this.setState({ conditionThree: false });
     this.setState({ conditionTwo: false });
     this.setState({ conditionOne: false });
-
     this.setState({ testCaseView: true });
     this.setState({ pythonTutorView: true });
     this.setState({ traceDiffView: false });
@@ -258,7 +261,22 @@ saveLogSubmission(attempt) {
 
   correctSubmission(attempt) {
     this.msg.success('Parabéns! Seu código está correto');
-    this.toggleQuiz();
+
+    var info = {
+      register: this.state.register,
+      assignment: this.state.assignment
+    };
+
+    $.ajax({
+      method: 'POST',
+      url: 'http://localhost:8081/api/quiz',
+      data: info
+    })
+      .then((quiz) => {
+        this.setState({ quizItems: quiz.items });
+        this.toggleQuiz();
+      });
+
     //this.saveLogSubmission(attempt);
   }
 
@@ -361,7 +379,7 @@ saveLogSubmission(attempt) {
         </div>
 
         <Modal
-          open={this.state.quiz}
+          open={this.state.quizView}
           style={inlineStyle.modal}
           closeOnEscape={false}
           closeOnRootNodeClick={false}
@@ -380,7 +398,7 @@ saveLogSubmission(attempt) {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionOne} onClick={this.toggleQuizOptionOne.bind(this)} />
                     <Highlight className="python">
-                      {`${this.state.studentCode}`}
+                      {`${this.state.quizItems[0]}`}
                     </Highlight>
                   </Segment>
                 </Grid.Column>
@@ -389,7 +407,7 @@ saveLogSubmission(attempt) {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionTwo} onClick={this.toggleQuizOptionTwo.bind(this)} />
                     <Highlight className="python">
-                      {`${this.state.studentCode}`}
+                      {`${this.state.quizItems[1]}`}
                     </Highlight>
                   </Segment>
                 </Grid.Column>
@@ -401,7 +419,7 @@ saveLogSubmission(attempt) {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionThree} onClick={this.toggleQuizOptionThree.bind(this)} />
                     <Highlight className="python">
-                      {`${this.state.studentCode}`}
+                      {`${this.state.quizItems[2]}`}
                     </Highlight>
                   </Segment>
                 </Grid.Column>
@@ -410,7 +428,7 @@ saveLogSubmission(attempt) {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionFour} onClick={this.toggleQuizOptionFour.bind(this)} />
                     <Highlight className="python">
-                      {`${this.state.studentCode}`}
+                      {`${this.state.quizItems[3]}`}
                     </Highlight>
                   </Segment>
                 </Grid.Column>
