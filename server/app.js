@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var quiz = require('./routes/quiz');
 var index = require('./routes/index');
 var clara = require('./routes/clara-service');
 var assert = require('./routes/assert-service');
@@ -31,6 +32,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', index);
+app.use('/api/quiz', quiz);
 app.use('/api/clara', clara);
 app.use('/api/assert', assert);
 app.use('/api/tracediff', tracediff);
