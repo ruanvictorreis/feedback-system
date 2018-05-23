@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
 import AlertContainer from 'react-alert';
 import Highlight from 'react-highlight';
-import { Modal, Header, Segment, Grid, Message, Button } from 'semantic-ui-react';
 import Ladder from './Ladder';
 import Stream from './data/Stream';
 import Record from './data/Record';
 import $ from 'jquery';
 import 'codemirror/mode/python/python';
+import { Modal, Checkbox, Header, Segment, Grid, Message, Button } from 'semantic-ui-react';
 
 class InteractiveHint extends Component {
   constructor(props) {
@@ -34,6 +34,10 @@ class InteractiveHint extends Component {
       testCaseView: false,
       traceDiffView: false,
       pythonTutorView: false,
+      quizOptionOne: false,
+      quizOptionTwo: false,
+      quizOptionThree: false,
+      quizOptionFour: false,
     }
 
     window.interactiveHint = this
@@ -69,6 +73,22 @@ class InteractiveHint extends Component {
 
   toggleQuiz() {
     this.setState({ quiz: !this.state.quiz });
+  }
+
+  toggleQuizOptionOne() {
+    this.setState({ quizOptionOne: !this.state.quizOptionOne });
+  }
+
+  toggleQuizOptionTwo() {
+    this.setState({ quizOptionTwo: !this.state.quizOptionTwo });
+  }
+
+  toggleQuizOptionThree() {
+    this.setState({ quizOptionThree: !this.state.quizOptionThree });
+  }
+
+  toggleQuizOptionFour() {
+    this.setState({ quizOptionFour: !this.state.quizOptionFour });
   }
 
   toggleConditionOne() {
@@ -340,17 +360,25 @@ saveLogSubmission(attempt) {
             } />
         </div>
 
-        <Modal open={this.state.quiz} style={inlineStyle.modal} onClose={this.close}>
-          <Modal.Header>Quiz</Modal.Header>
+        <Modal
+          open={this.state.quiz}
+          style={inlineStyle.modal}
+          closeOnEscape={false}
+          closeOnRootNodeClick={false}
+          onClose={this.close}>
+
+          <Header icon='cubes' content='Quiz' />
           <Modal.Content>
             <Modal.Description>
               <p>Selecione outras implementações que também sejam corretas para este exercício:</p>
             </Modal.Description>
-            <br/>
+            <br />
             <Grid centered>
               <Grid.Row stretched>
                 <Grid.Column width={8}>
                   <Segment raised>
+                    <Button circular toggle icon='checkmark' size="mini" floated="right"
+                      active={this.state.quizOptionOne} onClick={this.toggleQuizOptionOne.bind(this)} />
                     <Highlight className="python">
                       {`${this.state.studentCode}`}
                     </Highlight>
@@ -358,6 +386,8 @@ saveLogSubmission(attempt) {
                 </Grid.Column>
                 <Grid.Column width={8}>
                   <Segment raised>
+                    <Button circular toggle icon='checkmark' size="mini" floated="right"
+                      active={this.state.quizOptionTwo} onClick={this.toggleQuizOptionTwo.bind(this)} />
                     <Highlight className="python">
                       {`${this.state.studentCode}`}
                     </Highlight>
@@ -368,6 +398,8 @@ saveLogSubmission(attempt) {
               <Grid.Row stretched>
                 <Grid.Column width={8}>
                   <Segment raised>
+                    <Button circular toggle icon='checkmark' size="mini" floated="right"
+                      active={this.state.quizOptionThree} onClick={this.toggleQuizOptionThree.bind(this)} />
                     <Highlight className="python">
                       {`${this.state.studentCode}`}
                     </Highlight>
@@ -375,6 +407,8 @@ saveLogSubmission(attempt) {
                 </Grid.Column>
                 <Grid.Column width={8}>
                   <Segment raised>
+                    <Button circular toggle icon='checkmark' size="mini" floated="right"
+                      active={this.state.quizOptionFour} onClick={this.toggleQuizOptionFour.bind(this)} />
                     <Highlight className="python">
                       {`${this.state.studentCode}`}
                     </Highlight>
@@ -383,11 +417,9 @@ saveLogSubmission(attempt) {
               </Grid.Row>
             </Grid>
           </Modal.Content>
+
           <Modal.Actions>
-            <Button color='black' onClick={this.close}>
-              Nope
-            </Button>
-            <Button positive icon='checkmark' labelPosition='right' content="Yep, that's me" onClick={this.close} />
+            <Button positive icon='checkmark' labelPosition='right' content="Enviar" onClick={this.close} />
           </Modal.Actions>
         </Modal>
 
