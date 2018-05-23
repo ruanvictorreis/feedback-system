@@ -398,7 +398,7 @@ saveLogSubmission(attempt) {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionOne} onClick={this.toggleQuizOptionOne.bind(this)} />
                     <Highlight className="python">
-                      {`${this.state.quizItems[0]}`}
+                      {this.state.quizView ? this.state.quizItems[0].code : ''}
                     </Highlight>
                   </Segment>
                 </Grid.Column>
@@ -407,7 +407,7 @@ saveLogSubmission(attempt) {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionTwo} onClick={this.toggleQuizOptionTwo.bind(this)} />
                     <Highlight className="python">
-                      {`${this.state.quizItems[1]}`}
+                      {this.state.quizView ? this.state.quizItems[1].code : ''}
                     </Highlight>
                   </Segment>
                 </Grid.Column>
@@ -419,7 +419,7 @@ saveLogSubmission(attempt) {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionThree} onClick={this.toggleQuizOptionThree.bind(this)} />
                     <Highlight className="python">
-                      {`${this.state.quizItems[2]}`}
+                      {this.state.quizView ? this.state.quizItems[2].code : ''}
                     </Highlight>
                   </Segment>
                 </Grid.Column>
@@ -428,7 +428,7 @@ saveLogSubmission(attempt) {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionFour} onClick={this.toggleQuizOptionFour.bind(this)} />
                     <Highlight className="python">
-                      {`${this.state.quizItems[3]}`}
+                      {this.state.quizView ? this.state.quizItems[3].code : ''}
                     </Highlight>
                   </Segment>
                 </Grid.Column>

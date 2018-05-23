@@ -7,8 +7,8 @@ router.post('/', function (request, response) {
     const register = data.register;
     const assignment = data.assignment;
 
-    const proportionList = [(4, 0), (3, 1), (2, 2), (1, 3), (0, 4)];
-    const proportion = proportionList[Math.floor(Math.random * proportionList.length)];
+    var proportionList = [[4, 0], [3, 1], [2, 2], [1, 3], [0, 4]];
+    proportionList.sort(function () { return Math.round(Math.random()); });
 
     var specList = [];
     const specsPath = `./assignments/${assignment}/specs/`;
@@ -30,6 +30,7 @@ router.post('/', function (request, response) {
     trickList.sort(function () { return Math.round(Math.random()); });
 
     var items = [];
+    var proportion = proportionList.pop();
 
     for (var i = 0; i < proportion[0]; i++) {
         var item = {};
@@ -38,7 +39,7 @@ router.post('/', function (request, response) {
         items.push(item);
     }
 
-    for (var i = j; j < proportion[1]; j++) {
+    for (var j = 0; j < proportion[1]; j++) {
         var item = {};
         item.code = trickList.pop();
         item.isCorrect = false;
