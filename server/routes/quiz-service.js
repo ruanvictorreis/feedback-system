@@ -6,9 +6,7 @@ router.post('/', function (request, response) {
     const data = request.body;
     const register = data.register;
     const assignment = data.assignment;
-
-    var proportionList = [[4, 0], [3, 1], [2, 2], [1, 3], [0, 4]];
-    proportionList.sort(function () { return Math.round(Math.random()); });
+    const proportionList = [[4, 0], [3, 1], [2, 2], [1, 3], [0, 4]];
 
     var specList = [];
     const specsPath = `./assignments/${assignment}/specs/`;
@@ -26,11 +24,14 @@ router.post('/', function (request, response) {
         trickList.push(content);
     });
 
-    specList.sort(function () { return Math.round(Math.random()); });
-    trickList.sort(function () { return Math.round(Math.random()); });
+    shuffle(specList);
+    shuffle(trickList);
+
+    shuffle(proportionList);
+    shuffle(proportionList);
 
     var items = [];
-    var proportion = proportionList.pop();
+    var proportion = proportionList[Math.floor(Math.random() * proportionList.length)];
 
     for (var i = 0; i < proportion[0]; i++) {
         var item = {};
@@ -46,7 +47,7 @@ router.post('/', function (request, response) {
         items.push(item);
     }
 
-    items.sort(function () { return Math.round(Math.random()); });
+    shuffle(items);
 
     var quiz = {};
     quiz.register = register;
@@ -56,5 +57,17 @@ router.post('/', function (request, response) {
     response.json(quiz);
 });
 
+function shuffle(array) {
+    var i = 0
+        , j = 0
+        , temp = null
+
+    for (i = array.length - 1; i > 0; i -= 1) {
+        j = Math.floor(Math.random() * (i + 1))
+        temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+    }
+}
 
 module.exports = router;

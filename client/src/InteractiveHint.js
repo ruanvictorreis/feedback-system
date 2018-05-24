@@ -78,6 +78,26 @@ class InteractiveHint extends Component {
     this.setState({ isLoading: !this.state.isLoading });
   }
 
+  saveQuizResult() {
+    const studentChoices = [
+      this.state.quizOptionOne,
+      this.state.quizOptionTwo,
+      this.state.quizOptionThree,
+      this.state.quizOptionFour
+    ];
+
+    var score = 0;
+    const items = this.state.quizItems;
+
+    for (var i = 0; i < items.length; i++) {
+      if (studentChoices[i] == items[i].isCorrect) {
+        score = score + 1;
+      }
+    }
+
+    this.toggleQuiz();
+  }
+
   toggleQuiz() {
     this.setState({ quizView: !this.state.quizView });
   }
@@ -344,8 +364,7 @@ saveLogSubmission(attempt) {
 	}
   */
 
-
-  close = () => this.toggleQuiz();
+  close = () => this.saveQuizResult();
 
   render() {
     const options = {
@@ -382,8 +401,7 @@ saveLogSubmission(attempt) {
           open={this.state.quizView}
           style={inlineStyle.modal}
           closeOnEscape={false}
-          closeOnRootNodeClick={false}
-          onClose={this.close}>
+          closeOnRootNodeClick={false}>
 
           <Header icon='cubes' content='Quiz' />
           <Modal.Content>
