@@ -33,6 +33,7 @@ class InteractiveHint extends Component {
 
       result: 0,
       expected: 0,
+      currentCondition: 0,
 
       claraView: false,
       testCaseView: false,
@@ -63,7 +64,7 @@ class InteractiveHint extends Component {
       this.setState({ register: info.register });
       this.setState({ assignment: info.assignment });
       this.setState({ studentCode: info.templateCode });
-      //this.setState({ condition: info.condition });
+      //this.setState({ currentCondition: info.condition });
       //this.showCondition(info.condition);
       this.toggleConditionOne();
       this.cm.setValue(info.templateCode);
@@ -86,14 +87,36 @@ class InteractiveHint extends Component {
       this.state.quizOptionFour
     ];
 
-    var score = 0;
+    var quizScore = 0;
     const items = this.state.quizItems;
 
     for (var i = 0; i < items.length; i++) {
-      if (studentChoices[i] == items[i].isCorrect) {
-        score = score + 1;
+      items[i].answer = studentChoices[i];
+
+      if (items[i].answer == items[i].isCorrect) {
+        quizScore = quizScore + 1;
       }
     }
+
+    var quiz = {
+      Register: this.state.register,
+      Assignment: this.state.assignment,
+      Score: quizScore,
+      Condition: this.state.currentCondition,
+      ItemOne: JSON.stringify(items[0]),
+      ItemTwo: JSON.stringify(items[1]),
+      ItemThree: JSON.stringify(items[2]),
+      ItemFour: JSON.stringify(items[3]),
+    };
+
+    $.ajax({
+      method: 'POST',
+      url: 'http://feedback-logs.azurewebsites.net/api/quiz',
+      data: quiz
+    })
+      .then((response) => {
+        console.log(response);
+      })
 
     this.toggleQuiz();
   }

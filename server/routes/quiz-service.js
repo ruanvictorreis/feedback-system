@@ -27,6 +27,7 @@ router.post('/', function (request, response) {
     shuffle(specList);
     shuffle(trickList);
 
+    //Twice!!
     shuffle(proportionList);
     shuffle(proportionList);
 
