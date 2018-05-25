@@ -65,7 +65,7 @@ class InteractiveHint extends Component {
       this.setState({ register: info.register });
       this.setState({ assignment: info.assignment });
       this.setState({ studentCode: info.templateCode });
-      //this.setState({ currentCondition: info.condition });
+      this.setState({ currentCondition: info.condition });
       this.setConditionView(info.condition);
       this.cm.setValue(info.templateCode);
     }
