@@ -343,7 +343,7 @@ class InteractiveHint extends Component {
     $.ajax({
       method: 'POST',
       url: 'http://feedback-logs.azurewebsites.net/api/SubmissionLogs/',
-      data: submissionLog
+      data: info
     })
       .then((response) => {
         window.ladder.clearInteractionLogs();
