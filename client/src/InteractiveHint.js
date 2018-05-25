@@ -30,6 +30,7 @@ class InteractiveHint extends Component {
       conditionTwo: false,
       conditionThree: false,
       conditionFour: false,
+      changeCondition: true,
 
       result: 0,
       expected: 0,
@@ -64,9 +65,8 @@ class InteractiveHint extends Component {
       this.setState({ register: info.register });
       this.setState({ assignment: info.assignment });
       this.setState({ studentCode: info.templateCode });
-      //this.setState({ currentCondition: info.condition });
-      //this.showCondition(info.condition);
-      this.toggleConditionOne();
+      this.setState({ currentCondition: info.condition });
+      this.setConditionView(info.condition);
       this.cm.setValue(info.templateCode);
     }
   }
@@ -113,10 +113,7 @@ class InteractiveHint extends Component {
       method: 'POST',
       url: 'http://feedback-logs.azurewebsites.net/api/quiz',
       data: quiz
-    })
-      .then((response) => {
-        console.log(response);
-      })
+    });
 
     this.toggleQuiz();
   }
@@ -142,6 +139,10 @@ class InteractiveHint extends Component {
   }
 
   toggleConditionOne() {
+    if (!this.state.changeCondition) {
+      return;
+    }
+
     this.setState({ conditionOne: true });
     this.setState({ conditionTwo: false });
     this.setState({ conditionThree: false });
@@ -153,6 +154,10 @@ class InteractiveHint extends Component {
   }
 
   toggleConditionTwo() {
+    if (!this.state.changeCondition) {
+      return;
+    }
+
     this.setState({ conditionTwo: true });
     this.setState({ conditionOne: false });
     this.setState({ conditionThree: false });
@@ -164,6 +169,10 @@ class InteractiveHint extends Component {
   }
 
   toggleConditionThree() {
+    if (!this.state.changeCondition) {
+      return;
+    }
+
     this.setState({ conditionThree: true });
     this.setState({ conditionTwo: false });
     this.setState({ conditionOne: false });
@@ -175,6 +184,10 @@ class InteractiveHint extends Component {
   }
 
   toggleConditionFour() {
+    if (!this.state.changeCondition) {
+      return;
+    }
+
     this.setState({ conditionFour: true });
     this.setState({ conditionThree: false });
     this.setState({ conditionTwo: false });
@@ -368,24 +381,25 @@ saveLogSubmission(attempt) {
     window.ladder.init()
   }
 
-	/** 
-	showCondition(mode) {
-		switch (mode) {
-			case 1:
+  setConditionView(mode) {
+    switch (mode) {
+      case 1:
+        this.toggleConditionOne();
+        break;
+      case 2:
+        this.toggleConditionTwo();
+        break;
+      case 3:
+        this.toggleConditionThree();
+        break;
+      case 4:
+        this.toggleConditionFour();
+        break;
+    }
 
-				break
-			case 2:
-
-				break
-			case 3:
-
-				break
-			case 4:
-
-				break
-		}
-	}
-  */
+    const changeable = this.state.currentCondition == 0;
+    this.setState({ changeCondition: changeable });
+  }
 
   close = () => this.saveQuizResult();
 
