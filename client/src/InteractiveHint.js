@@ -334,36 +334,20 @@ class InteractiveHint extends Component {
       DateTime: new Date().toLocaleString(),
       SyntaxError: attempt.syntaxError,
       ErrorMsg: attempt.errorMsg,
-
-
+      CodeRepaired: attempt.codeRepaired,
+      IsCodeRepaired: attempt.isCodeRepaired,
+      Repairs: JSON.stringify(attempt.repairs),
+      IsRepaired: attempt.isRepaired
     };
 
-    console.log(attempt);
-    console.log(info);
-
-    /** 
-    var submissionLog = {
-      FixedCode: [],
-      
-
-      HasFix: attempt.FixedCodeList != null && attempt.FixedCodeList.length > 0,
-
-      //LogsInteractionList: window.ladder.getInteractionLogs()
-    }
-
-    if (submissionLog.HasFix) {
-      submissionLog.FixedCode = attempt.FixedCodeList[0];
-    }*/
-    /**
     $.ajax({
       method: 'POST',
       url: 'http://feedback-logs.azurewebsites.net/api/SubmissionLogs/',
       data: submissionLog
     })
       .then((response) => {
-        //window.ladder.clearInteractionLogs();
+        window.ladder.clearInteractionLogs();
       })
-       */
   }
 
   startInteractiveHint(data) {
