@@ -65,7 +65,7 @@ class InteractiveHint extends Component {
       this.setState({ register: info.register });
       this.setState({ assignment: info.assignment });
       this.setState({ studentCode: info.templateCode });
-      this.setState({ currentCondition: info.condition });
+      //this.setState({ currentCondition: info.condition });
       this.setConditionView(info.condition);
       this.cm.setValue(info.templateCode);
     }
@@ -255,6 +255,7 @@ class InteractiveHint extends Component {
         if (response.isRepaired) {
           this.setRepairs(response.repairs);
           this.requestTracesDivergence(response);
+          this.feedbackGenerated(response);
         } else {
           this.claraRepairFail(response);
         }
@@ -287,40 +288,12 @@ class InteractiveHint extends Component {
       })
   }
 
-	/**
-saveLogSubmission(attempt) {
-	var submissionLog = {
-		Condition: this.state.condition,
-		Register: this.state.register,
-		Assignment: this.state.assignment,
-		FixedCode: [],
-		IsCorrect: attempt.PassedTests,
-		DateTime: new Date().toLocaleString(),
-		HasFix: attempt.FixedCodeList != null && attempt.FixedCodeList.length > 0,
-		SubmittedCode: this.state.studentCode,
-		LogsInteractionList: window.ladder.getInteractionLogs()
-	}
-
-	if (submissionLog.HasFix) {
-		submissionLog.FixedCode = attempt.FixedCodeList[0];
-	}
-
-	$.ajax({
-		method: 'POST',
-		url: 'http://tracediff-logs.azurewebsites.net/api/SubmissionLogs/',
-		data: submissionLog
-	})
-		.then((response) => {
-			window.ladder.clearInteractionLogs();
-		})
-}*/
-
   correctSubmission(attempt) {
     this.msg.success('Parabéns! Seu código está correto');
 
     var info = {
-      register: this.state.register,
-      assignment: this.state.assignment
+      register: attempt.register,
+      assignment: attempt.assignment
     };
 
     $.ajax({
@@ -333,17 +306,64 @@ saveLogSubmission(attempt) {
         this.toggleQuiz();
       });
 
-    //this.saveLogSubmission(attempt);
+    this.saveLogSubmission(attempt);
+  }
+
+  feedbackGenerated(attempt) {
+    this.msg.error('Utilize o feedback fornecido para solucionar os problemas do seu código');
+    this.saveLogSubmission(attempt);
   }
 
   syntaxErrorFound(attempt) {
     this.msg.error('Seu código possui um ou mais erros de sintaxe');
-    //this.saveLogSubmission(attempt);
+    this.saveLogSubmission(attempt);
   }
 
   claraRepairFail(attempt) {
     this.msg.error('CLARA: Solução muito distante do esperado');
-    //this.saveLogSubmission(attempt);
+    this.saveLogSubmission(attempt);
+  }
+
+  saveLogSubmission(attempt) {
+    var info = {
+      Register: attempt.register,
+      Assignment: attempt.assignment,
+      Condition: this.state.currentCondition,
+      IsCorrect: attempt.isCorrect,
+      SubmittedCode: attempt.studentCode,
+      DateTime: new Date().toLocaleString(),
+      SyntaxError: attempt.syntaxError,
+      ErrorMsg: attempt.errorMsg,
+
+
+    };
+
+    console.log(attempt);
+    console.log(info);
+
+    /** 
+    var submissionLog = {
+      FixedCode: [],
+      
+
+      HasFix: attempt.FixedCodeList != null && attempt.FixedCodeList.length > 0,
+
+      //LogsInteractionList: window.ladder.getInteractionLogs()
+    }
+
+    if (submissionLog.HasFix) {
+      submissionLog.FixedCode = attempt.FixedCodeList[0];
+    }*/
+    /**
+    $.ajax({
+      method: 'POST',
+      url: 'http://feedback-logs.azurewebsites.net/api/SubmissionLogs/',
+      data: submissionLog
+    })
+      .then((response) => {
+        //window.ladder.clearInteractionLogs();
+      })
+       */
   }
 
   startInteractiveHint(data) {
