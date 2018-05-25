@@ -310,7 +310,7 @@ class InteractiveHint extends Component {
   }
 
   feedbackGenerated(attempt) {
-    this.msg.error('Utilize o feedback fornecido para solucionar os problemas do seu código');
+    this.msg.info('Utilize o feedback fornecido para solucionar os problemas do seu código');
     this.saveLogSubmission(attempt);
   }
 

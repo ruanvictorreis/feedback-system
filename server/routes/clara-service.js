@@ -27,19 +27,20 @@ router.post('/', function (request, response) {
 
     var fileName = register + '.py';
     var repairPath = `./assignments/${assignment}/repairs/${fileName}`;
-    result.repairs = fs.readFileSync(repairPath, 'utf8').split('#');
+    result.repairs = fs.readFileSync(repairPath, 'utf8').trim().split('\n');
     result.isRepaired = true;
 
     args[0] = feedSynthesis
 
     PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
       if (error) {
+        console.log(error.message)
         result.codeRepaired = '';
         result.isCodeRepaired = false;
         response.json(result);
         return;
       }
-
+      
       var fileName = register + '.py';
       var repairPath = `./assignments/${assignment}/repairs/${fileName}`;
       result.codeRepaired = fs.readFileSync(repairPath, 'utf8');
