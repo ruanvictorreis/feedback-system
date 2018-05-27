@@ -13,8 +13,12 @@ class InteractiveHint extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      test: '',
+      failedTest: '',
+      obtained: 0,
+      expected: 0,
+
       repairs: [],
+      currentCondition: 0,
 
       afterHistory: {},
       beforeHistory: {},
@@ -31,10 +35,6 @@ class InteractiveHint extends Component {
       conditionThree: false,
       conditionFour: false,
       changeCondition: true,
-
-      result: 0,
-      expected: 0,
-      currentCondition: 0,
 
       claraView: false,
       testCaseView: false,
@@ -231,7 +231,54 @@ class InteractiveHint extends Component {
         if (response.isCorrect) {
           this.correctSubmission(response);
         } else {
-          this.synthesizeFixByClara(response);
+          this.feedbackGeneration(response);
+        }
+      });
+  }
+
+  feedbackGeneration(attempt) {
+    switch (this.state.currentCondition) {
+      case 1:
+        this.testCaseFeedback(attempt);
+        break;
+      case 2:
+        this.claraRepairFeedback(attempt);
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+    }
+  }
+
+  testCaseFeedback(attempt) {
+    this.setState({ failedTest: attempt.failedTest });
+    this.setState({ obtained: attempt.obtained });
+    this.setState({ expected: attempt.expected });
+  }
+
+  claraRepairFeedback(attempt) {
+    if (attempt.syntaxError) {
+      this.syntaxErrorFound(attempt);
+      return;
+    }
+
+    this.toggleLoader();
+
+    $.ajax({
+      method: 'POST',
+      url: 'http://localhost:8081/api/clara/python/',
+      data: attempt
+    })
+      .then((response) => {
+        this.toggleLoader();
+
+        if (response.isRepaired) {
+          this.setRepairs(response.repairs);
+          //this.requestTracesDivergence(response);
+          //TODO HERE this.feedbackGenerated(response);
+        } else {
+          this.claraRepairFail(response);
         }
       })
   }
@@ -255,7 +302,7 @@ class InteractiveHint extends Component {
         if (response.isRepaired) {
           this.setRepairs(response.repairs);
           this.requestTracesDivergence(response);
-          this.feedbackGenerated(response);
+          // TODO HERE this.feedbackGenerated(response);
         } else {
           this.claraRepairFail(response);
         }
@@ -399,10 +446,9 @@ class InteractiveHint extends Component {
       case 4:
         this.toggleConditionFour();
         break;
+      default:
+        this.toggleConditionOne();
     }
-
-    const changeable = this.state.currentCondition == 0;
-    this.setState({ changeCondition: changeable });
   }
 
   close = () => this.saveQuizResult();
@@ -528,12 +574,12 @@ class InteractiveHint extends Component {
                 <Grid centered>
                   <Grid.Column width={8}>
                     <Highlight className="python">
-                      {`# Obtido:\n${this.state.test}\n>>> ${this.state.result}`}
+                      {`# Obtido:\n${this.state.failedTest}\n>>> ${this.state.obtained}`}
                     </Highlight>
                   </Grid.Column>
                   <Grid.Column width={8}>
                     <Highlight className="python">
-                      {`# Esperado:\n${this.state.test}\n>>> ${this.state.expected}`}
+                      {`# Esperado:\n${this.state.failedTest}\n>>> ${this.state.expected}`}
                     </Highlight>
                   </Grid.Column>
                 </Grid>

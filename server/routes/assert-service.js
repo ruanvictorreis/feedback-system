@@ -16,7 +16,7 @@ router.post('/', function (request, response) {
     if (error) {
       assert.errorAnalysis(error);
     }
-  
+
     response.json(assert.getResult());
   });
 });
