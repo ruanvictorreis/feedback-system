@@ -48,10 +48,9 @@ class Item {
   constructor(item, id) {
     this.item = item
     this.id = id
-    this.studentId = this.item.studentId
-    this.rule = this.item.UsedFix
-    this.before = this.item.before
-    this.after = this.item.SynthesizedAfter
+    this.register = this.item.register
+    this.studentCode = this.item.studentCode
+    this.codeRepaired = this.item.codeRepaired
     this.code = ''
     this.diffs = []
     this.added = []
@@ -65,19 +64,19 @@ class Item {
   }
 
   getDiff() {
-    if (this.before.includes('from operator import')) {
+    if (this.studentCode.includes('from operator import')) {
       let lines = []
-      for (let line of this.before.split('\r\n')) {
+      for (let line of this.studentCode.split('\r\n')) {
         if (line.includes('from operator import')) continue
         lines.push(line)
       }
-      this.before = lines.join('\n')
+      this.studentCode = lines.join('\n')
     }
 
-    this.before = this.before.replace(/\r\n/g, '\n');
-    this.after = this.after.replace(/\r\n/g, '\n');
+    this.studentCode = this.studentCode.replace(/\r\n/g, '\n');
+    this.codeRepaired = this.codeRepaired.replace(/\r\n/g, '\n');
 
-    let diffs = jsdiff.diffJson(this.before, this.after)
+    let diffs = jsdiff.diffJson(this.studentCode, this.codeRepaired)
     let line = -1
     let code = ''
     let added = []

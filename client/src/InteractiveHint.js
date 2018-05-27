@@ -93,7 +93,7 @@ class InteractiveHint extends Component {
     for (var i = 0; i < items.length; i++) {
       items[i].answer = studentChoices[i];
 
-      if (items[i].answer == items[i].isCorrect) {
+      if (items[i].answer === items[i].isCorrect) {
         quizScore = quizScore + 1;
       }
     }
@@ -315,14 +315,13 @@ class InteractiveHint extends Component {
 
   requestTracesDivergence(attempt) {
     var info = {
-      studentId: attempt.register,
-      date: new Date().toLocaleString(),
-      before: attempt.studentCode,
-      SynthesizedAfter: attempt.codeRepaired,
-      IsFixed: true,
-      failed: attempt.errorMsg.split('\n'),
       register: attempt.register,
-      assignment: attempt.assignment
+      studentCode: attempt.studentCode,
+      codeRepaired: attempt.codeRepaired,
+      assignment: attempt.assignment,
+      failedTest: attempt.failedTest,
+      expected: attempt.expected,
+      obtained: attempt.obtained
     }
 
     this.toggleLoader();
@@ -336,7 +335,7 @@ class InteractiveHint extends Component {
         this.toggleLoader();
         const data = JSON.parse(response);
         this.startInteractiveHint(data);
-      })
+      });
   }
 
   correctSubmission(attempt) {
