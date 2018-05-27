@@ -50,21 +50,6 @@ class Ladder extends Component {
     }
   }
 
-  copyPythonTutorLogs() {
-    if (window.viz.navControls != null) {
-      var ptLogs = window.viz.navControls.interactionLogs;
-      for (var log in ptLogs) {
-        this.addLogInteraction(ptLogs[log]);
-      }
-    }
-  }
-
-  clearPythonTutorLogs() {
-    if (window.viz.navControls != null) {
-      window.viz.navControls.interactionLogs = [];
-    }
-  }
-
   getInteractionLogs() {
     this.copyPythonTutorLogs();
     return this.state.interactionLogs;

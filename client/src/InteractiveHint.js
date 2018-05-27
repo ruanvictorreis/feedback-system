@@ -414,7 +414,7 @@ class InteractiveHint extends Component {
     record.check()
 
     let state = Object.assign(item, {
-      id: item.studentId,
+      id: item.register,
       beforeTraces: stream.beforeTraces,
       afterTraces: stream.afterTraces,
       traces: stream.traces,
@@ -612,10 +612,7 @@ class InteractiveHint extends Component {
                   currentCode={this.state.currentCode}
                   beforeCode={this.state.beforeCode}
                   before={this.state.before}
-                  focusKeys={this.state.focusKeys}
-                  test={this.state.test}
-                  expected={this.state.expected}
-                  result={this.state.result} />
+                  focusKeys={this.state.focusKeys} />
               </Message>
             </Grid.Column>
           </Grid.Row>
