@@ -142,7 +142,7 @@ class InteractiveHint extends Component {
     if (!this.state.changeCondition) {
       return;
     }
-
+	
     this.setState({ conditionOne: true });
     this.setState({ conditionTwo: false });
     this.setState({ conditionThree: false });
@@ -151,6 +151,7 @@ class InteractiveHint extends Component {
     this.setState({ claraView: false });
     this.setState({ traceDiffView: false });
     this.setState({ pythonTutorView: false });
+    this.setState({ currentCondition: 1 });
   }
 
   toggleConditionTwo() {
@@ -166,6 +167,7 @@ class InteractiveHint extends Component {
     this.setState({ claraView: true });
     this.setState({ traceDiffView: false });
     this.setState({ pythonTutorView: false });
+    this.setState({ currentCondition: 2 });
   }
 
   toggleConditionThree() {
@@ -181,6 +183,7 @@ class InteractiveHint extends Component {
     this.setState({ traceDiffView: true });
     this.setState({ claraView: false });
     this.setState({ pythonTutorView: false });
+    this.setState({ currentCondition: 3 });
   }
 
   toggleConditionFour() {
@@ -196,6 +199,7 @@ class InteractiveHint extends Component {
     this.setState({ pythonTutorView: true });
     this.setState({ traceDiffView: false });
     this.setState({ claraView: false });
+    this.setState({ currentCondition: 4 });
   }
 
   setCurrentCode() {
@@ -242,11 +246,14 @@ class InteractiveHint extends Component {
         this.testCaseFeedback(attempt);
         break;
       case 2:
+        this.testCaseFeedback(attempt);
         this.claraRepairFeedback(attempt);
         break;
       case 3:
+        this.testCaseFeedback(attempt);
         break;
       case 4:
+        this.testCaseFeedback(attempt);
         break;
     }
   }
