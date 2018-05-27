@@ -24,7 +24,6 @@ class Ladder extends Component {
       diffIndex: null,
       focusKeys: [],
       condition: 0,
-      interactionLogs: [],
     }
     window.ladder = this
   }
@@ -40,32 +39,9 @@ class Ladder extends Component {
     this.generate('after')
   }
 
-  addLogInteraction(newLog) {
-    var newList = this.state.interactionLogs;
-    var containsLog = newList.indexOf(newLog) > -1;
-
-    if (!containsLog) {
-      newList.push(newLog);
-      this.setState({ interactionLogs: newList });
-    }
-  }
-
-  getInteractionLogs() {
-    this.copyPythonTutorLogs();
-    return this.state.interactionLogs;
-  }
-
-  clearInteractionLogs() {
-    this.clearPythonTutorLogs();
-    this.setState({ interactionLogs: [] });
-  }
-
   onChange(value) {
     if (value > this.state.max) return false
     this.setState({ level: value }, () => {
-      this.copyPythonTutorLogs();
-      this.clearPythonTutorLogs();
-      this.addLogInteraction(`Interaction with Levels of Abstraction (level= ${value}, date=${new Date().toLocaleString()})`);
       this.init()
     })
   }
