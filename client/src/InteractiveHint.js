@@ -142,7 +142,7 @@ class InteractiveHint extends Component {
     if (!this.state.changeCondition) {
       return;
     }
-	
+
     this.setState({ conditionOne: true });
     this.setState({ conditionTwo: false });
     this.setState({ conditionThree: false });
@@ -223,6 +223,25 @@ class InteractiveHint extends Component {
     this.assertImplementation(attempt);
   }
 
+  feedbackGeneration(attempt) {
+    switch (this.state.currentCondition) {
+      case 1:
+        this.testCaseFeedback(attempt);
+        break;
+      case 2:
+        this.testCaseFeedback(attempt);
+        this.claraRepairFeedback(attempt);
+        break;
+      case 3:
+        this.testCaseFeedback(attempt);
+        this.traceDiffFeedback(attempt);
+        break;
+      case 4:
+        this.testCaseFeedback(attempt);
+        break;
+    }
+  }
+
   assertImplementation(attempt) {
     $.ajax({
       method: 'POST',
@@ -238,24 +257,6 @@ class InteractiveHint extends Component {
           this.feedbackGeneration(response);
         }
       });
-  }
-
-  feedbackGeneration(attempt) {
-    switch (this.state.currentCondition) {
-      case 1:
-        this.testCaseFeedback(attempt);
-        break;
-      case 2:
-        this.testCaseFeedback(attempt);
-        this.claraRepairFeedback(attempt);
-        break;
-      case 3:
-        this.testCaseFeedback(attempt);
-        break;
-      case 4:
-        this.testCaseFeedback(attempt);
-        break;
-    }
   }
 
   testCaseFeedback(attempt) {
@@ -282,15 +283,13 @@ class InteractiveHint extends Component {
 
         if (response.isRepaired) {
           this.setRepairs(response.repairs);
-          //this.requestTracesDivergence(response);
-          //TODO HERE this.feedbackGenerated(response);
         } else {
           this.claraRepairFail(response);
         }
-      })
+      });
   }
 
-  synthesizeFixByClara(attempt) {
+  traceDiffFeedback(attempt) {
     if (attempt.syntaxError) {
       this.syntaxErrorFound(attempt);
       return;
@@ -300,20 +299,18 @@ class InteractiveHint extends Component {
 
     $.ajax({
       method: 'POST',
-      url: 'http://localhost:8081/api/clara/',
+      url: 'http://localhost:8081/api/clara/synthesis/',
       data: attempt
     })
       .then((response) => {
         this.toggleLoader();
 
-        if (response.isRepaired) {
-          this.setRepairs(response.repairs);
+        if (response.isCodeRepaired) {
           this.requestTracesDivergence(response);
-          // TODO HERE this.feedbackGenerated(response);
         } else {
           this.claraRepairFail(response);
         }
-      })
+      });
   }
 
   requestTracesDivergence(attempt) {

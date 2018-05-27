@@ -111,47 +111,10 @@ class Item {
   }
 
   getTest() {
-    let i = 0
-    let testIndex = 0
-    let errorIndex = 0
-    let failed = this.item['failed[]']
-
-    let functionPattern = '>>> '
-    let errorPattern = '# Error: expected'
-    let valuePattern = '#'
-
-    for (let text of failed) {
-      if (text.includes(functionPattern)) testIndex = i
-      if (text.includes(errorPattern)) errorIndex = i
-      i++
-    }
-
-    let test = failed[testIndex]
-    let funcIndex = test.indexOf(functionPattern) + functionPattern.length
-    test = test.substr(funcIndex).trim()
-
-    let expected = failed[errorIndex + 1]
-    let expecIndex = expected.indexOf(valuePattern) + valuePattern.length
-    expected = expected.substr(expecIndex).trim()
-
-    let result = failed[errorIndex + 3]
-    let resultIndex = result.indexOf(valuePattern) + valuePattern.length
-    result = result.substr(resultIndex).trim()
-
-    if (!isNaN(parseInt(result))) {
-      result = parseInt(result)
-    }
-
-    if (!isNaN(parseInt(expected))) {
-      expected = parseInt(expected)
-    }
-
-    let log = failed.slice(testIndex, errorIndex + 4).join('\n')
-
-    this.test = test
-    this.expected = expected
-    this.result = result
-    this.log = log.trim()
+    this.failedTest = this.item.failedTest
+    this.expected = this.item.expected
+    this.obtained = this.item.obtained
+    this.log = this.item.errorMsg
   }
 }
 
