@@ -20,7 +20,7 @@ class Tree {
   analyze(ast) {
     if (!ast || ast.error) return false
     let body = ast.Module.body[0]
-    let key = Object.keys(body)[0]
+    //let key = Object.keys(body)[0]
 
     for (let key of Object.keys(body)) {
       let el = body[key]
@@ -129,25 +129,18 @@ class Tree {
     switch (key) {
       case 'Call':
         return this.addCall(node)
-        break
       case 'Name':
         return this.addName(node)
-        break
       case 'BinOp':
         return this.addBinOp(node)
-        break
       case 'Num':
         return this.addNum(node)
-        break
       case 'Str':
         return this.addStr(node)
-        break
       case 'Tuple':
         return this.addTuple(node)
-        break
       case 'Compare':
         return this.addCompare(node)
-        break
       default:
         return
     }
@@ -227,6 +220,7 @@ class Tree {
       ops: ops,
       updates: [],
     }
+    return node
   }
 
   addBinOp(el) {
@@ -324,14 +318,11 @@ class Tree {
   }
 
   getValue(key) {
-    let value
     if (!Object.keys(this.history).includes(key)) {
       return key
     }
     return this.history[key]['value']
   }
-
-
 }
 
 

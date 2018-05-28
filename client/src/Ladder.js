@@ -47,16 +47,6 @@ class Ladder extends Component {
   onClick(index, line, event) {
     this.onChange(this.state.level + 1)
     return false
-
-    $(event.target).removeClass('primary')
-    setTimeout(() => {
-      let target = $(`#hoge .CodeMirror`)
-      target.popup('toggle')
-
-      let top = 75 + parseInt(line) * 24
-      $('.inline-hint').css('top', `${top}px`)
-      window.cm.addLineClass(line - 1, '', 'current-line')
-    }, 100)
   }
 
   onClose() {
