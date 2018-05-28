@@ -271,6 +271,10 @@ class InteractiveHint extends Component {
     this.setState({ failedTest: attempt.failedTest });
     this.setState({ obtained: attempt.obtained });
     this.setState({ expected: attempt.expected });
+
+    if (this.state.currentCondition == 1) {
+      this.feedbackGenerated(attempt);
+    }
   }
 
   claraRepairFeedback(attempt) {
@@ -291,6 +295,7 @@ class InteractiveHint extends Component {
 
         if (response.isRepaired) {
           this.setRepairs(response.repairs);
+          this.feedbackGenerated(response);
         } else {
           this.claraRepairFail(response);
         }
@@ -315,6 +320,7 @@ class InteractiveHint extends Component {
 
         if (response.isCodeRepaired) {
           this.requestTraces(response);
+          this.feedbackGenerated(response);
         } else {
           this.claraRepairFail(response);
         }
@@ -350,6 +356,7 @@ class InteractiveHint extends Component {
     const pythonCode = encodeURIComponent(`${attempt.studentCode}\n\n${attempt.failedTest}`);
     const pythonTutorURL = `http://pythontutor.com/iframe-embed.html#code=${pythonCode}&py=2`;
     this.setState({ pythonTutorURL: pythonTutorURL });
+    this.feedbackGenerated(attempt);
   }
 
   correctSubmission(attempt) {
