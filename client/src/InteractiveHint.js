@@ -19,7 +19,7 @@ class InteractiveHint extends Component {
 
       repairs: [],
       currentCondition: 0,
-      iframeHeight: 177,
+      iframeHeight: 135,
 
       afterHistory: {},
       beforeHistory: {},
@@ -36,7 +36,7 @@ class InteractiveHint extends Component {
       conditionTwo: false,
       conditionThree: false,
       conditionFour: false,
-      changeCondition: false,
+      changeCondition: true,
 
       claraView: false,
       testCaseView: false,
@@ -475,6 +475,8 @@ class InteractiveHint extends Component {
       default:
         this.toggleConditionOne();
     }
+
+    this.setState({ changeCondition: false });
   }
 
   close = () => this.saveQuizResult();
