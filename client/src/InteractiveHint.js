@@ -19,6 +19,7 @@ class InteractiveHint extends Component {
 
       repairs: [],
       currentCondition: 0,
+      iframeHeight: 135,
 
       afterHistory: {},
       beforeHistory: {},
@@ -272,7 +273,7 @@ class InteractiveHint extends Component {
     this.setState({ obtained: attempt.obtained });
     this.setState({ expected: attempt.expected });
 
-    if (this.state.currentCondition == 1) {
+    if (this.state.currentCondition === 1) {
       this.feedbackGenerated(attempt);
     }
   }
@@ -356,6 +357,7 @@ class InteractiveHint extends Component {
     const pythonCode = encodeURIComponent(`${attempt.studentCode}\n\n${attempt.failedTest}`);
     const pythonTutorURL = `http://pythontutor.com/iframe-embed.html#code=${pythonCode}&py=2`;
     this.setState({ pythonTutorURL: pythonTutorURL });
+    this.setState({ iframeHeight: 400 });
     this.feedbackGenerated(attempt);
   }
 
@@ -616,8 +618,8 @@ class InteractiveHint extends Component {
 
               <Message className="ui message hint-message" style={{ display: this.state.pythonTutorView ? 'block' : 'none' }}>
                 <h3>Python Tutor</h3>
-                <iframe title="Python Tutor" width="800" height="400" frameBorder="0"
-                  key={this.state.pythonTutorURL} src={this.state.pythonTutorURL}>
+                <iframe title="Python Tutor" width={800} height={this.state.iframeHeight}
+                  frameBorder={0} key={this.state.pythonTutorURL} src={this.state.pythonTutorURL}>
                 </iframe>
               </Message>
 
