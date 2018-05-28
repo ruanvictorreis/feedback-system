@@ -6,7 +6,6 @@ import _ from 'lodash';
 import $ from 'jquery';
 
 import 'rc-slider/assets/index.css';
-import ExecutionVisualizer from './python-tutor/ExecutionVisualizer';
 
 class Ladder extends Component {
   constructor(props) {
@@ -23,7 +22,6 @@ class Ladder extends Component {
       currentLine: null,
       diffIndex: null,
       focusKeys: [],
-      condition: 0,
     }
     window.ladder = this
   }
@@ -90,59 +88,6 @@ class Ladder extends Component {
     if (!popup.hasClass('visible')) {
       window.cm.removeLineClass(line - 1, '', 'current-line')
     }
-  }
-
-  initVisualization(id = 0) {
-    let data = {
-      code: this.props.beforeCode,
-      trace: this.props.beforeTraces,
-      history: this.state.beforeEvents,
-      afterTrace: this.props.afterTraces,
-      afterHistory: this.state.afterEvents,
-    }
-    if (id === 1) {
-      data.history = []
-      data.afterTrace = []
-      data.afterHistory = []
-    }
-    let options = {
-      embeddedMode: true,
-      lang: 'py2',
-      startingInstruction: 0,
-      editCodeBaseURL: 'visualize.html',
-      // hideCode: true,
-    }
-    window.viz = new ExecutionVisualizer('viz', data, options);
-    window.viz.renderStep(0)
-    this.setState({ condition: id })
-  }
-
-  visualize(index) {
-    if (!window.viz.renderStep) {
-      this.initVisualization(this.state.condition)
-    }
-
-    let startIndex
-    let stopIndex
-    if (index === 0) {
-      startIndex = this.state.beforeEvents[index].traceIndex
-      stopIndex = this.state.beforeEvents[index].traceIndex
-    } else {
-      startIndex = this.state.beforeEvents[index - 1].traceIndex
-      stopIndex = this.state.beforeEvents[index].traceIndex
-    }
-
-    let count = startIndex
-    const animate = () => {
-      let timer = setTimeout(animate, 100)
-      window.viz.renderStep(count)
-      count++
-      if (count > stopIndex) {
-        clearTimeout(timer)
-      }
-    }
-
-    animate()
   }
 
   generate(type) {
@@ -267,36 +212,27 @@ class Ladder extends Component {
       }
       this.setState({ diffIndex: diffIndex })
 
-      this.initVisualization(this.state.condition)
+      this.initVisualization()
     })
   }
 
 
   renderEvent(event, index) {
-    let showWhy = false
-    if (event.type === 'call') showWhy = false
-    if (event.updates.length < 2) showWhy = false
     let className = 'history-line'
     className += ` line-${index} `
-    if (this.state.diffIndex === index && (this.state.condition === 0 || this.state.condition === 3)) className += ' diff-line'
+    if (this.state.diffIndex === index) className += ' diff-line'
     return (
       <div className={className} data-index={index} key={index}>
         <p style={{ paddingLeft: `${10 * event.indent}px`, cursor: 'pointer' }}
           onMouseOver={this.onMouseOver.bind(this, event, index)}
-          onMouseOut={this.onMouseOut.bind(this, event, index)}
-          onClick={this.visualize.bind(this, index)}
-        >
-          <span style={{ display: (this.state.condition === 0 || this.state.condition === 3) ? 'inline' : 'none' }}>
+          onMouseOut={this.onMouseOut.bind(this, event, index)}>
+          <span>
             {index < this.state.diffIndex ? <i className="fa fa-check fa-fw"></i> : <i className="fa fa-fw fa-angle-right"></i>}
             &nbsp;
           </span>
           {event.html.map((html, index) => {
             return <span key={index} className={`hljs-${html.className}`}>{html.text}</span>
           })}
-          <span id={`why-${index}`} style={{ display: showWhy ? 'inline' : 'none' }}>
-            &nbsp;
-          <i className="fa fa-long-arrow-right fa-fw"></i><a onClick={this.onClick.bind(this, index, event.line)}> why ?</a>
-          </span>
         </p>
       </div>
     )

@@ -28,6 +28,7 @@ class InteractiveHint extends Component {
       register: '',
       assignment: '',
       studentCode: '',
+      pythonTutorURL: '',
 
       isLoading: false,
       conditionOne: false,
@@ -238,6 +239,7 @@ class InteractiveHint extends Component {
         break;
       case 4:
         this.testCaseFeedback(attempt);
+        this.pythonTutorFeedback(attempt);
         break;
     }
   }
@@ -306,14 +308,14 @@ class InteractiveHint extends Component {
         this.toggleLoader();
 
         if (response.isCodeRepaired) {
-          this.requestTracesDivergence(response);
+          this.requestTraces(response);
         } else {
           this.claraRepairFail(response);
         }
       });
   }
 
-  requestTracesDivergence(attempt) {
+  requestTraces(attempt) {
     var info = {
       register: attempt.register,
       studentCode: attempt.studentCode,
@@ -334,8 +336,14 @@ class InteractiveHint extends Component {
       .then((response) => {
         this.toggleLoader();
         const data = JSON.parse(response);
-        this.startInteractiveHint(data);
+        this.showTraceDiff(data);
       });
+  }
+
+  pythonTutorFeedback(attempt) {
+    const pythonCode = encodeURIComponent(`${attempt.studentCode}\n${attempt.failedTest}`);
+    const pythonTutorURL = `http://pythontutor.com/iframe-embed.html#code=${pythonCode}&py=2`;
+    this.setState({ pythonTutorURL: pythonTutorURL });
   }
 
   correctSubmission(attempt) {
@@ -400,7 +408,7 @@ class InteractiveHint extends Component {
       })
   }
 
-  startInteractiveHint(data) {
+  showTraceDiff(data) {
     var item = data[0]
 
     let stream = new Stream()
@@ -595,7 +603,9 @@ class InteractiveHint extends Component {
 
               <Message className="ui message hint-message" style={{ display: this.state.pythonTutorView ? 'block' : 'none' }}>
                 <h3>Python Tutor</h3>
-                <div id="viz" />
+                <iframe width="800" height="300" frameborder="0"
+                  src={this.state.pythonTutorURL}>
+                </iframe>
               </Message>
 
               <Message className="ui message hint-message" style={{ display: this.state.traceDiffView ? 'block' : 'none' }}>
