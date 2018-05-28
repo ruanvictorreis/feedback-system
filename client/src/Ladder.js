@@ -231,6 +231,7 @@ class Ladder extends Component {
         <div className="ui two column grid">
           <div className="eight wide column">
             <div id="result-ladder" className="ladder">
+              <h6>Obtido</h6>
               <pre><code className="hljs">
                 {this.state.beforeEvents.map((event, index) => {
                   return this.renderEvent(event, index)
@@ -240,6 +241,7 @@ class Ladder extends Component {
           </div>
           <div className="eight wide column">
             <div id="expected-ladder" className="ladder">
+              <h6>Esperado</h6>
               <pre><code className="hljs">
                 {this.state.afterEvents.map((event, index) => {
                   return this.renderEvent(event, index)

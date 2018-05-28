@@ -19,7 +19,7 @@ class InteractiveHint extends Component {
 
       repairs: [],
       currentCondition: 0,
-      iframeHeight: 135,
+      iframeHeight: 177,
 
       afterHistory: {},
       beforeHistory: {},
