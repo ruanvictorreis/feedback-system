@@ -118,6 +118,7 @@ class InteractiveHint extends Component {
     });
 
     this.toggleQuiz();
+    this.msg.success('Exercício finalizado');
   }
 
   toggleQuiz() {
