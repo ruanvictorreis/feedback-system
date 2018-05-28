@@ -254,7 +254,7 @@ class InteractiveHint extends Component {
   assertImplementation(attempt) {
     $.ajax({
       method: 'POST',
-      url: 'http://localhost:8081/api/assert/',
+      url: 'http://18.228.9.143:8081/api/assert/',
       data: attempt
     })
       .then((response) => {
@@ -288,7 +288,7 @@ class InteractiveHint extends Component {
 
     $.ajax({
       method: 'POST',
-      url: 'http://localhost:8081/api/clara/python/',
+      url: 'http://18.228.9.143:8081/api/clara/python/',
       data: attempt
     })
       .then((response) => {
@@ -313,7 +313,7 @@ class InteractiveHint extends Component {
 
     $.ajax({
       method: 'POST',
-      url: 'http://localhost:8081/api/clara/synthesis/',
+      url: 'http://18.228.9.143:8081/api/clara/synthesis/',
       data: attempt
     })
       .then((response) => {
@@ -343,7 +343,7 @@ class InteractiveHint extends Component {
 
     $.ajax({
       method: 'POST',
-      url: 'http://localhost:8081/api/tracediff',
+      url: 'http://18.228.9.143:8081/api/tracediff',
       data: info
     })
       .then((response) => {
@@ -371,7 +371,7 @@ class InteractiveHint extends Component {
 
     $.ajax({
       method: 'POST',
-      url: 'http://localhost:8081/api/quiz',
+      url: 'http://18.228.9.143:8081/api/quiz',
       data: info
     })
       .then((quiz) => {
