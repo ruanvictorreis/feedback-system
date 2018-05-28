@@ -72,7 +72,6 @@ class Ladder extends Component {
   onMouseOver(event, index) {
     let line = event.line
     $(`.history-line.line-${index}`).addClass('hover')
-    this.addLogInteraction(`Interaction with Traces Divergence (line= ${line}, date=${new Date().toLocaleString()})`)
 
     let popup = $('.popup')
     if (!popup.hasClass('visible')) {
@@ -211,8 +210,6 @@ class Ladder extends Component {
         }
       }
       this.setState({ diffIndex: diffIndex })
-
-      this.initVisualization()
     })
   }
 

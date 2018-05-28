@@ -603,7 +603,7 @@ class InteractiveHint extends Component {
 
               <Message className="ui message hint-message" style={{ display: this.state.pythonTutorView ? 'block' : 'none' }}>
                 <h3>Python Tutor</h3>
-                <iframe width="800" height="300" frameborder="0"
+                <iframe width="800" height="300" frameBorder="0"
                   src={this.state.pythonTutorURL}>
                 </iframe>
               </Message>
