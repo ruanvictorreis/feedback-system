@@ -36,7 +36,7 @@ class InteractiveHint extends Component {
       conditionTwo: false,
       conditionThree: false,
       conditionFour: false,
-      changeCondition: true,
+      changeCondition: false,
 
       claraView: false,
       testCaseView: false,
