@@ -419,9 +419,6 @@ class InteractiveHint extends Component {
       url: 'http://feedback-logs.azurewebsites.net/api/SubmissionLogs/',
       data: info
     })
-      .then((response) => {
-        window.ladder.clearInteractionLogs();
-      })
   }
 
   showTraceDiff(data) {
