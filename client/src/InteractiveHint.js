@@ -286,6 +286,7 @@ class InteractiveHint extends Component {
     }
 
     this.toggleLoader();
+    this.waitMessage();
 
     $.ajax({
       method: 'POST',
@@ -311,6 +312,7 @@ class InteractiveHint extends Component {
     }
 
     this.toggleLoader();
+    this.waitMessage();
 
     $.ajax({
       method: 'POST',
@@ -396,6 +398,10 @@ class InteractiveHint extends Component {
   claraRepairFail(attempt) {
     this.msg.error('CLARA: Talvez sua solução esteja muito distante do esperado');
     this.saveLogSubmission(attempt);
+  }
+
+  waitMessage() {
+    this.msg.info('Aguarde... Este feedback pode demorar um pouco (1 min).');
   }
 
   saveLogSubmission(attempt) {
