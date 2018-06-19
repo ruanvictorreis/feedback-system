@@ -6,7 +6,7 @@ INFO: Sequência de Fibonacci é uma sequência de números inteiros, começando
 
 Sequência de Fibonacci: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, ...]
 
-OBS: O 1º elemento da sequência deve ser retornado quando n = 0, o 2º elemento quando n = 1, 3º quando n = 2, e assim por diante.
+OBS: O 1º elemento da sequência deve ser retornado quando n = 0, o 2º elemento quando n = 1, o 3º quando n = 2, e assim por diante.
 
 def fibonacci(n):
   """

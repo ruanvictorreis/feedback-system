@@ -114,6 +114,7 @@ class App extends Component {
           <div id="type-links">
             <a id="factorial" className="ui basic button" href="?type=factorial">factorial</a>
             <a id="sum_of_squares" className="ui basic button" href="?type=sum_of_squares">sum of squares</a>
+            <a id="fibonacci" className="ui basic button" href="?type=fibonacci">fibonacci</a>
           </div>
         </div>
 

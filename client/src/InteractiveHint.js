@@ -389,12 +389,12 @@ class InteractiveHint extends Component {
   }
 
   syntaxErrorFound(attempt) {
-    this.msg.error('Seu código possui um ou mais erros de sintaxe');
+    this.msg.error('Seu código possui erros de sintaxe ou de execução');
     this.saveLogSubmission(attempt);
   }
 
   claraRepairFail(attempt) {
-    this.msg.error('CLARA: Solução muito distante do esperado');
+    this.msg.error('CLARA: Talvez sua solução esteja muito distante do esperado');
     this.saveLogSubmission(attempt);
   }
 
