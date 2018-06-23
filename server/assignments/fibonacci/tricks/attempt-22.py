@@ -5,4 +5,4 @@ def fibonacci(n):
     value = values[0] + values[1]
     values[0] = values[1]
     values[1] = value
-  return values[0]
+  return value

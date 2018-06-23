@@ -8,7 +8,7 @@ def fibonacci(n):
   if n == 1:
     return values[0] + values[1]
   
-  for i in range(1, n):
+  for i in range(1, n+1):
     value = values[0] + values[1]
     values[0] = values[1]
     values[1] = value 
