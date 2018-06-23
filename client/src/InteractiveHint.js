@@ -270,6 +270,11 @@ class InteractiveHint extends Component {
   }
 
   testCaseFeedback(attempt) {
+    if (attempt.syntaxError) {
+      this.syntaxErrorFound(attempt);
+      return;
+    }
+
     this.setState({ failedTest: attempt.failedTest });
     this.setState({ obtained: attempt.obtained });
     this.setState({ expected: attempt.expected });
@@ -357,6 +362,11 @@ class InteractiveHint extends Component {
   }
 
   pythonTutorFeedback(attempt) {
+    if (attempt.syntaxError) {
+      this.syntaxErrorFound(attempt);
+      return;
+    }
+    
     const pythonCode = encodeURIComponent(`${attempt.studentCode}\n\n${attempt.failedTest}`);
     const pythonTutorURL = `http://pythontutor.com/iframe-embed.html#code=${pythonCode}&py=2`;
     this.setState({ pythonTutorURL: pythonTutorURL });
