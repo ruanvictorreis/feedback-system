@@ -286,7 +286,6 @@ class InteractiveHint extends Component {
 
   claraRepairFeedback(attempt) {
     if (attempt.syntaxError) {
-      this.syntaxErrorFound(attempt);
       return;
     }
 
@@ -312,7 +311,6 @@ class InteractiveHint extends Component {
 
   traceDiffFeedback(attempt) {
     if (attempt.syntaxError) {
-      this.syntaxErrorFound(attempt);
       return;
     }
 
@@ -363,10 +361,9 @@ class InteractiveHint extends Component {
 
   pythonTutorFeedback(attempt) {
     if (attempt.syntaxError) {
-      this.syntaxErrorFound(attempt);
       return;
     }
-    
+
     const pythonCode = encodeURIComponent(`${attempt.studentCode}\n\n${attempt.failedTest}`);
     const pythonTutorURL = `http://pythontutor.com/iframe-embed.html#code=${pythonCode}&py=2`;
     this.setState({ pythonTutorURL: pythonTutorURL });
