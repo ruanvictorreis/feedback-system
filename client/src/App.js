@@ -118,7 +118,11 @@ class App extends Component {
           </div>
         </div>
 
-        <div className="ui one column centered grid" style={{ marginTop: '50px', height: '30px' }}>
+        <div className="ui one column centered grid" style={{ marginTop: '30px', height: '30px' }}>
+          <a target="_blank" href="https://youtu.be/yP99bIlNJ2M">Instruções</a>
+        </div>
+
+        <div className="ui one column centered grid" style={{ marginTop: '20px', height: '30px' }}>
           <input type="text" style={{ 'textAlign': 'center' }} value={this.state.register} onChange={this.registerInput} />
         </div>
 
