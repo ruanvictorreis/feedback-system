@@ -7,7 +7,7 @@ import Stream from './data/Stream';
 import Record from './data/Record';
 import $ from 'jquery';
 import 'codemirror/mode/python/python';
-import { Modal, Header, Segment, Grid, Message, Button } from 'semantic-ui-react';
+import { Modal, Icon, Header, Segment, Grid, Message, Button } from 'semantic-ui-react';
 
 class InteractiveHint extends Component {
   constructor(props) {
@@ -29,6 +29,7 @@ class InteractiveHint extends Component {
       register: '',
       assignment: '',
       studentCode: '',
+      errorMsg: '',
       pythonTutorURL: '',
 
       isLoading: false,
@@ -44,6 +45,7 @@ class InteractiveHint extends Component {
       pythonTutorView: false,
 
       quizView: false,
+      errorView: false,
       quizOptionOne: false,
       quizOptionTwo: false,
       quizOptionThree: false,
@@ -123,6 +125,10 @@ class InteractiveHint extends Component {
 
   toggleQuiz() {
     this.setState({ quizView: !this.state.quizView });
+  }
+
+  toggleError() {
+    this.setState({ errorView: !this.state.errorView });
   }
 
   toggleQuizOptionOne() {
@@ -398,8 +404,11 @@ class InteractiveHint extends Component {
   }
 
   syntaxErrorFound(attempt) {
+    console.log(attempt)
+    this.setState({ errorMsg: attempt.errorMsg });
     this.msg.error('Seu código possui erros de sintaxe ou de execução');
     this.saveLogSubmission(attempt);
+    this.toggleError();
   }
 
   claraRepairFail(attempt) {
@@ -490,7 +499,8 @@ class InteractiveHint extends Component {
     this.setState({ changeCondition: false });
   }
 
-  close = () => this.saveQuizResult();
+  closeQuiz = () => this.saveQuizResult();
+  closeError = () => this.toggleError();
 
   render() {
     const options = {
@@ -522,6 +532,25 @@ class InteractiveHint extends Component {
             }
             } />
         </div>
+
+        <Modal
+          open={this.state.errorView}
+          style={inlineStyle.modal}
+          closeOnEscape={false}
+          closeOnRootNodeClick={false}
+          size='small'>
+
+          <Header icon='x' content='Seu código contém o seguinte erro:' />
+          <Modal.Content>
+            <h4>{this.state.errorMsg}</h4>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color='green' onClick={this.closeError} inverted>
+              <Icon name='checkmark' /> Entendido
+                  </Button>
+          </Modal.Actions>
+        </Modal>
+
 
         <Modal
           open={this.state.quizView}
@@ -581,7 +610,7 @@ class InteractiveHint extends Component {
           </Modal.Content>
 
           <Modal.Actions>
-            <Button positive icon='checkmark' labelPosition='right' content="Enviar" onClick={this.close} />
+            <Button positive icon='checkmark' labelPosition='right' content="Enviar" onClick={this.closeQuiz} />
           </Modal.Actions>
         </Modal>
 
@@ -609,7 +638,15 @@ class InteractiveHint extends Component {
 
             <Grid.Column width={11}>
               <Message style={{ display: this.state.testCaseView ? 'block' : 'none' }}>
-                <h3>Teste</h3>
+                <Grid>
+                  <Grid.Column width={1}>
+                    <h3>Teste</h3>
+                  </Grid.Column>
+                  <Grid.Column width={15}>
+                    <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/T5YjMICADy4"> ( o que é isso? )</a>
+                  </Grid.Column>
+                </Grid>
+
                 <Grid centered>
                   <Grid.Column width={8}>
                     <Highlight className="python">
