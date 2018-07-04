@@ -119,7 +119,7 @@ class App extends Component {
         </div>
 
         <div className="ui one column centered grid" style={{ marginTop: '30px', height: '30px' }}>
-          <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/yP99bIlNJ2M">( Instruções )</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/yP99bIlNJ2M">Instruções</a>
         </div>
 
         <div className="ui one column centered grid" style={{ marginTop: '20px', height: '30px' }}>

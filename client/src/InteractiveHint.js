@@ -19,7 +19,7 @@ class InteractiveHint extends Component {
 
       repairs: [],
       currentCondition: 0,
-      iframeHeight: 135,
+      iframeHeight: 150,
 
       afterHistory: {},
       beforeHistory: {},
@@ -560,8 +560,8 @@ class InteractiveHint extends Component {
           <Header icon='cubes' content='Quiz' />
           <Modal.Content>
             <Modal.Description>
-              <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/29znC7ak-b4">( Instruções )</a>
-              <br/><br/>
+              <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/29znC7ak-b4">( instruções )</a>
+              <br /><br />
               <p>Selecione outras soluções que também sejam corretas para este exercício:</p>
             </Modal.Description>
             <br />
@@ -644,7 +644,7 @@ class InteractiveHint extends Component {
                     <h3>Teste</h3>
                   </Grid.Column>
                   <Grid.Column width={15}>
-                    <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/T5YjMICADy4"> ( o que é isso? )</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/T5YjMICADy4"> ( tutorial )</a>
                   </Grid.Column>
                 </Grid>
 
@@ -669,6 +669,8 @@ class InteractiveHint extends Component {
 
               <Message className="ui message hint-message" style={{ display: this.state.pythonTutorView ? 'block' : 'none' }}>
                 <h3>Python Tutor</h3>
+                <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/RGa3RperMBQ"> ( tutorial )</a>
+
                 <iframe title="Python Tutor" width={800} height={this.state.iframeHeight}
                   frameBorder={0} key={this.state.pythonTutorURL} src={this.state.pythonTutorURL}>
                 </iframe>
