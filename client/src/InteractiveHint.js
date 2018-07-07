@@ -663,7 +663,15 @@ class InteractiveHint extends Component {
               </Message>
 
               <Message style={{ display: this.state.claraView ? 'block' : 'none' }}>
-                <Message.Header>Clara</Message.Header>
+                <Grid>
+                  <Grid.Column width={1}>
+                    <Message.Header>Clara</Message.Header>
+                  </Grid.Column>
+                  <Grid.Column width={15}>
+                    <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/XiGajcyPwO4"> ( tutorial )</a>
+                  </Grid.Column>
+                </Grid>
+
                 <Message.List items={this.state.repairs} />
               </Message>
 
