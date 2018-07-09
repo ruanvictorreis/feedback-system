@@ -373,7 +373,7 @@ class InteractiveHint extends Component {
     const pythonCode = encodeURIComponent(`${attempt.studentCode}\n\n${attempt.failedTest}`);
     const pythonTutorURL = `http://pythontutor.com/iframe-embed.html#code=${pythonCode}&py=2`;
     this.setState({ pythonTutorURL: pythonTutorURL });
-    this.setState({ iframeHeight: 600 });
+    this.setState({ iframeHeight: 500 });
     this.feedbackGenerated(attempt);
   }
 
