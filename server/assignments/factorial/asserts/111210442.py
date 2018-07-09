@@ -1,7 +1,8 @@
 def factorial(n):
   total = 0
-  for i in range(1, n+1):
-    total = total * i
+  while (n > 0):
+    total = total * n
+    --n
   return total
 
 assert factorial(3) == 6, '>>> factorial(3)\n    # Error: expected\n    #     6\n    # but got\n    #     %s' % factorial(3)

@@ -1,2 +1,2 @@
 def fibonacci(n):
-  ## escreva seu código aqui ##
+  ## escreva seu codigo aqui ##

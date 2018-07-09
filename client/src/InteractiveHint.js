@@ -404,7 +404,6 @@ class InteractiveHint extends Component {
   }
 
   syntaxErrorFound(attempt) {
-    console.log(attempt)
     this.setState({ errorMsg: attempt.errorMsg });
     this.msg.error('Seu código possui erros de sintaxe ou de execução');
     this.saveLogSubmission(attempt);
