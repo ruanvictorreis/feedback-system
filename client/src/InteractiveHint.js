@@ -639,11 +639,12 @@ class InteractiveHint extends Component {
             <Grid.Column width={11}>
               <Message style={{ display: this.state.testCaseView ? 'block' : 'none' }}>
                 <Grid>
-                  <Grid.Column width={1}>
+                  <Grid.Column width={12}>
                     <h3>Teste</h3>
                   </Grid.Column>
-                  <Grid.Column width={15}>
-                    <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/T5YjMICADy4"> ( tutorial )</a>
+                  <Grid.Column width={4}>
+                    <a target="_blank" rel="noopener noreferrer" style={{ fontSize: "16px" }}
+                      href="https://youtu.be/T5YjMICADy4"> &gt;&gt; Tutorial em vídeo &lt;&lt;</a>
                   </Grid.Column>
                 </Grid>
 
@@ -663,28 +664,46 @@ class InteractiveHint extends Component {
 
               <Message style={{ display: this.state.claraView ? 'block' : 'none' }}>
                 <Grid>
-                  <Grid.Column width={1}>
+                  <Grid.Column width={12}>
                     <Message.Header>Clara</Message.Header>
                   </Grid.Column>
-                  <Grid.Column width={15}>
-                    <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/XiGajcyPwO4"> ( tutorial )</a>
+                  <Grid.Column width={4}>
+                    <a target="_blank" rel="noopener noreferrer" style={{ fontSize: "16px" }}
+                      href="https://youtu.be/XiGajcyPwO4"> &gt;&gt; Tutorial em vídeo &lt;&lt; </a>
                   </Grid.Column>
                 </Grid>
-
                 <Message.List items={this.state.repairs} />
               </Message>
 
               <Message className="ui message hint-message" style={{ display: this.state.pythonTutorView ? 'block' : 'none' }}>
-                <h3>Python Tutor</h3>
-                <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/RGa3RperMBQ"> ( tutorial )</a>
-
-                <iframe title="Python Tutor" width={800} height={this.state.iframeHeight}
-                  frameBorder={0} key={this.state.pythonTutorURL} src={this.state.pythonTutorURL}>
-                </iframe>
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column width={12}>
+                      <h3>Python Tutor</h3>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                      <a target="_blank" rel="noopener noreferrer" style={{ fontSize: "16px" }}
+                        href="https://youtu.be/RGa3RperMBQ"> &gt;&gt; Tutorial em vídeo &lt;&lt;</a>
+                    </Grid.Column>
+                  </Grid.Row>
+                  <Grid.Row>
+                    <iframe title="Python Tutor" width={800} height={this.state.iframeHeight}
+                      frameBorder={0} key={this.state.pythonTutorURL} src={this.state.pythonTutorURL}>
+                    </iframe>
+                  </Grid.Row>
+                </Grid>
               </Message>
 
               <Message className="ui message hint-message" style={{ display: this.state.traceDiffView ? 'block' : 'none' }}>
-                <h3>TraceDiff</h3>
+                <Grid>
+                  <Grid.Column width={12}>
+                    <h3>TraceDiff</h3>
+                  </Grid.Column>
+                  <Grid.Column width={4}>
+                    <a target="_blank" rel="noopener noreferrer" style={{ fontSize: "16px" }} href="https://youtu.be/DUtID5TIez4"> &gt;&gt; Tutorial em vídeo &lt;&lt;</a>
+                  </Grid.Column>
+                </Grid>
+
                 <Ladder
                   beforeHistory={this.state.beforeHistory}
                   afterHistory={this.state.afterHistory}

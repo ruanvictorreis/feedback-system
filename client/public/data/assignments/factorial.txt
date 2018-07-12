@@ -5,12 +5,12 @@ Ex.: (1 * 2 * 3 * … * n). Utilize operações de multiplicação para encontra
 
 def factorial(n):
   """
-  >>> factorial(3) # 1 * 2 * 3
+  >>> factorial(3) # 3 * 2 * 1
   6
-  >>> factorial(5) # 1 * 2 * 3 * 4 * 5
+  >>> factorial(5) # 5 * 4 * 3 * 2 * 1
   120
   >>> factorial(1) # 1
   1
-  >>> factorial(4) # 1 * 2 * 3 * 4
+  >>> factorial(4) # 4 * 3 * 2 * 1
   24
   """
