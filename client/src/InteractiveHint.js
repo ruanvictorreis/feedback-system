@@ -559,7 +559,7 @@ class InteractiveHint extends Component {
           <Header icon='cubes' content='Quiz' />
           <Modal.Content>
             <Modal.Description>
-              <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/29znC7ak-b4">( instruções )</a>
+              <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/29znC7ak-b4">&gt;&gt; Instruções &lt;&lt;</a>
               <br /><br />
               <p>Selecione outras soluções que também sejam corretas para este exercício:</p>
             </Modal.Description>
