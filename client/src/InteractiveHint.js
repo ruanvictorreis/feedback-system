@@ -16,7 +16,10 @@ class InteractiveHint extends Component {
       failedTest: '',
       obtained: 0,
       expected: 0,
-      host: '18.228.42.253',
+      
+      uiHost: '18.231.120.105',
+      claraHost: '18.228.42.253',
+      traceDiffHost: '18.231.110.210',
 
       repairs: [],
       currentCondition: 0,
@@ -262,7 +265,7 @@ class InteractiveHint extends Component {
   assertImplementation(attempt) {
     $.ajax({
       method: 'POST',
-      url: `http://${this.state.host}:8081/api/assert/`,
+      url: `http://${this.state.uiHost}:8081/api/assert/`,
       data: attempt
     })
       .then((response) => {
@@ -301,7 +304,7 @@ class InteractiveHint extends Component {
 
     $.ajax({
       method: 'POST',
-      url: `http://${this.state.host}:8081/api/clara/python/`,
+      url: `http://${this.state.claraHost}:8081/api/clara/python/`,
       data: attempt
     })
       .then((response) => {
@@ -326,7 +329,7 @@ class InteractiveHint extends Component {
 
     $.ajax({
       method: 'POST',
-      url: `http://${this.state.host}:8081/api/clara/synthesis/`,
+      url: `http://${this.state.claraHost}:8081/api/clara/synthesis/`,
       data: attempt
     })
       .then((response) => {
@@ -356,7 +359,7 @@ class InteractiveHint extends Component {
 
     $.ajax({
       method: 'POST',
-      url: `http://${this.state.host}:8081/api/tracediff`,
+      url: `http://${this.state.traceDiffHost}:8081/api/tracediff`,
       data: info
     })
       .then((response) => {
@@ -388,7 +391,7 @@ class InteractiveHint extends Component {
 
     $.ajax({
       method: 'POST',
-      url: `http://${this.state.host}:8081/api/quiz`,
+      url: `http://${this.state.uiHost}:8081/api/quiz`,
       data: info
     })
       .then((quiz) => {
