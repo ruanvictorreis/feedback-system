@@ -11,12 +11,22 @@ router.post('/', function (request, response) {
 
   const assert = new Assert(register, assignment, studentCode);
   const assertFile = assert.createFile();
+  var assertScript = new PythonShell(assertFile);
 
-  PythonShell.run(assertFile, { args: [] }, (error) => {
+  var pythonKiller = setTimeout(function () {
+    assertScript.childProcess.kill();
+    assert.isCorrect = false;
+    assert.syntaxError = true;
+    assert.errorMsg = "TimeOutError: Talvez seu código possua algum loop infinito";
+    response.json(assert.getResult());
+  }, 5000);
+
+  assertScript.end(function (error) {
+    clearTimeout(pythonKiller);
+
     if (error) {
       assert.errorAnalysis(error);
     }
-
     response.json(assert.getResult());
   });
 });
