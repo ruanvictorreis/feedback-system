@@ -16,7 +16,7 @@ class InteractiveHint extends Component {
       failedTest: '',
       obtained: 0,
       expected: 0,
-      
+
       uiHost: '18.231.61.163',
       claraHost: '18.228.42.253',
       traceDiffHost: '54.233.186.68',
@@ -620,7 +620,7 @@ class InteractiveHint extends Component {
 
         <Grid>
           <Grid.Row>
-            <Grid.Column width={5}>
+            <Grid.Column width={6}>
               <Message>
                 <Button.Group floated='right'>
                   <Button toggle active={this.state.conditionOne} onClick={this.toggleConditionOne.bind(this)}>1</Button>
@@ -640,13 +640,13 @@ class InteractiveHint extends Component {
               </Message>
             </Grid.Column>
 
-            <Grid.Column width={11}>
+            <Grid.Column width={10}>
               <Message style={{ display: this.state.testCaseView ? 'block' : 'none' }}>
                 <Grid>
-                  <Grid.Column width={12}>
+                  <Grid.Column width={11}>
                     <h3>Teste</h3>
                   </Grid.Column>
-                  <Grid.Column width={4}>
+                  <Grid.Column width={5}>
                     <a target="_blank" rel="noopener noreferrer" style={{ fontSize: "16px" }}
                       href="https://youtu.be/T5YjMICADy4"> &gt;&gt; Tutorial em vídeo &lt;&lt;</a>
                   </Grid.Column>
@@ -668,10 +668,10 @@ class InteractiveHint extends Component {
 
               <Message style={{ display: this.state.claraView ? 'block' : 'none' }}>
                 <Grid>
-                  <Grid.Column width={12}>
+                  <Grid.Column width={11}>
                     <Message.Header>Clara</Message.Header>
                   </Grid.Column>
-                  <Grid.Column width={4}>
+                  <Grid.Column width={5}>
                     <a target="_blank" rel="noopener noreferrer" style={{ fontSize: "16px" }}
                       href="https://youtu.be/XiGajcyPwO4"> &gt;&gt; Tutorial em vídeo &lt;&lt; </a>
                   </Grid.Column>
@@ -682,10 +682,10 @@ class InteractiveHint extends Component {
               <Message className="ui message hint-message" style={{ display: this.state.pythonTutorView ? 'block' : 'none' }}>
                 <Grid>
                   <Grid.Row>
-                    <Grid.Column width={12}>
+                    <Grid.Column width={11}>
                       <h3>Python Tutor</h3>
                     </Grid.Column>
-                    <Grid.Column width={4}>
+                    <Grid.Column width={5}>
                       <a target="_blank" rel="noopener noreferrer" style={{ fontSize: "16px" }}
                         href="https://youtu.be/RGa3RperMBQ"> &gt;&gt; Tutorial em vídeo &lt;&lt;</a>
                     </Grid.Column>
@@ -700,10 +700,10 @@ class InteractiveHint extends Component {
 
               <Message className="ui message hint-message" style={{ display: this.state.traceDiffView ? 'block' : 'none' }}>
                 <Grid>
-                  <Grid.Column width={12}>
+                  <Grid.Column width={11}>
                     <h3>TraceDiff</h3>
                   </Grid.Column>
-                  <Grid.Column width={4}>
+                  <Grid.Column width={5}>
                     <a target="_blank" rel="noopener noreferrer" style={{ fontSize: "16px" }} href="https://youtu.be/DUtID5TIez4"> &gt;&gt; Tutorial em vídeo &lt;&lt;</a>
                   </Grid.Column>
                 </Grid>
