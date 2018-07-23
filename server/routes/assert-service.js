@@ -19,7 +19,7 @@ router.post('/', function (request, response) {
     assert.syntaxError = true;
     assert.errorMsg = "TimeOutError: Talvez seu código possua algum loop infinito";
     response.json(assert.getResult());
-  }, 15000);
+  }, 10000);
 
   assertScript.end(function (error) {
     clearTimeout(pythonKiller);
