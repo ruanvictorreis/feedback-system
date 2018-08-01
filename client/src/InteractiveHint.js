@@ -19,7 +19,7 @@ class InteractiveHint extends Component {
 
       uiHost: '18.231.61.163',
       claraHost: '18.228.42.253',
-      traceDiffHost: '54.233.186.68',
+      traceDiffHost: '',
 
       repairs: [],
       currentCondition: 0,
@@ -183,19 +183,20 @@ class InteractiveHint extends Component {
     this.setState({ currentCondition: 2 });
   }
 
+
   toggleConditionThree() {
     if (!this.state.changeCondition) {
       return;
     }
 
     this.setState({ conditionThree: true });
+    this.setState({ conditionFour: false });
     this.setState({ conditionTwo: false });
     this.setState({ conditionOne: false });
-    this.setState({ conditionFour: false });
     this.setState({ testCaseView: true });
-    this.setState({ traceDiffView: true });
+    this.setState({ pythonTutorView: true });
+    this.setState({ traceDiffView: false });
     this.setState({ claraView: false });
-    this.setState({ pythonTutorView: false });
     this.setState({ currentCondition: 3 });
   }
 
@@ -205,13 +206,13 @@ class InteractiveHint extends Component {
     }
 
     this.setState({ conditionFour: true });
-    this.setState({ conditionThree: false });
     this.setState({ conditionTwo: false });
     this.setState({ conditionOne: false });
+    this.setState({ conditionThree: false });
     this.setState({ testCaseView: true });
-    this.setState({ pythonTutorView: true });
-    this.setState({ traceDiffView: false });
+    this.setState({ traceDiffView: true });
     this.setState({ claraView: false });
+    this.setState({ pythonTutorView: false });
     this.setState({ currentCondition: 4 });
   }
 
@@ -249,12 +250,12 @@ class InteractiveHint extends Component {
 
       case 3:
         this.testCaseFeedback(attempt);
-        this.traceDiffFeedback(attempt);
+        this.pythonTutorFeedback(attempt);
         break;
 
       case 4:
         this.testCaseFeedback(attempt);
-        this.pythonTutorFeedback(attempt);
+        this.traceDiffFeedback(attempt);
         break;
 
       default:
@@ -300,7 +301,6 @@ class InteractiveHint extends Component {
     }
 
     this.toggleLoader();
-    this.waitMessage();
 
     $.ajax({
       method: 'POST',
@@ -325,7 +325,6 @@ class InteractiveHint extends Component {
     }
 
     this.toggleLoader();
-    this.waitMessage();
 
     $.ajax({
       method: 'POST',
@@ -419,10 +418,6 @@ class InteractiveHint extends Component {
     this.saveLogSubmission(attempt);
   }
 
-  waitMessage() {
-    this.msg.info('Aguarde... Este feedback pode demorar um pouco (1 min).');
-  }
-
   saveLogSubmission(attempt) {
     var info = {
       Register: attempt.register,
@@ -493,7 +488,7 @@ class InteractiveHint extends Component {
         this.toggleConditionThree();
         break;
       case 4:
-        this.toggleConditionFour();
+        //this.toggleConditionFour();
         break;
       default:
         this.toggleConditionOne();
@@ -626,7 +621,7 @@ class InteractiveHint extends Component {
                   <Button toggle active={this.state.conditionOne} onClick={this.toggleConditionOne.bind(this)}>1</Button>
                   <Button toggle active={this.state.conditionTwo} onClick={this.toggleConditionTwo.bind(this)}>2</Button>
                   <Button toggle active={this.state.conditionThree} onClick={this.toggleConditionThree.bind(this)}>3</Button>
-                  <Button toggle active={this.state.conditionFour} onClick={this.toggleConditionFour.bind(this)}>4</Button>
+                  {/**<Button toggle active={this.state.conditionFour} onClick={this.toggleConditionFour.bind(this)}>4</Button>*/}
                 </Button.Group>
 
                 <br />
