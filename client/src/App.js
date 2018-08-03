@@ -7,6 +7,7 @@ import './App.css';
 import $ from 'jquery';
 import Highlight from 'react-highlight';
 import InteractiveHint from './InteractiveHint';
+import AgreementModal from './AgreementModal';
 
 class App extends Component {
   constructor(props) {
@@ -139,6 +140,9 @@ class App extends Component {
             </div>
             <div>
               <InteractiveHint />
+            </div>
+            <div>
+              <AgreementModal />
             </div>
           </div>
         </div>
