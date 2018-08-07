@@ -73,12 +73,13 @@ class App extends Component {
       data: studentRegister
     })
       .then((response) => {
-        if (response.Permission) {
-          this.loadAssignmentInfo(response);
+        if (response.AgreementRequired) {
+          window.agreementModal.init(this.state.register);
         }
 
         this.toggleLoader();
         this.setState({ isLocked: true });
+        this.loadAssignmentInfo(response);
       })
   }
 
@@ -124,7 +125,8 @@ class App extends Component {
         </div>
 
         <div className="ui one column centered grid" style={{ marginTop: '20px', height: '30px' }}>
-          <input type="text" style={{ 'textAlign': 'center' }} value={this.state.register} onChange={this.registerInput} />
+          <input type="text" style={{ 'textAlign': 'center' }} value={this.state.register}
+            placeholder="Matrícula" onChange={this.registerInput} />
         </div>
 
         <div className="ui one column centered grid" style={{ marginTop: '20px' }}>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import AlertContainer from 'react-alert';
 import { Modal, Segment, Form, Icon, Message, Container } from 'semantic-ui-react';
 
 class AgreementModal extends Component {
@@ -8,7 +9,8 @@ class AgreementModal extends Component {
     this.state = {
       name: '',
       email: '',
-      view: true,
+      register: '',
+      view: false,
       agreement: false,
       paragraph_1: '',
       paragraph_2: '',
@@ -21,6 +23,11 @@ class AgreementModal extends Component {
     }
 
     window.agreementModal = this;
+  }
+
+  init(studentRegister) {
+    this.setState({ view: true });
+    this.setState({ register: studentRegister });
   }
 
   componentDidMount() {
@@ -89,12 +96,36 @@ class AgreementModal extends Component {
       });
   }
 
+  isValidEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
   save() {
-    this.setState({ view: false })
-    console.log('Enviando...')
-    console.log(this.state.agreement)
-    console.log(this.state.name)
-    console.log(this.state.email)
+    if (!this.isValidEmail(this.state.email)) {
+      this.msg.info('Forneça um e-mail válido');
+      return;
+    }
+
+    if (!this.state.agreement) {
+      this.msg.info('Marque o checkbox para aceitar os termos desta pesquisa');
+      return;
+    }
+
+    var agreement = {
+      Name: this.state.name,
+      Email: this.state.email,
+      Register: this.state.register,
+      Acceptance: this.state.agreement,
+    };
+
+    this.setState({ view: false });
+
+    $.ajax({
+      method: 'POST',
+      url: 'http://feedback-logs.azurewebsites.net/api/agreement',
+      data: agreement
+    });
   }
 
   toggleCheckBox() {
@@ -121,58 +152,70 @@ class AgreementModal extends Component {
     const { name, email } = this.state
 
     return (
-      <Modal
-        open={this.state.view}
-        style={inlineStyle.modal}
-        closeOnEscape={false}
-        closeOnRootNodeClick={false}
-        size='large'>
+      <div>
+        <AlertContainer ref={a => this.msg = a}
+          {...{
+            offset: 12,
+            position: 'bottom left',
+            theme: 'light',
+            time: 10000,
+            transition: 'scale'
+          }
+          } />
 
-        <Modal.Header>
-          <Container textAlign='center'>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO</Container>
-        </Modal.Header>
+        <Modal
+          open={this.state.view}
+          style={inlineStyle.modal}
+          closeOnEscape={false}
+          closeOnRootNodeClick={false}
+          size='large'>
 
-        <Modal.Content>
-          <Message>
-            <Container textAlign='justified'>
-              <p> {this.state.paragraph_1} </p>
-              <p> {this.state.paragraph_2} </p>
-              <p> {this.state.paragraph_3} </p>
-              <p> {this.state.paragraph_4} </p>
-              <p> {this.state.paragraph_5} </p>
-              <p> {this.state.paragraph_6} </p>
-              <p> {this.state.paragraph_7} </p>
-            </Container>
-          </Message>
+          <Modal.Header>
+            <Container textAlign='center'>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO</Container>
+          </Modal.Header>
 
-          <Segment>
-            <Form unstackable size='big' onSubmit={this.handleSubmit}>
+          <Modal.Content>
+            <Message>
+              <Container textAlign='justified'>
+                <p> {this.state.paragraph_1} </p>
+                <p> {this.state.paragraph_2} </p>
+                <p> {this.state.paragraph_3} </p>
+                <p> {this.state.paragraph_4} </p>
+                <p> {this.state.paragraph_5} </p>
+                <p> {this.state.paragraph_6} </p>
+                <p> {this.state.paragraph_7} </p>
+              </Container>
+            </Message>
 
-              <Form.Group widths={2}>
-                <Form.Input required label='Nome' placeholder='Nome'
-                  name='name' value={name}
-                  onChange={this.handleChange} />
+            <Segment>
+              <Form unstackable size='big' onSubmit={this.handleSubmit}>
 
-                <Form.Input required label='E-mail' placeholder='E-mail'
-                  iconPosition='left'
-                  name='email'
-                  value={email}
-                  onChange={this.handleChange}>
-                  <Icon name='at' />
-                  <input />
-                </Form.Input>
-              </Form.Group>
+                <Form.Group widths={2}>
+                  <Form.Input required label='Nome' placeholder='Nome'
+                    name='name' value={name}
+                    onChange={this.handleChange} />
 
-              <Form.Checkbox checked={this.state.agreement}
-                label={this.state.paragraph_8}
-                onChange={this.toggleCheckBox.bind(this)} />
-              <Form.Button positive content='Enviar' />
+                  <Form.Input required label='E-mail' placeholder='E-mail'
+                    iconPosition='left'
+                    name='email'
+                    value={email}
+                    onChange={this.handleChange}>
+                    <Icon name='at' />
+                    <input />
+                  </Form.Input>
+                </Form.Group>
 
-            </Form>
-          </Segment>
+                <Form.Checkbox checked={this.state.agreement}
+                  label={this.state.paragraph_8}
+                  onChange={this.toggleCheckBox.bind(this)} />
+                <Form.Button positive content='Enviar' />
 
-        </Modal.Content>
-      </Modal>
+              </Form>
+            </Segment>
+
+          </Modal.Content>
+        </Modal>
+      </div>
     );
   }
 }
