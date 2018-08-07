@@ -225,6 +225,10 @@ class InteractiveHint extends Component {
       return;
     }
 
+    if (this.recursionFound()) {
+      this.recursiveAlgorithm();
+    }
+
     this.toggleLoader();
     this.setCurrentCode();
 
@@ -418,6 +422,10 @@ class InteractiveHint extends Component {
     this.saveLogSubmission(attempt);
   }
 
+  recursiveAlgorithm() {
+    this.msg.error('Não são permitidos algoritmos recursivos');
+  }
+
   saveLogSubmission(attempt) {
     var info = {
       Register: attempt.register,
@@ -495,6 +503,13 @@ class InteractiveHint extends Component {
     }
 
     this.setState({ changeCondition: false });
+  }
+
+  recursionFound() {
+    const pattern = `${this.state.assignment}\\((.*?)\\)`;
+    const re = new RegExp(pattern, 'gi');
+    const studentCode = this.cm.getValue();
+    return ((studentCode || '').match(re) || []).length > 1
   }
 
   closeQuiz = () => this.saveQuizResult();
