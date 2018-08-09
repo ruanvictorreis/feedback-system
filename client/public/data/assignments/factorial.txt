@@ -1,4 +1,4 @@
-﻿Exercício: Factorial
+﻿Exercício: Fatorial
 
 Escreva uma função chamada “factorial” que recebe um inteiro (n) positivo e retorna o produto da sequência de 1 até n.
 Ex.: (1 * 2 * 3 * … * n). Utilize operações de multiplicação para encontrar o produto desta sequência.

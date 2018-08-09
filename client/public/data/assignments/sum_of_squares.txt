@@ -1,4 +1,4 @@
-﻿Exercício: Sum of Squares
+﻿Exercício: Soma dos Quadrados
 
 Escreva uma função chamada “sum_of_squares” que recebe um inteiro positivo (n) e retorna a soma dos quadrados da sequência de 1 até n. 
 Ex.: (1² + 2² + 3² + … + n²).
