@@ -1,0 +1,9 @@
+is_prime_number(2) == True
+is_prime_number(3) == True
+is_prime_number(4) == False
+is_prime_number(7) == True
+is_prime_number(9) == False
+is_prime_number(12) == False
+is_prime_number(13) == True
+is_prime_number(15) == False
+is_prime_number(1) == False
