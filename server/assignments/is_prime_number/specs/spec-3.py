@@ -3,7 +3,6 @@ def is_prime_number(n):
     return False
   
   for i in range(2, n):
-    if not ( n % i ):
+    if  n % i == 0:
       return False
   return True
-
