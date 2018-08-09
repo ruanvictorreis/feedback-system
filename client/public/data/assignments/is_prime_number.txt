@@ -3,7 +3,8 @@
 Escreva uma função chamada “is_prime_number” que recebe um inteiro (n) positivo e retorna True (caso n seja um número primo) ou False 
 (caso n não seja um número primo).
 
-Obs.: O número 1 não é considerado um número primo.
+Obs.: Números primos são os números que têm apenas dois divisores diferentes: ele mesmo e o número um. Portanto, o número um (1) não 
+é considerado um número primo, pois só possui um divisor, ele mesmo.
 
 def is_prime_number(n):
   """
