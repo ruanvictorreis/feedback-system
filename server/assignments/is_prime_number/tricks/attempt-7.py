@@ -7,6 +7,6 @@ def is_prime_number(n):
   
   while i < n and prime:
     if n % i:
-	  prime = False
+      prime = False
     i += 1	
   return prime
