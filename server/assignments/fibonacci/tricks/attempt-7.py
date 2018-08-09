@@ -1,6 +1,7 @@
 def fibonacci(n):
-  a = 1
-  b = 1
+  fib_list = [0, 1]
   for i in range(n):
-    a, b = b, a+b
-  return b
+      atual = fib_list[len(fib_list)]
+      anterior = fib_list[len(fib_list) - 1]
+      fib_list.append(atual + anterior)
+  return fib_list[n]

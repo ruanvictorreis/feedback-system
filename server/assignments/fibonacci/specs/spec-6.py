@@ -1,7 +1,10 @@
 def fibonacci(n):
-  a = 0
-  b = 1
-  while(n > 0):
-    a, b = b, a+b
+  atual = 0
+  proximo = 1
+  count = 0
+  while(count < n):
+    temp = atual
+    atual = proximo
+    proximo = temp + proximo
     n = n - 1
-  return a
+  return atual

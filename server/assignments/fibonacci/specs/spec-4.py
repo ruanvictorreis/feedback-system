@@ -1,8 +1,9 @@
 def fibonacci(n):
-  fib_list = [0, 1]
-  for i in range(n):
-    size = len(fib_list)
-    a = fib_list[size - 1]
-    b = fib_list[size - 2]
-    fib_list.append(a + b)
-  return fib_list[n]
+  atual = 0
+  proximo = 1
+  while(n > 0):
+    temp = atual
+    atual = proximo
+    proximo = temp + proximo
+    n = n - 1
+  return atual

@@ -1,10 +1,14 @@
 def fibonacci(n):
-  fib_list = [0, 1]
-  count = n
-  while(count > 0):
-    size = len(fib_list)
-    a = fib_list[size - 1]
-    b = fib_list[size - 2]
-    fib_list.append(a + b)
-    count = count - 1
-  return fib_list[n]
+  f_ant = 0
+  f_atual = 1
+  i = 1
+  
+  if n == 0:
+    return 0	    
+  
+  while i < n:
+    f_prox = f_ant + f_atual
+    f_ant = f_atual
+    f_atual = f_prox
+    i = i + 1     
+  return f_atual

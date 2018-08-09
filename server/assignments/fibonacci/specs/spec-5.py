@@ -1,9 +1,9 @@
 def fibonacci(n):
-  a = 0
-  b = 1
-  while(n > 0):
-    c = a
-    a = b
-    b = c + b
-    n = n - 1
-  return a
+  fib_list = [0, 1]
+  count = n
+  while(count > 0):
+    atual = fib_list[len(fib_list) - 1]
+    anterior = fib_list[len(fib_list) - 2]
+    fib_list.append(atual + anterior)
+    count = count - 1
+  return fib_list[n]

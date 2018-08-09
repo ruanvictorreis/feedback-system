@@ -1,8 +1,8 @@
 def fibonacci(n):
-  a = 0
-  b = 1
+  atual = 0
+  proximo = 1
   for i in range(n):
-    c = a
-    a = b
-    b = a + b
-  return a
+    temp = atual
+    atual = proximo
+    proximo = atual + proximo
+  return atual
