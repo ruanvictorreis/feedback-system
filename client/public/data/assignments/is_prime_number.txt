@@ -3,6 +3,8 @@
 Escreva uma função chamada “is_prime_number” que recebe um inteiro (n) positivo e retorna True (caso n seja um número primo) ou False 
 (caso n não seja um número primo).
 
+Obs.: O número 1 não é considerado um número primo.
+
 def is_prime_number(n):
   """
   >>> is_prime_number(3)
