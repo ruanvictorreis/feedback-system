@@ -114,10 +114,10 @@ class App extends Component {
       <div>
         <div className="ui two column centered grid" style={{ marginTop: '20px' }}>
           <div id="type-links">
-            <a id="factorial" className="ui basic button" href="?type=factorial">fatorial</a>
-            <a id="sum_of_squares" className="ui basic button" href="?type=sum_of_squares">soma dos quadrados</a>
-            <a id="is_prime_number" className="ui basic button" href="?type=is_prime_number">números primos</a>
-            <a id="fibonacci" className="ui basic button" href="?type=fibonacci">fibonacci</a>
+            <a id="factorial" className="ui basic button" href="?type=factorial">Fatorial</a>
+            <a id="sum_of_squares" className="ui basic button" href="?type=sum_of_squares">Soma dos Quadrados</a>
+            <a id="is_prime_number" className="ui basic button" href="?type=is_prime_number">Números Primos</a>
+            <a id="fibonacci" className="ui basic button" href="?type=fibonacci">Fibonacci</a>
           </div>
         </div>
 
