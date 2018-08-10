@@ -17,8 +17,8 @@ class InteractiveHint extends Component {
       obtained: 0,
       expected: 0,
 
-      uiHost: '54.233.94.221',
-      claraHost: '18.231.6.152',
+      uiHost: '18.231.114.55',
+      claraHost: '18.228.38.11',
       traceDiffHost: '',
 
       repairs: [],
