@@ -1,0 +1,9 @@
+is_perfect_number(3) == False
+is_perfect_number(6) == True
+is_perfect_number(14) == False
+is_perfect_number(28) == True
+is_perfect_number(248) == False
+is_perfect_number(496) == True
+is_perfect_number(4064) == False
+is_perfect_number(8128) == True
+is_perfect_number(1) == False

@@ -116,6 +116,7 @@ class App extends Component {
           <div id="type-links">
             <a id="factorial" className="ui basic button" href="?type=factorial">Fatorial</a>
             <a id="sum_of_squares" className="ui basic button" href="?type=sum_of_squares">Soma dos Quadrados</a>
+            <a id="is_perfect_number" className="ui basic button" href="?type=is_perfect_number">Números Perfeitos</a>
             <a id="is_prime_number" className="ui basic button" href="?type=is_prime_number">Números Primos</a>
             <a id="fibonacci" className="ui basic button" href="?type=fibonacci">Fibonacci</a>
           </div>
