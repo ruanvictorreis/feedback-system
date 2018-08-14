@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from 'semantic-ui-react';
 import actions from './redux/actions';
-import './App.css';
+import './style/App.css';
 import $ from 'jquery';
 import Highlight from 'react-highlight';
-import InteractiveHint from './InteractiveHint';
-import AgreementModal from './AgreementModal';
+import Feedback from './components/Feedback';
+import Consent from './components/Consent';
 
 class App extends Component {
   constructor(props) {
@@ -74,7 +74,7 @@ class App extends Component {
     })
       .then((response) => {
         if (response.AgreementRequired) {
-          window.agreementModal.init(this.state.register);
+          window.consent.init(this.state.register);
         }
 
         this.toggleLoader();
@@ -103,7 +103,7 @@ class App extends Component {
       })
 
     setTimeout(() => {
-      window.interactiveHint.init(this.state)
+      window.feedback.init(this.state)
     }, 1000)
   }
 
@@ -143,10 +143,10 @@ class App extends Component {
               </Highlight>
             </div>
             <div>
-              <InteractiveHint />
+              <Feedback />
             </div>
             <div>
-              <AgreementModal />
+              <Consent />
             </div>
           </div>
         </div>

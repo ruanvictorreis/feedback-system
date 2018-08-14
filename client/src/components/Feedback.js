@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
 import AlertContainer from 'react-alert';
 import Highlight from 'react-highlight';
-import Ladder from './Ladder';
-import Stream from './data/Stream';
-import Record from './data/Record';
+import TraceDiff from './TraceDiff';
+import Quiz from './Quiz';
+import Stream from '../data/Stream';
+import Record from '../data/Record';
 import $ from 'jquery';
 import 'codemirror/mode/python/python';
-import { Modal, Icon, Header, Segment, Grid, Message, Button } from 'semantic-ui-react';
+import { Modal, Icon, Header, Grid, Message, Button } from 'semantic-ui-react';
 
-class InteractiveHint extends Component {
+class Feedback extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -17,8 +18,8 @@ class InteractiveHint extends Component {
       obtained: 0,
       expected: 0,
 
-      uiHost: '18.231.114.55',
-      claraHost: '18.228.38.11',
+      uiHost: 'localhost',
+      claraHost: 'localhost',
       traceDiffHost: '',
 
       repairs: [],
@@ -47,17 +48,10 @@ class InteractiveHint extends Component {
       testCaseView: false,
       traceDiffView: false,
       pythonTutorView: false,
-
-      quizView: false,
       errorView: false,
-      quizOptionOne: false,
-      quizOptionTwo: false,
-      quizOptionThree: false,
-      quizOptionFour: false,
-      quizItems: [],
     }
 
-    window.interactiveHint = this
+    window.feedback = this
   }
 
   componentDidMount() {
@@ -87,68 +81,8 @@ class InteractiveHint extends Component {
     this.setState({ isLoading: !this.state.isLoading });
   }
 
-  saveQuizResult() {
-    const studentChoices = [
-      this.state.quizOptionOne,
-      this.state.quizOptionTwo,
-      this.state.quizOptionThree,
-      this.state.quizOptionFour
-    ];
-
-    var quizScore = 0;
-    const items = this.state.quizItems;
-
-    for (var i = 0; i < items.length; i++) {
-      items[i].answer = studentChoices[i];
-
-      if (items[i].answer === items[i].isCorrect) {
-        quizScore = quizScore + 1;
-      }
-    }
-
-    var quiz = {
-      Register: this.state.register,
-      Assignment: this.state.assignment,
-      Score: quizScore,
-      Condition: this.state.currentCondition,
-      ItemOne: JSON.stringify(items[0]),
-      ItemTwo: JSON.stringify(items[1]),
-      ItemThree: JSON.stringify(items[2]),
-      ItemFour: JSON.stringify(items[3]),
-    };
-
-    $.ajax({
-      method: 'POST',
-      url: 'http://feedback-logs.azurewebsites.net/api/quiz',
-      data: quiz
-    });
-
-    this.toggleQuiz();
-    this.msg.success('Exercício finalizado');
-  }
-
-  toggleQuiz() {
-    this.setState({ quizView: !this.state.quizView });
-  }
-
   toggleError() {
     this.setState({ errorView: !this.state.errorView });
-  }
-
-  toggleQuizOptionOne() {
-    this.setState({ quizOptionOne: !this.state.quizOptionOne });
-  }
-
-  toggleQuizOptionTwo() {
-    this.setState({ quizOptionTwo: !this.state.quizOptionTwo });
-  }
-
-  toggleQuizOptionThree() {
-    this.setState({ quizOptionThree: !this.state.quizOptionThree });
-  }
-
-  toggleQuizOptionFour() {
-    this.setState({ quizOptionFour: !this.state.quizOptionFour });
   }
 
   toggleConditionOne() {
@@ -387,21 +321,13 @@ class InteractiveHint extends Component {
   correctSubmission(attempt) {
     this.msg.success('Parabéns! Seu código está correto');
 
-    var info = {
+    var quizInfo = {
       register: attempt.register,
-      assignment: attempt.assignment
+      assignment: attempt.assignment,
+      currentCondition: this.state.currentCondition
     };
 
-    $.ajax({
-      method: 'POST',
-      url: `http://${this.state.uiHost}:8081/api/quiz`,
-      data: info
-    })
-      .then((quiz) => {
-        this.setState({ quizItems: quiz.items });
-        this.toggleQuiz();
-      });
-
+    window.quiz.init(quizInfo);
     this.saveLogSubmission(attempt);
   }
 
@@ -481,7 +407,7 @@ class InteractiveHint extends Component {
     })
 
     this.setState(state);
-    window.ladder.init()
+    window.traceDiff.init()
   }
 
   setConditionView(mode) {
@@ -512,7 +438,6 @@ class InteractiveHint extends Component {
     return ((studentCode || '').match(re) || []).length > 1
   }
 
-  closeQuiz = () => this.saveQuizResult();
   closeError = () => this.toggleError();
 
   render() {
@@ -564,69 +489,7 @@ class InteractiveHint extends Component {
           </Modal.Actions>
         </Modal>
 
-
-        <Modal
-          open={this.state.quizView}
-          style={inlineStyle.modal}
-          closeOnEscape={false}
-          closeOnRootNodeClick={false}>
-          <Header icon='cubes' content='Quiz' />
-          <Modal.Content>
-            <Modal.Description>
-              <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/29znC7ak-b4">&gt;&gt; Instruções &lt;&lt;</a>
-              <br /><br />
-              <p>Selecione outras soluções que também sejam corretas para este exercício:</p>
-            </Modal.Description>
-            <br />
-            <Grid centered>
-              <Grid.Row stretched>
-                <Grid.Column width={8}>
-                  <Segment raised>
-                    <Button circular toggle icon='checkmark' size="mini" floated="right"
-                      active={this.state.quizOptionOne} onClick={this.toggleQuizOptionOne.bind(this)} />
-                    <Highlight className="python">
-                      {this.state.quizView ? this.state.quizItems[0].code : ''}
-                    </Highlight>
-                  </Segment>
-                </Grid.Column>
-                <Grid.Column width={8}>
-                  <Segment raised>
-                    <Button circular toggle icon='checkmark' size="mini" floated="right"
-                      active={this.state.quizOptionTwo} onClick={this.toggleQuizOptionTwo.bind(this)} />
-                    <Highlight className="python">
-                      {this.state.quizView ? this.state.quizItems[1].code : ''}
-                    </Highlight>
-                  </Segment>
-                </Grid.Column>
-              </Grid.Row>
-
-              <Grid.Row stretched>
-                <Grid.Column width={8}>
-                  <Segment raised>
-                    <Button circular toggle icon='checkmark' size="mini" floated="right"
-                      active={this.state.quizOptionThree} onClick={this.toggleQuizOptionThree.bind(this)} />
-                    <Highlight className="python">
-                      {this.state.quizView ? this.state.quizItems[2].code : ''}
-                    </Highlight>
-                  </Segment>
-                </Grid.Column>
-                <Grid.Column width={8}>
-                  <Segment raised>
-                    <Button circular toggle icon='checkmark' size="mini" floated="right"
-                      active={this.state.quizOptionFour} onClick={this.toggleQuizOptionFour.bind(this)} />
-                    <Highlight className="python">
-                      {this.state.quizView ? this.state.quizItems[3].code : ''}
-                    </Highlight>
-                  </Segment>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Modal.Content>
-
-          <Modal.Actions>
-            <Button positive icon='checkmark' labelPosition='right' content="Enviar" onClick={this.closeQuiz} />
-          </Modal.Actions>
-        </Modal>
+        <Quiz />
 
         <Grid>
           <Grid.Row>
@@ -718,7 +581,7 @@ class InteractiveHint extends Component {
                   </Grid.Column>
                 </Grid>
 
-                <Ladder
+                <TraceDiff
                   beforeHistory={this.state.beforeHistory}
                   afterHistory={this.state.afterHistory}
                   beforeEvents={this.state.beforeEvents}
@@ -740,4 +603,4 @@ class InteractiveHint extends Component {
   }
 }
 
-export default InteractiveHint
+export default Feedback

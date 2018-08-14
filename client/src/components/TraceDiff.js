@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Tree from './data/Tree';
+import Tree from '../data/Tree';
 import Slider from 'rc-slider';
 import Tooltip from 'rc-tooltip';
 import _ from 'lodash';
@@ -7,7 +7,7 @@ import $ from 'jquery';
 
 import 'rc-slider/assets/index.css';
 
-class Ladder extends Component {
+class TraceDiff extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -23,7 +23,7 @@ class Ladder extends Component {
       diffIndex: null,
       focusKeys: [],
     }
-    window.ladder = this
+    window.traceDiff = this
   }
 
   componentDidMount() {
@@ -267,7 +267,7 @@ class Ladder extends Component {
   }
 }
 
-export default Ladder
+export default TraceDiff
 
 
 const Handle = Slider.Handle;

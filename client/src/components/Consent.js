@@ -3,7 +3,7 @@ import $ from 'jquery';
 import AlertContainer from 'react-alert';
 import { Modal, Segment, Form, Icon, Message, Container } from 'semantic-ui-react';
 
-class AgreementModal extends Component {
+class Consent extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -22,7 +22,7 @@ class AgreementModal extends Component {
       paragraph_8: '',
     }
 
-    window.agreementModal = this;
+    window.consent = this;
   }
 
   init(studentRegister) {
@@ -220,4 +220,4 @@ class AgreementModal extends Component {
   }
 }
 
-export default AgreementModal
+export default Consent

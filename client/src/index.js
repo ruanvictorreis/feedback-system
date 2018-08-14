@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import './index.css';
+import './style/index.css';
 import './style/main.css';
 import './style/pytutor.css';
 import './style/markdown.css';
