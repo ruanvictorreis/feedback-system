@@ -4,6 +4,7 @@ import AlertContainer from 'react-alert';
 import Highlight from 'react-highlight';
 import TraceDiff from './TraceDiff';
 import Quiz from './Quiz';
+import Survey from './Survey';
 import Stream from '../data/Stream';
 import Record from '../data/Record';
 import $ from 'jquery';
@@ -20,10 +21,10 @@ class Feedback extends Component {
 
       uiHost: 'localhost',
       claraHost: 'localhost',
-      traceDiffHost: '',
+      traceDiffHost: 'localhost',
 
       repairs: [],
-      currentCondition: 0,
+      workCondition: 0,
       iframeHeight: 135,
 
       afterHistory: {},
@@ -54,10 +55,6 @@ class Feedback extends Component {
     window.feedback = this
   }
 
-  componentDidMount() {
-    this.init()
-  }
-
   init(info) {
     if (!this.refs.editor) return false;
     this.cm = this.refs.editor.getCodeMirror();
@@ -67,7 +64,7 @@ class Feedback extends Component {
       this.setState({ register: info.register });
       this.setState({ assignment: info.assignment });
       this.setState({ studentCode: info.templateCode });
-      this.setState({ currentCondition: info.condition });
+      this.setState({ workCondition: info.condition });
       this.setConditionView(info.condition);
       this.cm.setValue(info.templateCode);
     }
@@ -98,7 +95,7 @@ class Feedback extends Component {
     this.setState({ claraView: false });
     this.setState({ traceDiffView: false });
     this.setState({ pythonTutorView: false });
-    this.setState({ currentCondition: 1 });
+    this.setState({ workCondition: 1 });
   }
 
   toggleConditionTwo() {
@@ -114,7 +111,7 @@ class Feedback extends Component {
     this.setState({ claraView: true });
     this.setState({ traceDiffView: false });
     this.setState({ pythonTutorView: false });
-    this.setState({ currentCondition: 2 });
+    this.setState({ workCondition: 2 });
   }
 
 
@@ -131,7 +128,7 @@ class Feedback extends Component {
     this.setState({ pythonTutorView: true });
     this.setState({ traceDiffView: false });
     this.setState({ claraView: false });
-    this.setState({ currentCondition: 3 });
+    this.setState({ workCondition: 3 });
   }
 
   toggleConditionFour() {
@@ -147,7 +144,7 @@ class Feedback extends Component {
     this.setState({ traceDiffView: true });
     this.setState({ claraView: false });
     this.setState({ pythonTutorView: false });
-    this.setState({ currentCondition: 4 });
+    this.setState({ workCondition: 4 });
   }
 
   setCurrentCode() {
@@ -176,7 +173,7 @@ class Feedback extends Component {
   }
 
   feedbackGeneration(attempt) {
-    switch (this.state.currentCondition) {
+    switch (this.state.workCondition) {
       case 1:
         this.testCaseFeedback(attempt);
         break;
@@ -228,7 +225,7 @@ class Feedback extends Component {
     this.setState({ obtained: attempt.obtained });
     this.setState({ expected: attempt.expected });
 
-    if (this.state.currentCondition === 1) {
+    if (this.state.workCondition === 1) {
       this.feedbackGenerated(attempt);
     }
   }
@@ -320,15 +317,29 @@ class Feedback extends Component {
 
   correctSubmission(attempt) {
     this.msg.success('Parabéns! Seu código está correto');
+    this.saveLogSubmission(attempt);
+    this.startQuiz();
+  }
 
-    var quizInfo = {
-      register: attempt.register,
-      assignment: attempt.assignment,
-      currentCondition: this.state.currentCondition
+  startQuiz() {
+    const quizInfo = {
+      register: this.state.register,
+      assignment: this.state.assignment,
+      workCondition: this.state.workCondition,
+      host: this.state.uiHost
     };
 
     window.quiz.init(quizInfo);
-    this.saveLogSubmission(attempt);
+  }
+
+  startSurvey() {
+    const surveyInfo = {
+      register: this.state.register,
+      assignment: this.state.assignment,
+      workCondition: this.state.workCondition,
+    };
+
+    window.survey.init(surveyInfo);
   }
 
   feedbackGenerated(attempt) {
@@ -356,7 +367,7 @@ class Feedback extends Component {
     var info = {
       Register: attempt.register,
       Assignment: attempt.assignment,
-      Condition: this.state.currentCondition,
+      Condition: this.state.workCondition,
       IsCorrect: attempt.isCorrect,
       SubmittedCode: attempt.studentCode,
       DateTime: new Date().toLocaleString(),
@@ -458,7 +469,6 @@ class Feedback extends Component {
 
     return (
       <div>
-
         <div className="loader-wrapper">
           <AlertContainer ref={a => this.msg = a}
             {...{
@@ -490,6 +500,7 @@ class Feedback extends Component {
         </Modal>
 
         <Quiz />
+        <Survey />
 
         <Grid>
           <Grid.Row>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Highlight from 'react-highlight';
-import AlertContainer from 'react-alert';
 import $ from 'jquery';
 import { Modal, Header, Segment, Grid, Button } from 'semantic-ui-react';
 
@@ -10,8 +9,8 @@ class Quiz extends Component {
     this.state = {
       register: '',
       assignment: '',
-      currentCondition: 0,
-      uiHost: 'localhost',
+      host: '',
+      workCondition: 0,
       quizView: false,
       quizOptionOne: false,
       quizOptionTwo: false,
@@ -23,22 +22,24 @@ class Quiz extends Component {
     window.quiz = this;
   }
 
-  componentDidMount() {
+  init(info) {
+    this.setState({ register: info.register });
+    this.setState({ assignment: info.assignment });
+    this.setState({ workCondition: info.workCondition });
+    this.setState({ host: info.host });
 
-  }
-
-  init(quizInfo) {
-    this.setState({ register: quizInfo.register });
-    this.setState({ assignment: quizInfo.assignment });
-    this.setState({ currentCondition: quizInfo.currentCondition });
+    const body = {
+      register: info.register,
+      assignment: info.assignment
+    };
 
     $.ajax({
       method: 'POST',
-      url: `http://${this.state.uiHost}:8081/api/quiz`,
-      data: quizInfo
+      url: `http://${info.host}:8081/api/quiz`,
+      data: body
     })
-      .then((quiz) => {
-        this.setState({ quizItems: quiz.items });
+      .then((response) => {
+        this.setState({ quizItems: response.items });
         this.setState({ quizView: true });
       });
   }
@@ -66,7 +67,7 @@ class Quiz extends Component {
       Register: this.state.register,
       Assignment: this.state.assignment,
       Score: quizScore,
-      Condition: this.state.currentCondition,
+      Condition: this.state.workCondition,
       ItemOne: JSON.stringify(items[0]),
       ItemTwo: JSON.stringify(items[1]),
       ItemThree: JSON.stringify(items[2]),
@@ -80,7 +81,7 @@ class Quiz extends Component {
     });
 
     this.setState({ quizView: false });
-    this.msg.success('Exercício finalizado');
+    window.feedback.startSurvey();
   }
 
   toggleQuizOptionOne() {
@@ -113,19 +114,6 @@ class Quiz extends Component {
 
     return (
       <div>
-
-        <div className="loader-wrapper">
-          <AlertContainer ref={a => this.msg = a}
-            {...{
-              offset: 12,
-              position: 'bottom left',
-              theme: 'light',
-              time: 10000,
-              transition: 'scale'
-            }
-            } />
-        </div>
-
         <Modal
           open={this.state.quizView}
           style={inlineStyle.modal}
@@ -135,11 +123,11 @@ class Quiz extends Component {
           <Modal.Content>
             <Modal.Description>
               <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/29znC7ak-b4">&gt;&gt; Instruções &lt;&lt;</a>
-              <br /><br />
-              <p>Selecione outras soluções que também sejam corretas para este exercício:</p>
+              <h3>Selecione outras soluções que também sejam corretas para este problema</h3>
+              <br />
             </Modal.Description>
-            <br />
-            <Grid centered>
+
+            <Grid>
               <Grid.Row stretched>
                 <Grid.Column width={8}>
                   <Segment raised>
@@ -185,7 +173,7 @@ class Quiz extends Component {
           </Modal.Content>
 
           <Modal.Actions>
-            <Button positive icon='checkmark' labelPosition='right' content="Enviar" onClick={this.closeQuiz} />
+            <Button positive icon='angle right' labelPosition='right' content="Enviar" onClick={this.closeQuiz} />
           </Modal.Actions>
         </Modal>
       </div>

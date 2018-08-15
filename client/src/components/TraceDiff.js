@@ -4,7 +4,6 @@ import Slider from 'rc-slider';
 import Tooltip from 'rc-tooltip';
 import _ from 'lodash';
 import $ from 'jquery';
-
 import 'rc-slider/assets/index.css';
 
 class TraceDiff extends Component {
