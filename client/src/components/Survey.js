@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
+import AlertContainer from 'react-alert';
 import { Modal, Header, Button, Form, Container } from 'semantic-ui-react';
 
 class Survey extends Component {
@@ -23,11 +25,27 @@ class Survey extends Component {
   }
 
   saveSurveyResult() {
+    if (!this.state.likert) {
+      this.msg.info('Selecione uma das possíveis respostas para esta pergunta');
+      return;
+    }
+
+    var survey = {
+      Register: this.state.register,
+      Assignment: this.state.assignment,
+      Condition: this.state.workCondition,
+      Likert: this.state.likert,
+    };
+
     this.setState({ surveyView: false });
-    console.log(this.state.register)
-    console.log(this.state.assignment)
-    console.log(this.state.workCondition)
-    console.log(this.state.likert)
+
+    $.ajax({
+      method: 'POST',
+      url: 'http://feedback-logs.azurewebsites.net/api/survey',
+      data: survey
+    });
+
+    this.msg.success('Exercício Finalizado');
   }
 
   handleChange = (e, { likert }) => this.setState({ likert })
@@ -47,6 +65,16 @@ class Survey extends Component {
 
     return (
       <div>
+        <AlertContainer ref={a => this.msg = a}
+          {...{
+            offset: 12,
+            position: 'bottom left',
+            theme: 'light',
+            time: 10000,
+            transition: 'scale'
+          }
+          } />
+
         <Modal open={this.state.surveyView}
           style={inlineStyle.modal}
           closeOnEscape={false}
