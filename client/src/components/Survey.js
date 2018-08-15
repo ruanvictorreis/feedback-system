@@ -5,18 +5,34 @@ class Survey extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      surveyView: false,
+      register: '',
+      assignment: '',
+      workCondition: 0,
       likert: 0,
+      surveyView: false,
     }
 
     window.survey = this;
   }
 
-  init() {
+  init(info) {
+    this.setState({ register: info.register });
+    this.setState({ assignment: info.assignment });
+    this.setState({ workCondition: info.workCondition });
     this.setState({ surveyView: true });
   }
 
+  saveSurveyResult() {
+    this.setState({ surveyView: false });
+    console.log(this.state.register)
+    console.log(this.state.assignment)
+    console.log(this.state.workCondition)
+    console.log(this.state.likert)
+  }
+
   handleChange = (e, { likert }) => this.setState({ likert })
+
+  closeSurvey = () => this.saveSurveyResult();
 
   render() {
     const inlineStyle = {
@@ -102,7 +118,7 @@ class Survey extends Component {
           </Modal.Content>
 
           <Modal.Actions>
-            <Button positive icon='checkmark' labelPosition='right' content="Enviar" onClick={this.close} />
+            <Button positive icon='checkmark' labelPosition='right' content="Enviar" onClick={this.closeSurvey} />
           </Modal.Actions>
         </Modal>
       </div>
