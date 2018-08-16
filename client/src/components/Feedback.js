@@ -5,6 +5,7 @@ import Highlight from 'react-highlight';
 import TraceDiff from './TraceDiff';
 import Quiz from './Quiz';
 import Survey from './Survey';
+import Preference from './Preference';
 import Stream from '../data/Stream';
 import Record from '../data/Record';
 import $ from 'jquery';
@@ -24,6 +25,7 @@ class Feedback extends Component {
       traceDiffHost: 'localhost',
 
       repairs: [],
+      counter: 0,
       workCondition: 0,
       iframeHeight: 135,
 
@@ -64,8 +66,9 @@ class Feedback extends Component {
       this.setState({ register: info.register });
       this.setState({ assignment: info.assignment });
       this.setState({ studentCode: info.templateCode });
-      this.setState({ workCondition: info.condition });
-      this.setConditionView(info.condition);
+      this.setState({ counter: info.counter });
+      this.setState({ workCondition: info.workCondition });
+      this.setConditionView(info.workCondition);
       this.cm.setValue(info.templateCode);
     }
   }
@@ -342,6 +345,15 @@ class Feedback extends Component {
     window.survey.init(surveyInfo);
   }
 
+  startPreference() {
+    const preferenceInfo = {
+      register: this.state.register,
+      counter: this.state.counter,
+    };
+
+    window.preference.init(preferenceInfo);
+  }
+
   feedbackGenerated(attempt) {
     this.msg.info('Utilize o feedback fornecido para solucionar os problemas do seu código');
     this.saveLogSubmission(attempt);
@@ -501,6 +513,7 @@ class Feedback extends Component {
 
         <Quiz />
         <Survey />
+        <Preference />
 
         <Grid>
           <Grid.Row>

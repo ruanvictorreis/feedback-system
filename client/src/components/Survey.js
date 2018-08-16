@@ -38,14 +38,13 @@ class Survey extends Component {
     };
 
     this.setState({ surveyView: false });
+    window.feedback.startPreference();
 
     $.ajax({
       method: 'POST',
       url: 'http://feedback-logs.azurewebsites.net/api/survey',
       data: survey
     });
-
-    this.msg.success('Exercício Finalizado');
   }
 
   handleChange = (e, { likert }) => this.setState({ likert })
@@ -79,7 +78,7 @@ class Survey extends Component {
           style={inlineStyle.modal}
           closeOnEscape={false}
           closeOnRootNodeClick={false}>
-          <Header icon='question circle outline' content='Questionário' />
+          <Header icon='question circle outline' content='Survey' />
 
           <Modal.Content>
             <Container textAlign='center'>

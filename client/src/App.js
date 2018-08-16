@@ -17,7 +17,8 @@ class App extends Component {
       register: '',
       assignment: '',
       templateCode: '',
-      condition: 0,
+      workCondition: 0,
+      counter: 0,
       isLocked: false,
       isLoading: false,
     }
@@ -37,7 +38,7 @@ class App extends Component {
     )
 
     if (!params.type) {
-      window.location.href = `/?type=factorial`
+      window.location.href = `/?type=sum_of_squares`
       return false
     } else {
       this.setState({ assignment: params.type });
@@ -84,7 +85,8 @@ class App extends Component {
   }
 
   loadAssignmentInfo(studentRegister) {
-    this.setState({ condition: studentRegister.Condition })
+    this.setState({ counter: studentRegister.Counter });
+    this.setState({ workCondition: studentRegister.Condition });
 
     $.ajax({
       method: 'GET',
@@ -114,9 +116,9 @@ class App extends Component {
       <div>
         <div className="ui two column centered grid" style={{ marginTop: '20px' }}>
           <div id="type-links">
-            <a id="factorial" className="ui basic button" href="?type=factorial">Fatorial</a>
+            {/** <a id="factorial" className="ui basic button" href="?type=factorial">Fatorial</a> */}
             <a id="sum_of_squares" className="ui basic button" href="?type=sum_of_squares">Soma dos Quadrados</a>
-            <a id="is_perfect_number" className="ui basic button" href="?type=is_perfect_number">Números Perfeitos</a>
+            {/** <a id="is_perfect_number" className="ui basic button" href="?type=is_perfect_number">Números Perfeitos</a> */}
             <a id="is_prime_number" className="ui basic button" href="?type=is_prime_number">Números Primos</a>
             <a id="fibonacci" className="ui basic button" href="?type=fibonacci">Fibonacci</a>
           </div>
