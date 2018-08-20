@@ -9,19 +9,78 @@ class Survey extends Component {
     this.state = {
       register: '',
       assignment: '',
-      workCondition: 0,
+      condition: 0,
       likert: 0,
+      survey: {},
+      close: false,
       surveyView: false,
     }
 
     window.survey = this;
   }
 
-  init(info) {
-    this.setState({ register: info.register });
-    this.setState({ assignment: info.assignment });
-    this.setState({ workCondition: info.workCondition });
-    this.setState({ surveyView: true });
+  init(props) {
+    this.setState({ register: props.register });
+    this.setState({ assignment: props.assignment });
+    this.setState({ condition: props.condition });
+    this.setupFirstSurvey();
+
+    setTimeout(() => {
+      this.setState({ surveyView: true });
+    }, 500);
+  }
+
+  setupFirstSurvey() {
+    $.ajax({
+      method: 'GET',
+      url: `${window.location.pathname}data/survey/assertion-1.txt`
+    })
+      .then((txt) => {
+        const condition = this.state.condition;
+        const tool = this.getTool(condition);
+        const assertion = txt.replace('{0}', tool);
+        const survey = {
+          assertion: assertion,
+          type: 'learningSurvey'
+        };
+
+        this.setState({ survey: survey });
+        this.setState({ likert: 0 });
+        this.setState({ close: false });
+      });
+  }
+
+  setupSecondSurvey() {
+    $.ajax({
+      method: 'GET',
+      url: `${window.location.pathname}data/survey/assertion-2.txt`
+    })
+      .then((txt) => {
+        const condition = this.state.condition;
+        const tool = this.getTool(condition);
+        const assertion = txt.replace('{0}', tool);
+        const survey = {
+          assertion: assertion,
+          type: 'fixingSurvey'
+        };
+
+        this.setState({ survey: survey });
+        this.setState({ likert: 0 });
+        this.setState({ close: true });
+      });
+  }
+
+  getTool(condition) {
+    switch (condition) {
+      case 1:
+        return 'Teste';
+      case 2:
+        return 'CLARA';
+      case 3:
+        return 'Python Tutor';
+      default:
+        return 'Feedback';
+    }
   }
 
   saveSurveyResult() {
@@ -33,16 +92,21 @@ class Survey extends Component {
     var survey = {
       Register: this.state.register,
       Assignment: this.state.assignment,
-      Condition: this.state.workCondition,
+      Condition: this.state.condition,
       Likert: this.state.likert,
     };
 
-    this.setState({ surveyView: false });
-    window.feedback.startPreference();
+    if (this.state.close) {
+      this.setState({ surveyView: false });
+      window.feedback.startSuggestion();
+      this.setupFirstSurvey();
+    } else {
+      this.setupSecondSurvey();
+    }
 
     $.ajax({
       method: 'POST',
-      url: 'http://feedback-logs.azurewebsites.net/api/survey',
+      url: `http://feedback-logs.azurewebsites.net/api/${this.state.survey.type}`,
       data: survey
     });
   }
@@ -82,7 +146,7 @@ class Survey extends Component {
 
           <Modal.Content>
             <Container textAlign='center'>
-              <h2>Neste exercício, o quanto o Feedback dado lhe ajudou a solucionar o problema proposto?</h2>
+              <h2>{this.state.survey.assertion}</h2>
             </Container>
 
             <br />
@@ -91,7 +155,7 @@ class Survey extends Component {
             <Form>
               <Form.Group inline>
                 <Container textAlign='center'>
-                  <h4>Não me ajudou a solucionar o problema</h4>
+                  <h4>Discordo Fortemente</h4>
                 </Container>
 
                 <Form.Radio
@@ -138,7 +202,7 @@ class Survey extends Component {
                 />
 
                 <Container textAlign='center'>
-                  <h4>Foi essencial para solucionar o problema</h4>
+                  <h4>Concordo Fortemente</h4>
                 </Container>
               </Form.Group>
             </Form>

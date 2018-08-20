@@ -17,7 +17,7 @@ class App extends Component {
       register: '',
       assignment: '',
       templateCode: '',
-      workCondition: 0,
+      condition: 0,
       counter: 0,
       isLocked: false,
       isLoading: false,
@@ -86,7 +86,7 @@ class App extends Component {
 
   loadAssignmentInfo(studentRegister) {
     this.setState({ counter: studentRegister.Counter });
-    this.setState({ workCondition: studentRegister.Condition });
+    this.setState({ condition: studentRegister.Condition });
 
     $.ajax({
       method: 'GET',

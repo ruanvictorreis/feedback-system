@@ -10,7 +10,7 @@ class Quiz extends Component {
       register: '',
       assignment: '',
       host: '',
-      workCondition: 0,
+      condition: 0,
       quizView: false,
       quizOptionOne: false,
       quizOptionTwo: false,
@@ -22,20 +22,20 @@ class Quiz extends Component {
     window.quiz = this;
   }
 
-  init(info) {
-    this.setState({ register: info.register });
-    this.setState({ assignment: info.assignment });
-    this.setState({ workCondition: info.workCondition });
-    this.setState({ host: info.host });
+  init(props) {
+    this.setState({ register: props.register });
+    this.setState({ assignment: props.assignment });
+    this.setState({ condition: props.condition });
+    this.setState({ host: props.host });
 
     const body = {
-      register: info.register,
-      assignment: info.assignment
+      register: props.register,
+      assignment: props.assignment
     };
 
     $.ajax({
       method: 'POST',
-      url: `http://${info.host}:8081/api/quiz`,
+      url: `http://${props.host}:8081/api/quiz`,
       data: body
     })
       .then((response) => {
@@ -67,7 +67,7 @@ class Quiz extends Component {
       Register: this.state.register,
       Assignment: this.state.assignment,
       Score: quizScore,
-      Condition: this.state.workCondition,
+      Condition: this.state.condition,
       ItemOne: JSON.stringify(items[0]),
       ItemTwo: JSON.stringify(items[1]),
       ItemThree: JSON.stringify(items[2]),
@@ -122,7 +122,7 @@ class Quiz extends Component {
           <Header icon='cubes' content='Quiz' />
           <Modal.Content>
             <Modal.Description>
-              <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/29znC7ak-b4">&gt;&gt; Instruções &lt;&lt;</a>
+              {/** <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/29znC7ak-b4">&gt;&gt; Instruções &lt;&lt;</a>*/}
               <h3>Selecione outras soluções que também sejam corretas para este problema</h3>
               <br />
             </Modal.Description>

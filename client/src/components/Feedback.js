@@ -5,7 +5,7 @@ import Highlight from 'react-highlight';
 import TraceDiff from './TraceDiff';
 import Quiz from './Quiz';
 import Survey from './Survey';
-import Preference from './Preference';
+import Suggestion from './Suggestion';
 import Stream from '../data/Stream';
 import Record from '../data/Record';
 import $ from 'jquery';
@@ -20,13 +20,13 @@ class Feedback extends Component {
       obtained: 0,
       expected: 0,
 
-      uiHost: '18.231.13.130',
+      uiHost: 'localhost',
       claraHost: '18.228.38.197',
       traceDiffHost: 'localhost',
 
       repairs: [],
       counter: 0,
-      workCondition: 0,
+      condition: 0,
       iframeHeight: 135,
 
       afterHistory: {},
@@ -41,6 +41,7 @@ class Feedback extends Component {
       pythonTutorURL: '',
 
       isLoading: false,
+      accepting: true,
       conditionOne: false,
       conditionTwo: false,
       conditionThree: false,
@@ -67,8 +68,8 @@ class Feedback extends Component {
       this.setState({ assignment: info.assignment });
       this.setState({ studentCode: info.templateCode });
       this.setState({ counter: info.counter });
-      this.setState({ workCondition: info.workCondition });
-      this.setConditionView(info.workCondition);
+      this.setState({ condition: info.condition });
+      this.setConditionView(info.condition);
       this.cm.setValue(info.templateCode);
     }
   }
@@ -98,7 +99,7 @@ class Feedback extends Component {
     this.setState({ claraView: false });
     this.setState({ traceDiffView: false });
     this.setState({ pythonTutorView: false });
-    this.setState({ workCondition: 1 });
+    this.setState({ condition: 1 });
   }
 
   toggleConditionTwo() {
@@ -114,7 +115,7 @@ class Feedback extends Component {
     this.setState({ claraView: true });
     this.setState({ traceDiffView: false });
     this.setState({ pythonTutorView: false });
-    this.setState({ workCondition: 2 });
+    this.setState({ condition: 2 });
   }
 
 
@@ -131,7 +132,7 @@ class Feedback extends Component {
     this.setState({ pythonTutorView: true });
     this.setState({ traceDiffView: false });
     this.setState({ claraView: false });
-    this.setState({ workCondition: 3 });
+    this.setState({ condition: 3 });
   }
 
   toggleConditionFour() {
@@ -147,7 +148,7 @@ class Feedback extends Component {
     this.setState({ traceDiffView: true });
     this.setState({ claraView: false });
     this.setState({ pythonTutorView: false });
-    this.setState({ workCondition: 4 });
+    this.setState({ condition: 4 });
   }
 
   setCurrentCode() {
@@ -176,7 +177,7 @@ class Feedback extends Component {
   }
 
   feedbackGeneration(attempt) {
-    switch (this.state.workCondition) {
+    switch (this.state.condition) {
       case 1:
         this.testCaseFeedback(attempt);
         break;
@@ -228,7 +229,7 @@ class Feedback extends Component {
     this.setState({ obtained: attempt.obtained });
     this.setState({ expected: attempt.expected });
 
-    if (this.state.workCondition === 1) {
+    if (this.state.condition === 1) {
       this.feedbackGenerated(attempt);
     }
   }
@@ -322,36 +323,37 @@ class Feedback extends Component {
     this.msg.success('Parabéns! Seu código está correto');
     this.saveLogSubmission(attempt);
     this.startQuiz();
+    this.setState({ accepting: false });
   }
 
   startQuiz() {
-    const quizInfo = {
+    const quizProps = {
       register: this.state.register,
       assignment: this.state.assignment,
-      workCondition: this.state.workCondition,
+      condition: this.state.condition,
       host: this.state.uiHost
     };
 
-    window.quiz.init(quizInfo);
+    window.quiz.init(quizProps);
   }
 
   startSurvey() {
-    const surveyInfo = {
+    const surveyProps = {
       register: this.state.register,
       assignment: this.state.assignment,
-      workCondition: this.state.workCondition,
+      condition: this.state.condition,
     };
 
-    window.survey.init(surveyInfo);
+    window.survey.init(surveyProps);
   }
 
-  startPreference() {
-    const preferenceInfo = {
+  startSuggestion() {
+    const suggestionProps = {
       register: this.state.register,
       counter: this.state.counter,
     };
 
-    window.preference.init(preferenceInfo);
+    window.suggestion.init(suggestionProps);
   }
 
   feedbackGenerated(attempt) {
@@ -379,7 +381,7 @@ class Feedback extends Component {
     var info = {
       Register: attempt.register,
       Assignment: attempt.assignment,
-      Condition: this.state.workCondition,
+      Condition: this.state.condition,
       IsCorrect: attempt.isCorrect,
       SubmittedCode: attempt.studentCode,
       DateTime: new Date().toLocaleString(),
@@ -513,7 +515,7 @@ class Feedback extends Component {
 
         <Quiz />
         <Survey />
-        <Preference />
+        <Suggestion />
 
         <Grid>
           <Grid.Row>
@@ -533,7 +535,11 @@ class Feedback extends Component {
                   options={options} />
 
                 <br />
-                <Button primary loading={isLoading} onClick={this.submitAttempt.bind(this)}>Enviar</Button>
+                <Button primary loading={isLoading}
+                  onClick={this.submitAttempt.bind(this)}
+                  style={{ display: this.state.accepting ? 'block' : 'none' }}>
+                  Enviar
+                </Button>
               </Message>
             </Grid.Column>
 
