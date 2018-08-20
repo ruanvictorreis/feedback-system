@@ -10,7 +10,7 @@ class Consent extends Component {
       name: '',
       email: '',
       register: '',
-      consentView: false,
+      view: true,
       agreement: false,
       paragraph_1: '',
       paragraph_2: '',
@@ -26,7 +26,7 @@ class Consent extends Component {
   }
 
   init(studentRegister) {
-    this.setState({ consentView: true });
+    this.setState({ view: true });
     this.setState({ register: studentRegister });
   }
 
@@ -119,7 +119,7 @@ class Consent extends Component {
       Acceptance: this.state.agreement,
     };
 
-    this.setState({ consentView: false });
+    this.setState({ view: false });
 
     $.ajax({
       method: 'POST',
@@ -164,7 +164,7 @@ class Consent extends Component {
           } />
 
         <Modal
-          open={this.state.consentView}
+          open={this.state.view}
           style={inlineStyle.modal}
           closeOnEscape={false}
           closeOnRootNodeClick={false}
