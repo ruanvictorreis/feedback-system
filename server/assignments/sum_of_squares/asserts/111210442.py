@@ -1,7 +1,7 @@
 def sum_of_squares(n):
   total = 0
   for i in range(1, n+1):
-    total = total + (i**2)
+    total = total + i ** 2
   return total
 
 assert sum_of_squares(5) == 55, '>>> sum_of_squares(5)\n    # Error: expected\n    #     55\n    # but got\n    #     %s' % sum_of_squares(5)

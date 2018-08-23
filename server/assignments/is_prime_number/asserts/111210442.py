@@ -2,7 +2,7 @@ def is_prime_number(n):
   soma = 0
   for i in range(1, n+1):
     if n % i == 0:
-      soma = soma + 1
+      soma += 1
   return soma == 2
 
 assert is_prime_number(2) == True, '>>> is_prime_number(2)\n    # Error: expected\n    #     True\n    # but got\n    #     %s' % is_prime_number(2)

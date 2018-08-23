@@ -1,10 +1,10 @@
 def fibonacci(n):
   atual = 0
-  proximo = 1
+  prox = 1
   for i in range(n):
-    c = atual
-    atual = proximo
-    proximo = c + proximo
+    aux = atual
+    atual = prox
+    prox = aux + prox
   return atual
 
 assert fibonacci(0) == 0, '>>> fibonacci(0)\n    # Error: expected\n    #     0\n    # but got\n    #     %s' % fibonacci(0)
