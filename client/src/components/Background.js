@@ -115,7 +115,7 @@ class Background extends Component {
                                     </Grid.Column>
                                     <Grid.Column width={15}>
                                         <Container textAlign='left'>
-                                            <h2>Quais dessas disciplinas você já cursou em sua graduação?</h2>
+                                            <h2>Quais dessas disciplinas você já cursou, ou está cursando, na graduação?</h2>
                                         </Container>
                                     </Grid.Column>
                                 </Grid.Row>

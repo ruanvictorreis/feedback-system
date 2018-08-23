@@ -75,14 +75,19 @@ class App extends Component {
       data: studentRegister
     })
       .then((response) => {
-        if (response.AgreementRequired) {
+        const needConsent = response.AgreementRequired;
+        const needBackground = response.BackgroundRequired;
+
+        if (needConsent) {
           this.startConsent();
+        } else if (needBackground) {
+          this.startBackground();
         }
 
         this.toggleLoader();
         this.setState({ isLocked: true });
         this.loadAssignmentInfo(response);
-      })
+      });
   }
 
   loadAssignmentInfo(studentRegister) {
