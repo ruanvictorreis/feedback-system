@@ -46,7 +46,7 @@ class Suggestion extends Component {
     });
   }
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   closeSuggestion = () => this.saveSuggestionResult();
 
@@ -82,7 +82,7 @@ class Suggestion extends Component {
           <Modal.Content>
             <Container textAlign='left'>
               <h3>Deixe suas sugestões!</h3>
-              <h4>Quais mudanças você sugere para melhorar os feedback's abordados neste estudo? Que tipo de feedback você gostaria de ter recebido?</h4>
+              <h4>Quais mudanças você sugere para melhorar as abordagens de feedback abordadas neste estudo? Que tipo de feedback você gostaria de ter recebido?</h4>
             </Container>
 
             <br />

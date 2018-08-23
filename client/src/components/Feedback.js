@@ -327,33 +327,33 @@ class Feedback extends Component {
   }
 
   startQuiz() {
-    const quizProps = {
+    const props = {
       register: this.state.register,
       assignment: this.state.assignment,
       condition: this.state.condition,
       host: this.state.uiHost
     };
 
-    window.quiz.init(quizProps);
+    window.quiz.init(props);
   }
 
   startSurvey() {
-    const surveyProps = {
+    const props = {
       register: this.state.register,
       assignment: this.state.assignment,
       condition: this.state.condition,
     };
 
-    window.survey.init(surveyProps);
+    window.survey.init(props);
   }
 
   startSuggestion() {
-    const suggestionProps = {
+    const props = {
       register: this.state.register,
       counter: this.state.counter,
     };
 
-    window.suggestion.init(suggestionProps);
+    window.suggestion.init(props);
   }
 
   feedbackGenerated(attempt) {

@@ -10,7 +10,7 @@ class Consent extends Component {
       name: '',
       email: '',
       register: '',
-      view: true,
+      view: false,
       agreement: false,
       paragraph_1: '',
       paragraph_2: '',
@@ -25,9 +25,9 @@ class Consent extends Component {
     window.consent = this;
   }
 
-  init(studentRegister) {
+  init(props) {
     this.setState({ view: true });
-    this.setState({ register: studentRegister });
+    this.setState({ register: props.register });
   }
 
   componentDidMount() {
@@ -120,6 +120,7 @@ class Consent extends Component {
     };
 
     this.setState({ view: false });
+    window.app.startBackground();
 
     $.ajax({
       method: 'POST',

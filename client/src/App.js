@@ -8,6 +8,7 @@ import $ from 'jquery';
 import Highlight from 'react-highlight';
 import Feedback from './components/Feedback';
 import Consent from './components/Consent';
+import Background from './components/Background';
 
 class App extends Component {
   constructor(props) {
@@ -62,7 +63,7 @@ class App extends Component {
 
     this.toggleLoader();
 
-    var studentRegister = {
+    const studentRegister = {
       Register: `${this.state.register}`,
       Assignment: `${this.state.assignment}`,
       DateTime: new Date().toLocaleString()
@@ -75,7 +76,7 @@ class App extends Component {
     })
       .then((response) => {
         if (response.AgreementRequired) {
-          window.consent.init(this.state.register);
+          this.startConsent();
         }
 
         this.toggleLoader();
@@ -107,6 +108,22 @@ class App extends Component {
     setTimeout(() => {
       window.feedback.init(this.state)
     }, 1000)
+  }
+
+  startConsent() {
+    const props = {
+      register: this.state.register,
+    };
+
+    window.consent.init(props);
+  }
+
+  startBackground() {
+    const props = {
+      register: this.state.register,
+    };
+
+    window.background.init(props);
   }
 
   render() {
@@ -149,6 +166,9 @@ class App extends Component {
             </div>
             <div>
               <Consent />
+            </div>
+            <div>
+              <Background />
             </div>
           </div>
         </div>
