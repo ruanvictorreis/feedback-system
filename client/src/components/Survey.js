@@ -9,11 +9,11 @@ class Survey extends Component {
     this.state = {
       register: '',
       assignment: '',
+      answer: '',
       condition: 0,
-      likert: 0,
       survey: {},
       close: false,
-      surveyView: false,
+      view: false,
     }
 
     window.survey = this;
@@ -26,7 +26,7 @@ class Survey extends Component {
     this.setupFirstSurvey();
 
     setTimeout(() => {
-      this.setState({ surveyView: true });
+      this.setState({ view: true });
     }, 500);
   }
 
@@ -45,7 +45,7 @@ class Survey extends Component {
         };
 
         this.setState({ survey: survey });
-        this.setState({ likert: 0 });
+        this.setState({ answer: '' });
         this.setState({ close: false });
       });
   }
@@ -65,7 +65,7 @@ class Survey extends Component {
         };
 
         this.setState({ survey: survey });
-        this.setState({ likert: 0 });
+        this.setState({ answer: '' });
         this.setState({ close: true });
       });
   }
@@ -84,7 +84,7 @@ class Survey extends Component {
   }
 
   saveSurveyResult() {
-    if (!this.state.likert) {
+    if (!this.state.answer) {
       this.msg.info('Selecione uma das possíveis respostas para esta pergunta');
       return;
     }
@@ -93,11 +93,11 @@ class Survey extends Component {
       Register: this.state.register,
       Assignment: this.state.assignment,
       Condition: this.state.condition,
-      Likert: this.state.likert,
+      Answer: this.state.answer,
     };
 
     if (this.state.close) {
-      this.setState({ surveyView: false });
+      this.setState({ view: false });
       window.feedback.startSuggestion();
       this.setupFirstSurvey();
     } else {
@@ -111,7 +111,7 @@ class Survey extends Component {
     });
   }
 
-  handleChange = (e, { likert }) => this.setState({ likert })
+  handleChange = (e, { answer }) => this.setState({ answer })
 
   closeSurvey = () => this.saveSurveyResult();
 
@@ -124,7 +124,7 @@ class Survey extends Component {
       }
     };
 
-    const { likert } = this.state
+    const { answer } = this.state
 
     return (
       <div>
@@ -138,7 +138,7 @@ class Survey extends Component {
           }
           } />
 
-        <Modal open={this.state.surveyView}
+        <Modal open={this.state.view}
           style={inlineStyle.modal}
           closeOnEscape={false}
           closeOnRootNodeClick={false}>
@@ -150,60 +150,27 @@ class Survey extends Component {
             </Container>
 
             <br />
-            <br />
 
             <Form>
-              <Form.Group inline>
-                <Container textAlign='center'>
-                  <h4>Discordo Fortemente</h4>
-                </Container>
-
+              <Form.Group grouped>
                 <Form.Radio
-                  label='1'
-                  likert={1}
-                  checked={likert === 1}
+                  label='Sim'
+                  answer='SIM'
+                  checked={answer === 'SIM'}
                   onChange={this.handleChange}
                 />
                 <Form.Radio
-                  label='2'
-                  likert={2}
-                  checked={likert === 2}
+                  label='Não'
+                  answer='NÃO'
+                  checked={answer === 'NÃO'}
                   onChange={this.handleChange}
                 />
                 <Form.Radio
-                  label='3'
-                  likert={3}
-                  checked={likert === 3}
+                  label='Não se aplica'
+                  answer='NÃO SE APLICA'
+                  checked={answer === 'NÃO SE APLICA'}
                   onChange={this.handleChange}
                 />
-                <Form.Radio
-                  label='4'
-                  likert={4}
-                  checked={likert === 4}
-                  onChange={this.handleChange}
-                />
-                <Form.Radio
-                  label='5'
-                  likert={5}
-                  checked={likert === 5}
-                  onChange={this.handleChange}
-                />
-                <Form.Radio
-                  label='6'
-                  likert={6}
-                  checked={likert === 6}
-                  onChange={this.handleChange}
-                />
-                <Form.Radio
-                  label='7'
-                  likert={7}
-                  checked={likert === 7}
-                  onChange={this.handleChange}
-                />
-
-                <Container textAlign='center'>
-                  <h4>Concordo Fortemente</h4>
-                </Container>
               </Form.Group>
             </Form>
           </Modal.Content>

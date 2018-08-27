@@ -1,1 +1,1 @@
-O {0} me ajudou a aprender como solucionar o problema de programação proposto.
+O {0} lhe ajudou a aprender sobre o funcionamento e implementação deste exercício?

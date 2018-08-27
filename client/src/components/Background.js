@@ -43,6 +43,8 @@ class Background extends Component {
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
+    toggleChange = (e, { name }) => this.setState({ [name]: !this.state[name] });
+
     close = () => this.save();
 
     render() {
@@ -127,30 +129,26 @@ class Background extends Component {
                                             <Form.Checkbox
                                                 label='Introdução a Ciência da Computação'
                                                 name='icc'
-                                                value={!icc}
-                                                checked={icc === true}
-                                                onChange={this.handleChange}
+                                                checked={icc}
+                                                onChange={this.toggleChange}
                                             />
                                             <Form.Checkbox
                                                 label='Programação I'
                                                 name='p1'
-                                                value={!p1}
-                                                checked={p1 === true}
-                                                onChange={this.handleChange}
+                                                checked={p1}
+                                                onChange={this.toggleChange}
                                             />
                                             <Form.Checkbox
                                                 label='Programação II'
                                                 name='p2'
-                                                value={!p2}
-                                                checked={p2 === true}
-                                                onChange={this.handleChange}
+                                                checked={p2}
+                                                onChange={this.toggleChange}
                                             />
                                             <Form.Checkbox
                                                 label='Estrutura de Dados e Algoritmos'
                                                 name='eda'
-                                                value={!eda}
-                                                checked={eda === true}
-                                                onChange={this.handleChange}
+                                                checked={eda}
+                                                onChange={this.toggleChange}
                                             />
                                         </Form.Group>
                                     </Grid.Column>
