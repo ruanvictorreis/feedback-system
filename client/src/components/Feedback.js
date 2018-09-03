@@ -20,8 +20,8 @@ class Feedback extends Component {
       obtained: 0,
       expected: 0,
 
-      uiHost: '18.228.40.171',
-      claraHost: '18.231.197.254',
+      uiHost: '18.228.43.254',
+      claraHost: '18.228.44.190',
       traceDiffHost: 'localhost',
 
       repairs: [],
