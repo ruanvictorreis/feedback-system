@@ -1,1 +1,1 @@
-O {0} lhe ajudou a aprender sobre o funcionamento e implementação deste exercício?
+O {0} lhe ajudou a entender sobre o funcionamento e implementação deste exercício?
