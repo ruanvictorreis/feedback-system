@@ -166,7 +166,7 @@ class Survey extends Component {
                   onChange={this.handleChange}
                 />
                 <Form.Radio
-                  label='Não se aplica (marque esta opção caso nenhum feedback tenha sido utilizado)'
+                  label='Não se aplica (marque esta opção caso nenhum feedback tenha sido exibido)'
                   answer='NÃO SE APLICA'
                   checked={answer === 'NÃO SE APLICA'}
                   onChange={this.handleChange}
