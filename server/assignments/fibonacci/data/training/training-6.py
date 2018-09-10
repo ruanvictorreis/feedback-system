@@ -1,8 +1,8 @@
 def fibonacci(n):
   atual = 0
   proximo = 1
-  count = 0
-  while(count < n):
+
+  while (n > 0):
     temp = atual
     atual = proximo
     proximo = temp + proximo

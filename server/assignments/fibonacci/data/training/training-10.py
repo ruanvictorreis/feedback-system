@@ -1,13 +1,12 @@
-def fibonacci(n):
-  temp = 0
-  fib_list = [0, 1]
-  
+def fibonacci(n):  
   if n == 0:
-    return temp
+    return 0
   
   if n == 1:
-    return fib_list[0] + fib_list[1]
+    return 1
   
+  fib_list = [0, 1]
+
   for i in range(1, n):
     temp = fib_list[0] + fib_list[1]
     fib_list[0] = fib_list[1]

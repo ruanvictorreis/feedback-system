@@ -1,5 +1,6 @@
 def fibonacci(n):
   fib_list = [0, 1]
+  
   for i in range(n):
     size = len(fib_list)
     atual = fib_list[size - 1]
