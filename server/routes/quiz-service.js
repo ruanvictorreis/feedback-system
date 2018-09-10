@@ -9,10 +9,10 @@ router.post('/', function (request, response) {
     const proportionList = [[4, 0], [3, 1], [2, 2], [1, 3], [0, 4]];
 
     var specList = [];
-    const specsPath = `./assignments/${assignment}/specs/`;
+    const specsPath = `./assignments/${assignment}/data/specs/`;
 
     var trickList = [];
-    const tricksPath = `./assignments/${assignment}/tricks/`;
+    const tricksPath = `./assignments/${assignment}/data/tricks/`;
 
     fs.readdirSync(specsPath).forEach(file => {
         const content = fs.readFileSync(specsPath + file, 'utf-8');
