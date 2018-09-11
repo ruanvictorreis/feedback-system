@@ -2,6 +2,8 @@ def fibonacci(n):
   atual = 0
   proximo = 1
 
-  for i in range(n):
-    atual, proximo = proximo, atual + proximo
-  return proximo
+  while (n > 0):
+    atual = proximo
+    proximo = atual + proximo
+    n = n - 1
+  return atual

@@ -3,7 +3,6 @@ def fibonacci(n):
   proximo = 1
   
   for i in range(n):
-    temp = atual
     atual = proximo
-    proximo = temp + proximo
-  return proximo
+    proximo = atual + proximo
+  return atual
