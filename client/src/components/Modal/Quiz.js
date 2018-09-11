@@ -11,7 +11,7 @@ class Quiz extends Component {
       assignment: '',
       host: '',
       condition: 0,
-      quizView: false,
+      view: false,
       quizOptionOne: false,
       quizOptionTwo: false,
       quizOptionThree: false,
@@ -40,7 +40,8 @@ class Quiz extends Component {
     })
       .then((response) => {
         this.setState({ quizItems: response.items });
-        this.setState({ quizView: true });
+        this.setState({ view: true });
+        window.congrats.hide();
       });
   }
 
@@ -80,7 +81,7 @@ class Quiz extends Component {
       data: quiz
     });
 
-    this.setState({ quizView: false });
+    this.setState({ view: false });
     window.feedback.startSurvey();
   }
 
@@ -115,7 +116,7 @@ class Quiz extends Component {
     return (
       <div>
         <Modal
-          open={this.state.quizView}
+          open={this.state.view}
           style={inlineStyle.modal}
           closeOnEscape={false}
           closeOnRootNodeClick={false}>
@@ -134,7 +135,7 @@ class Quiz extends Component {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionOne} onClick={this.toggleQuizOptionOne.bind(this)} />
                     <Highlight className="python">
-                      {this.state.quizView ? this.state.quizItems[0].code : ''}
+                      {this.state.view ? this.state.quizItems[0].code : ''}
                     </Highlight>
                   </Segment>
                 </Grid.Column>
@@ -143,7 +144,7 @@ class Quiz extends Component {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionTwo} onClick={this.toggleQuizOptionTwo.bind(this)} />
                     <Highlight className="python">
-                      {this.state.quizView ? this.state.quizItems[1].code : ''}
+                      {this.state.view ? this.state.quizItems[1].code : ''}
                     </Highlight>
                   </Segment>
                 </Grid.Column>
@@ -155,7 +156,7 @@ class Quiz extends Component {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionThree} onClick={this.toggleQuizOptionThree.bind(this)} />
                     <Highlight className="python">
-                      {this.state.quizView ? this.state.quizItems[2].code : ''}
+                      {this.state.view ? this.state.quizItems[2].code : ''}
                     </Highlight>
                   </Segment>
                 </Grid.Column>
@@ -164,7 +165,7 @@ class Quiz extends Component {
                     <Button circular toggle icon='checkmark' size="mini" floated="right"
                       active={this.state.quizOptionFour} onClick={this.toggleQuizOptionFour.bind(this)} />
                     <Highlight className="python">
-                      {this.state.quizView ? this.state.quizItems[3].code : ''}
+                      {this.state.view ? this.state.quizItems[3].code : ''}
                     </Highlight>
                   </Segment>
                 </Grid.Column>

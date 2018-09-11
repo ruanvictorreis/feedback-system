@@ -7,8 +7,8 @@ import './style/App.css';
 import $ from 'jquery';
 import Highlight from 'react-highlight';
 import Feedback from './components/Feedback';
-import Consent from './components/Consent';
-import Background from './components/Background';
+import Consent from './components/Modal/Consent';
+import Background from './components/Modal/Background';
 
 class App extends Component {
   constructor(props) {

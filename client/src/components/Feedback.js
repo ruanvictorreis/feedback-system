@@ -3,9 +3,10 @@ import CodeMirror from 'react-codemirror';
 import AlertContainer from 'react-alert';
 import Highlight from 'react-highlight';
 import TraceDiff from './TraceDiff';
-import Quiz from './Quiz';
-import Survey from './Survey';
-import Suggestion from './Suggestion';
+import Quiz from './Modal/Quiz';
+import Survey from './Modal/Survey';
+import Suggestion from './Modal/Suggestion';
+import Congrats from './Modal/Congrats'
 import Stream from '../data/Stream';
 import Record from '../data/Record';
 import $ from 'jquery';
@@ -20,8 +21,8 @@ class Feedback extends Component {
       obtained: 0,
       expected: 0,
 
-      uiHost: '18.228.117.65',
-      claraHost: '18.231.12.90',
+      uiHost: 'localhost',
+      claraHost: 'localhost',
       traceDiffHost: 'localhost',
 
       repairs: [],
@@ -320,9 +321,8 @@ class Feedback extends Component {
   }
 
   correctSubmission(attempt) {
-    this.msg.success('Parabéns! Seu código está correto');
+    window.congrats.show();
     this.saveLogSubmission(attempt);
-    this.startQuiz();
     this.setState({ accepting: false });
   }
 
@@ -515,6 +515,7 @@ class Feedback extends Component {
 
         <Quiz />
         <Survey />
+        <Congrats />
         <Suggestion />
 
         <Grid>
