@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Modal, Icon, Header, Button } from 'semantic-ui-react';
 
-class Congrats extends Component {
+class Thanks extends Component {
     constructor(props) {
         super(props)
         this.state = {
             view: false,
         }
 
-        window.congrats = this;
+        window.thanks = this;
     }
 
     show() {
@@ -19,11 +19,7 @@ class Congrats extends Component {
         this.setState({ view: false });
     }
 
-    startQuiz() {
-        window.feedback.startQuiz();
-    }
-
-    close = () => this.startQuiz();
+    close = () => this.hide();
 
     render() {
 
@@ -43,18 +39,16 @@ class Congrats extends Component {
                     style={inlineStyle.modal}
                     closeOnEscape={false}
                     closeOnRootNodeClick={false}>
-                    <Modal.Header>Parabéns!</Modal.Header>
+                    <Modal.Header>Obrigado!</Modal.Header>
                     <Modal.Content image>
-                        <Icon name="check circle outline" color='teal' size='massive' />
+                        <Icon name="thumbs up outline" color='blue' size='massive' />
                         <Modal.Description>
-                            <Header>Seu código está correto!</Header>
-                            <p>Em seguida, você será redirecionado para um Quiz sobre este exercício de programação.</p>
-                            <br />
-                            <p> Clique em 'Quiz' para continuar. </p>
+                            <Header>Estudo Finalizado!</Header>
+                            <p>Encaminhe este estudo para outros colegas de classe ou professores.</p>
                         </Modal.Description>
                     </Modal.Content>
                     <Modal.Actions>
-                        <Button color='teal' icon='angle right' labelPosition='right' content="Quiz" onClick={this.close} />
+                        <Button primary icon='angle right' labelPosition='right' content="OK" onClick={this.close} />
                     </Modal.Actions>
                 </Modal>
             </div>
@@ -63,4 +57,4 @@ class Congrats extends Component {
     }
 }
 
-export default Congrats
+export default Thanks

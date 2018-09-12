@@ -37,7 +37,7 @@ class Suggestion extends Component {
     };
 
     this.setState({ suggestionView: false });
-    this.msg.success('Estudo Finalizado. Obrigado!!');
+    window.thanks.show();
 
     $.ajax({
       method: 'POST',
@@ -96,7 +96,7 @@ class Suggestion extends Component {
           </Modal.Content>
 
           <Modal.Actions>
-            <Button positive icon='checkmark' labelPosition='right' content="Enviar" onClick={this.closeSuggestion} />
+            <Button color='teal' icon='checkmark' labelPosition='right' content="Enviar" onClick={this.closeSuggestion} />
           </Modal.Actions>
         </Modal>
       </div>

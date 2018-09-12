@@ -176,7 +176,7 @@ class Survey extends Component {
           </Modal.Content>
 
           <Modal.Actions>
-            <Button positive icon='checkmark' labelPosition='right' content="Enviar" onClick={this.closeSurvey} />
+            <Button color='teal' icon='angle right' labelPosition='right' content="Enviar" onClick={this.closeSurvey} />
           </Modal.Actions>
         </Modal>
       </div>

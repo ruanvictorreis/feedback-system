@@ -159,7 +159,7 @@ class Background extends Component {
                     </Modal.Content>
 
                     <Modal.Actions>
-                        <Button positive icon='checkmark' labelPosition='right' content="Enviar" onClick={this.close} />
+                        <Button primary icon='angle right' labelPosition='right' content="Enviar" onClick={this.close} />
                     </Modal.Actions>
                 </Modal>
             </div>

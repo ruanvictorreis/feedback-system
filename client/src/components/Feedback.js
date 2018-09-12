@@ -5,6 +5,7 @@ import Highlight from 'react-highlight';
 import TraceDiff from './TraceDiff';
 import Quiz from './Modal/Quiz';
 import Survey from './Modal/Survey';
+import Thanks from './Modal/Thanks';
 import Suggestion from './Modal/Suggestion';
 import Congrats from './Modal/Congrats'
 import Stream from '../data/Stream';
@@ -507,13 +508,14 @@ class Feedback extends Component {
             <h4>{this.state.errorMsg}</h4>
           </Modal.Content>
           <Modal.Actions>
-            <Button color='green' onClick={this.closeError} inverted>
-              <Icon name='checkmark' /> Entendido
+            <Button color='teal' onClick={this.closeError}>
+              <Icon name='checkmark' /> OK
                   </Button>
           </Modal.Actions>
         </Modal>
 
         <Quiz />
+        <Thanks />
         <Survey />
         <Congrats />
         <Suggestion />

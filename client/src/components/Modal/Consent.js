@@ -209,7 +209,7 @@ class Consent extends Component {
                 <Form.Checkbox checked={this.state.agreement}
                   label={this.state.paragraph_8}
                   onChange={this.toggleCheckBox.bind(this)} />
-                <Form.Button positive content='Enviar' />
+                <Form.Button primary content='Enviar' />
               </Form>
             </Segment>
           </Modal.Content>
