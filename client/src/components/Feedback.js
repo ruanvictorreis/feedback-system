@@ -22,8 +22,8 @@ class Feedback extends Component {
       obtained: 0,
       expected: 0,
 
-      uiHost: 'localhost',
-      claraHost: 'localhost',
+      uiHost: '18.231.117.97',
+      claraHost: '18.231.117.97',
       traceDiffHost: 'localhost',
 
       repairs: [],
