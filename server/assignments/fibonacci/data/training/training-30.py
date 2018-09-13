@@ -4,11 +4,11 @@ def fibonacci(n):
   if n == 1: 
     return 1 
   else: 
-    x = 0 
-    y = 1 
-    ans = 0 
+    atual = 0 
+    proximo = 1 
+    temp = 0
     for i in range(n - 1): 
-      ans = x + y 
-      x = y 
-      y = ans 
-    return ans
+      temp = atual + proximo 
+      atual = proximo 
+      proximo = temp 
+    return temp
