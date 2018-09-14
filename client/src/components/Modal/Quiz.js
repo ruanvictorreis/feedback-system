@@ -125,6 +125,7 @@ class Quiz extends Component {
             <Modal.Description>
               {/** <a target="_blank" rel="noopener noreferrer" href="https://youtu.be/29znC7ak-b4">&gt;&gt; Instruções &lt;&lt;</a>*/}
               <h3>Selecione outras soluções que também sejam corretas para este problema</h3>
+              <p>ATENÇÃO: Podem existir mais de uma (ou nenhuma) solução correta!</p>
               <br />
             </Modal.Description>
 
