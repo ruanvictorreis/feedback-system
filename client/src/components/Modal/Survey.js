@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import AlertContainer from 'react-alert';
-import { Modal, Header, Button, Form, Container } from 'semantic-ui-react';
+import { Modal, Header, Button, Container, Grid, Radio } from 'semantic-ui-react';
 
 class Survey extends Component {
   constructor(props) {
@@ -146,33 +146,101 @@ class Survey extends Component {
 
           <Modal.Content>
             <Container textAlign='center'>
-              <h2>{this.state.survey.assertion}</h2>
+              <h3>{this.state.survey.assertion}</h3>
             </Container>
 
             <br />
+            <br />
+            <Grid centered>
+              <Grid.Column width={2}>
+                <Container textAlign='center'>
+                  <h4>Discordo Fortemente</h4>
+                </Container>
+              </Grid.Column>
 
-            <Form>
-              <Form.Group grouped>
-                <Form.Radio
-                  label='Sim'
-                  answer='SIM'
-                  checked={answer === 'SIM'}
-                  onChange={this.handleChange}
-                />
-                <Form.Radio
-                  label='Não'
-                  answer='NÃO'
-                  checked={answer === 'NÃO'}
-                  onChange={this.handleChange}
-                />
-                <Form.Radio
-                  label='Não se aplica (marque esta opção caso nenhum feedback tenha sido exibido)'
-                  answer='NÃO SE APLICA'
-                  checked={answer === 'NÃO SE APLICA'}
-                  onChange={this.handleChange}
-                />
-              </Form.Group>
-            </Form>
+              <Grid.Column width={1}>
+                <Container textAlign='center'>
+                  <Radio
+                    answer='1'
+                    checked={answer === '1'}
+                    onChange={this.handleChange}
+                  />
+                  <p>1</p>
+                </Container>
+              </Grid.Column>
+
+              <Grid.Column width={1}>
+                <Container textAlign='center'>
+                  <Radio
+                    answer='2'
+                    checked={answer === '2'}
+                    onChange={this.handleChange}
+                  />
+                  <p>2</p>
+                </Container>
+              </Grid.Column>
+
+              <Grid.Column width={1}>
+                <Container textAlign='center'>
+                  <Radio
+                    answer='3'
+                    checked={answer === '3'}
+                    onChange={this.handleChange}
+                  />
+                  <p>3</p>
+                </Container>
+              </Grid.Column>
+
+              <Grid.Column width={1}>
+                <Container textAlign='center'>
+                  <Radio
+                    answer='4'
+                    checked={answer === '4'}
+                    onChange={this.handleChange}
+                  />
+                  <p>4</p>
+                </Container>
+              </Grid.Column>
+
+              <Grid.Column width={1}>
+                <Container textAlign='center'>
+                  <Radio
+                    answer='5'
+                    checked={answer === '5'}
+                    onChange={this.handleChange}
+                  />
+                  <p>5</p>
+                </Container>
+              </Grid.Column>
+
+              <Grid.Column width={1}>
+                <Container textAlign='center'>
+                  <Radio
+                    answer='6'
+                    checked={answer === '6'}
+                    onChange={this.handleChange}
+                  />
+                  <p>6</p>
+                </Container>
+              </Grid.Column>
+
+              <Grid.Column width={1}>
+                <Container textAlign='center'>
+                  <Radio
+                    answer='7'
+                    checked={answer === '7'}
+                    onChange={this.handleChange}
+                  />
+                  <p>7</p>
+                </Container>
+              </Grid.Column>
+
+              <Grid.Column width={2}>
+                <Container textAlign='center'>
+                  <h4>Concordo Fortemente</h4>
+                </Container>
+              </Grid.Column>
+            </Grid>
           </Modal.Content>
 
           <Modal.Actions>
