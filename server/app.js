@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var quiz = require('./routes/quiz-service');
 var clara = require('./routes/clara-service');
 var assert = require('./routes/assert-service');
+var funcTemp = require('./routes/function-service');
 var tracediff = require('./routes/tracediff-service');
 
 var app = express();
@@ -35,7 +36,9 @@ app.use('/', index);
 app.use('/api/quiz', quiz);
 app.use('/api/clara', clara);
 app.use('/api/assert', assert);
+app.use('/api/function', funcTemp);
 app.use('/api/tracediff', tracediff);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
