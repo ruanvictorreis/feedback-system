@@ -1,16 +1,19 @@
 ﻿Exercício: Soma dos Quadrados
 
-Escreva uma função chamada “sum_of_squares” que recebe um inteiro positivo (n) e retorna a soma dos quadrados da sequência de 1 até n. 
+Escreva um programa que recebe como entrada um número inteiro positivo (n) e imprime a soma dos quadrados da sequência de 1 até n. 
 Ex.: (1² + 2² + 3² + … + n²).
 
-def sum_of_squares(n):
-  """
-  >>> sum_of_squares(4)  #  (1²) + (2²) + (3²) + (4²)
-  30
-  >>> sum_of_squares(3)  #  (1²) + (2²) + (3²)
-  14
-  >>> sum_of_squares(2)  #  (1²) + (2²)
-  5
-  >>> sum_of_squares(5)  #  (1²) + (2²) + (3²) + (4²) + (5²)
-  55
-  """
+Exemplos:
+  >>> para n = 4  #  (1²) + (2²) + (3²) + (4²)
+  resultado: 30
+  
+  >>> para n = 3  #  (1²) + (2²) + (3²)
+  resultado: 14
+  
+  >>> para n = 2  #  (1²) + (2²)
+  resultado: 5
+  
+  >>> para n = 5  #  (1²) + (2²) + (3²) + (4²) + (5²)
+  resultado: 55
+
+ ATENÇÃO: UTILIZE APENAS 2 ESPAÇOS PARA INDENTAÇÃO DO SEU CÓDIGO. 
