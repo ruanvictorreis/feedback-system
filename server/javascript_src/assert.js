@@ -112,10 +112,12 @@ class Assert {
     result.syntaxError = this.syntaxError;
     result.input = ''
 
-    if (!this.isCorrect) {
-      const inputSplited = this.failedTest.split(this.assignment)
-      const inputValue = inputSplited[1].replace('(', '').replace(')', '')
-      result.input = `para n = ${inputValue}`
+    try {
+      const inputSplited = this.failedTest.split(this.assignment);
+      const inputValue = inputSplited[1].replace('(', '').replace(')', '');
+      result.input = `para n = ${inputValue}`;
+    } catch (err) {
+      // DO NOTHING
     }
 
     return result;

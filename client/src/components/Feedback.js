@@ -183,9 +183,7 @@ class Feedback extends Component {
       data: attempt
     })
       .then((response) => {
-        this.toggleLoader();
-        
-        if (response){
+        if (response) {
           attempt.studentCode = response
           this.assertImplementation(attempt);
         } else {
@@ -227,6 +225,8 @@ class Feedback extends Component {
       data: attempt
     })
       .then((response) => {
+        this.toggleLoader();
+    
         if (response.isCorrect) {
           this.correctSubmission(response);
         } else {
