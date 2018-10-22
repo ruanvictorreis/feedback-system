@@ -19,10 +19,12 @@ class Feedback extends Component {
     super(props)
     this.state = {
       failedTest: '',
+      input: '',
       obtained: 0,
       expected: 0,
 
-      uiHost: '52.67.30.72',
+      //uiHost: '52.67.30.72',
+      uiHost: 'localhost',
       claraHost: '52.67.30.72',
       traceDiffHost: 'localhost',
 
@@ -175,7 +177,21 @@ class Feedback extends Component {
       assignment: this.state.assignment
     };
 
-    this.assertImplementation(attempt);
+    $.ajax({
+      method: 'POST',
+      url: `http://${this.state.uiHost}:8081/api/function/`,
+      data: attempt
+    })
+      .then((response) => {
+        this.toggleLoader();
+        
+        if (response){
+          attempt.studentCode = response
+          this.assertImplementation(attempt);
+        } else {
+          this.functionTemplateError();
+        }
+      });
   }
 
   feedbackGeneration(attempt) {
@@ -211,8 +227,6 @@ class Feedback extends Component {
       data: attempt
     })
       .then((response) => {
-        this.toggleLoader();
-
         if (response.isCorrect) {
           this.correctSubmission(response);
         } else {
@@ -230,6 +244,7 @@ class Feedback extends Component {
     this.setState({ failedTest: attempt.failedTest });
     this.setState({ obtained: attempt.obtained });
     this.setState({ expected: attempt.expected });
+    this.setState({ input: attempt.input });
 
     if (this.state.condition === 1) {
       this.feedbackGenerated(attempt);
@@ -376,6 +391,10 @@ class Feedback extends Component {
 
   recursiveAlgorithm() {
     this.msg.error('Não são permitidos algoritmos recursivos');
+  }
+
+  functionTemplateError() {
+    this.msg.error('Erro: functionTemplateError');
   }
 
   saveLogSubmission(attempt) {
@@ -561,12 +580,12 @@ class Feedback extends Component {
                 <Grid centered>
                   <Grid.Column width={8}>
                     <Highlight className="python">
-                      {`# Obtido:\n${this.state.failedTest}\n>>> ${this.state.obtained}`}
+                      {`# Obtido:\n${this.state.input}\n>>> ${this.state.obtained}`}
                     </Highlight>
                   </Grid.Column>
                   <Grid.Column width={8}>
                     <Highlight className="python">
-                      {`# Esperado:\n${this.state.failedTest}\n>>> ${this.state.expected}`}
+                      {`# Esperado:\n${this.state.input}\n>>> ${this.state.expected}`}
                     </Highlight>
                   </Grid.Column>
                 </Grid>

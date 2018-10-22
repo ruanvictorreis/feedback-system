@@ -34,7 +34,10 @@ def find_expression_line(expr, source_code):
     for i in range(len(code_lines)):
         line = code_lines[i].strip()
         ratio = SequenceMatcher(None, line, expr.strip()).ratio()
-                
+        
+        if expr in line:
+          ratio += 0.1                
+        
         if(ratio > ratio_line):
             ratio_line = ratio
             target_line = i    

@@ -110,6 +110,14 @@ class Assert {
     result.assignment = this.assignment;
     result.studentCode = this.studentCode;
     result.syntaxError = this.syntaxError;
+    result.input = ''
+
+    if (!this.isCorrect) {
+      const inputSplited = this.failedTest.split(this.assignment)
+      const inputValue = inputSplited[1].replace('(', '').replace(')', '')
+      result.input = `para n = ${inputValue}`
+    }
+
     return result;
   }
 }
