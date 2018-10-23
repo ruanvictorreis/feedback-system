@@ -328,7 +328,8 @@ class Feedback extends Component {
       return;
     }
 
-    const pythonCode = encodeURIComponent(`${attempt.studentCode}\n\n${attempt.failedTest}`);
+    const studentCode = this.cm.getValue();
+    const pythonCode = encodeURIComponent(`${studentCode}\n\n${attempt.failedTest}`);
     const pythonTutorURL = `http://pythontutor.com/iframe-embed.html#code=${pythonCode}&py=2&curInstr=3`;
     this.setState({ pythonTutorURL: pythonTutorURL });
     this.setState({ iframeHeight: 500 });
@@ -402,7 +403,7 @@ class Feedback extends Component {
       Assignment: attempt.assignment,
       Condition: this.state.condition,
       IsCorrect: attempt.isCorrect,
-      SubmittedCode: attempt.studentCode,
+      SubmittedCode: this.cm.getValue(),
       DateTime: new Date().toLocaleString(),
       SyntaxError: attempt.syntaxError,
       ErrorMsg: attempt.errorMsg,
