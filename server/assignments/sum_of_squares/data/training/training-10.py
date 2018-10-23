@@ -1,6 +1,7 @@
-def sum_of_squares(n):
-  total = 0
-  number_list = range(1, n+1)
-  for i in number_list:
-    total = total + (i**2)
-  return total
+def sum_of_squares(n): 
+  soma = 0
+  i = 1 
+  for x in range(n):
+    soma = soma + i**2
+    i = i + 1 
+  return soma

@@ -1,5 +1,7 @@
 def sum_of_squares(n):
   total = 0
-  for i in range(n, 0, -1):
-    total = total + (i*i)
+  count = 1
+  while count <= n:
+    total = total + (count**2)
+    count = count + 1
   return total
