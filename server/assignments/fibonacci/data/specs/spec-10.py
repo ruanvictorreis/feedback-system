@@ -1,6 +1,14 @@
-def fibonacci(n): 
-  lista = [0, 1]
+n = int(input())
+if n == 0:
+  print(0)  
+elif n == 1:
+  print(1) 
+else:
+  atual = 1 
+  anterior = 0 
   
-  for i in range(2, n+1):
-    lista.append(lista[i-1] + lista[i-2])
-  return lista[n]
+  for i in range(n-1):
+    temp = atual 
+    atual = atual + anterior 
+    anterior = temp 
+  print(atual)

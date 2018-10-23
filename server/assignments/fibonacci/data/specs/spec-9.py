@@ -1,19 +1,6 @@
-def fibonacci(n):
-  atual = 0
-  proximo = 1
+n = int(input()) 
+lista = [0, 1]
   
-  for i in range(n):
-    temp = atual + proximo
-    atual = proximo
-    proximo = temp
-  return atual
-
-assert fibonacci(0) == 0
-assert fibonacci(1) == 1
-assert fibonacci(2) == 1
-assert fibonacci(3) == 2
-assert fibonacci(4) == 3
-assert fibonacci(5) == 5
-assert fibonacci(6) == 8
-assert fibonacci(7) == 13
-
+for i in range(n):
+  lista.append(lista[-1] + lista[-2])
+print(lista[n])
