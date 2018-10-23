@@ -1,7 +1,8 @@
 def is_prime_number(n):
   i = 2
+  isPrime = True
   while n > i :
     if n % i == 0:
-      return False
+      isPrime = False
     i += 1
-  return True and n != 1
+  return isPrime and n != 1
