@@ -16,6 +16,8 @@ router.post('/python/', function (request, response) {
 
   var args = [feedPython, register, assignment, parameters, studentCode];
 
+  console.log(args)
+
   PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
     if (error) {
       result.repairs = [];
