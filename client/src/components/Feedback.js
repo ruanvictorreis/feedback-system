@@ -329,8 +329,8 @@ class Feedback extends Component {
     }
 
     const studentCode = this.cm.getValue();
-    const pythonCode = encodeURIComponent(`${studentCode}\n\n${attempt.failedTest}`);
-    const pythonTutorURL = `http://pythontutor.com/iframe-embed.html#code=${pythonCode}&py=2&curInstr=3`;
+    const pythonCode = encodeURIComponent(`${studentCode}`);
+    const pythonTutorURL = `http://pythontutor.com/iframe-embed.html#code=${pythonCode}&py=2&curInstr=0`;
     this.setState({ pythonTutorURL: pythonTutorURL });
     this.setState({ iframeHeight: 500 });
     this.feedbackGenerated(attempt);
