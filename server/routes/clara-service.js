@@ -16,15 +16,17 @@ router.post('/python/', function (request, response) {
 
   var args = [feedPython, register, assignment, parameters, studentCode];
 
-  console.log(args)
-
   PythonShell.run('./python_src/clara/clara_run.py', { args: args }, (error) => {
     if (error) {
+      console.log('deu error')
+      console.log(error)
       result.repairs = [];
       result.isRepaired = false;
       response.json(result);
       return;
     }
+
+    console.log('nao deu erro')
 
     var fileName = register + '.py';
     var repairPath = `./assignments/${assignment}/repairs/${fileName}`;
