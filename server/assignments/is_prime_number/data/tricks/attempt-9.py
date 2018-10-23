@@ -1,9 +1,11 @@
-def is_prime_number(n):
-  i = 1
-  count = 0
-  
-  while i <= n:
-    if n % i == 0:
-      count += i
-    i += 1 
-  return count == 2
+n = int(input())
+primo = True
+	  
+for i in range(n):
+  if n % i == 0:
+    primo = False
+
+if n != 1:
+  print(False)
+else:
+  print(primo)
