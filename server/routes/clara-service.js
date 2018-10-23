@@ -26,7 +26,7 @@ router.post('/python/', function (request, response) {
 
     var fileName = register + '.py';
     var repairPath = `./assignments/${assignment}/repairs/${fileName}`;
-    result.repairs = fs.readFileSync(repairPath, 'utf8').trim().split('\n');
+    result.repairs = fs.readFileSync(repairPath, 'utf8').trim().replace(/return/g, 'print').split('\n');
     result.isRepaired = true;
 
     response.json(result);
