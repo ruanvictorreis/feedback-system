@@ -252,7 +252,8 @@ class Feedback extends Component {
 
   claraRepairFeedback(attempt) {
     if (attempt.syntaxError) {
-      return;
+      //DO NOTHING
+      //return;
     }
 
     this.toggleLoader();
