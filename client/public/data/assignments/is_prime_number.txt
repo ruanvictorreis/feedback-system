@@ -1,19 +1,22 @@
 ﻿Exercício: Números Primos
 
-Escreva uma função chamada “is_prime_number” que recebe um inteiro (n) positivo e retorna True (caso n seja um número primo) ou False 
-(caso n não seja um número primo).
+Escreva uma programa que recebe como entrada um número inteiro (n) positivo e imprime True (booleano), caso n seja um número primo, ou False (booleano), 
+caso n não seja um número primo.
 
-Obs.: Números primos são os números que têm apenas dois divisores diferentes: ele mesmo e o número um. Portanto, o número um (1) não 
-é considerado um número primo, pois só possui um divisor, ele mesmo.
+INFO.: Números primos são os números que têm apenas dois divisores diferentes: ele mesmo e o número um. Portanto, o número um (1) não é considerado um 
+número primo, pois só possui um divisor, ele mesmo.
 
-def is_prime_number(n):
-  """
-  >>> is_prime_number(3)
-  True
-  >>> is_prime_number(5)
-  True
-  >>> is_prime_number(1)
-  False
-  >>> is_prime_number(4)
-  False
-  """
+Exemplos:
+  >>> para n = 3
+  resultado: True
+  
+  >>> para n = 5
+  resultado: True
+  
+  >>> para n = 1
+  resultado: False
+  
+  >>> para n = 4
+  resultado: False
+
+ATENÇÃO: UTILIZE APENAS 2 ESPAÇOS PARA INDENTAÇÃO DO SEU CÓDIGO.
