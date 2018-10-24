@@ -1,12 +1,8 @@
-def fibonacci(n): 
-  if n == 0:
-    return 0
+def fibonacci(n):
+  fib_list = [0, 1]
   
-  if n == 1:
-    return 1
-    
-  lista = [0, 1]
-  
-  for i in range(2, n+1):
-    lista.append(lista[i-1] + lista[i-2])
-  return lista[n]
+  for i in range(n):
+    atual = fib_list[-1]
+    anterior = fib_list[-2]
+    fib_list.append(atual + anterior)
+  return fib_list[n]

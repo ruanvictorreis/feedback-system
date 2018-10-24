@@ -1,14 +1,15 @@
-def fibonacci(n):
+def fibonacci(n):  
   if n == 0:
     return 0
-
-  f_ant = 0
-  f_atual = 1
-  i = 1	    
   
-  while i < n:
-    f_prox = f_ant + f_atual
-    f_ant = f_atual
-    f_atual = f_prox
-    i = i + 1     
-  return f_atual
+  elif n == 1:
+    return 1
+  
+  else:
+    fib_list = [0, 1]
+
+    for i in range(1, n):
+      temp = fib_list[0] + fib_list[1]
+      fib_list[0] = fib_list[1]
+      fib_list[1] = temp 
+    return temp

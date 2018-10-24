@@ -1,17 +1,12 @@
-def fibonacci(n):
+def fibonacci(n): 
   if n == 0:
     return 0
   
-  if n == 1:
+  elif n == 1:
     return 1
-
-  f_ant = 0
-  f_atual = 1
-  i = 1    
   
-  while i < n:
-    f_prox = f_ant + f_atual
-    f_ant = f_atual
-    f_atual = f_prox
-    i = i + 1     
-  return f_atual
+  else:  
+    lista = [0, 1]  
+    for i in range(2, n+1):
+      lista.append(lista[i-1] + lista[i-2])
+    return lista[n]

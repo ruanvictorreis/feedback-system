@@ -1,10 +1,10 @@
 def fibonacci(n):
-  atual = 0
-  proximo = 1
+  fib_list = [0, 1]
+  count = 0
   
-  while (n > 0):
-    temp = atual
-    atual = proximo
-    proximo = temp + proximo
-    n = n - 1
-  return atual
+  while (count < n):
+    atual = fib_list[-1]
+    anterior = fib_list[-2]
+    fib_list.append(atual + anterior)
+    count = count + 1
+  return fib_list[n]

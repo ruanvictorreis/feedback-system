@@ -2,14 +2,16 @@ def fibonacci(n):
   if n == 0:
     return 0
   
-  if n == 1:
+  elif n == 1:
     return 1
-    
-  fib_list = [0, 1]
   
-  for i in range(n):
-    size = len(fib_list)
-    atual = fib_list[size - 1]
-    anterior = fib_list[size - 2]
-    fib_list.append(atual + anterior)
-  return fib_list[n]
+  else:  
+    atual = 0
+    proximo = 1
+
+    while (n > 0):
+      temp = atual
+      atual = proximo
+      proximo = temp + proximo
+      n = n - 1
+    return atual

@@ -1,14 +1,8 @@
-def fibonacci(n):
+def fibonacci(n): 
   if n == 0:
     return 0
-  
-  if n == 1:
-    return 1
-
-  fib_list = [0, 1]
-  
-  for i in range(n):
-    temp = fib_list[0] + fib_list[1]
-    fib_list[0] = fib_list[1]
-    fib_list[1] = temp
-  return fib_list[0]
+  else:  
+    lista = [0, 1]
+    for i in range(2, n+1):
+      lista.append(lista[i-1] + lista[i-2])
+    return lista[n]
