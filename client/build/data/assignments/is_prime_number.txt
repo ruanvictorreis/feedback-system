@@ -24,7 +24,7 @@ DICA: Utilize uma das estratégias abaixo para implementar o seu programa.
  
 >> Estratégia 1: Faça uma contagem de quantos divisores de n existem entre os números 1 e n. Se essa contagem for igual a 2 então o número (n) é primo.
 
->> Estratégia 2: Verifique se existe pelo menos um divisor entre o número 2 e n-1. Se existir pelo menos um divisor, o número não é primo.
+>> Estratégia 2: Verifique se existe pelo menos um divisor entre os números 2 e n-1. Se existir pelo menos um divisor, o número (n) não é primo.
 
 ---
 ATENÇÃO: UTILIZE APENAS 2 ESPAÇOS PARA INDENTAÇÃO DO SEU CÓDIGO.
