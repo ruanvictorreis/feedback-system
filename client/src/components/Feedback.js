@@ -23,8 +23,8 @@ class Feedback extends Component {
       obtained: 0,
       expected: 0,
 
-      uiHost: '52.67.88.74',
-      claraHost: '52.67.88.74',
+      uiHost: '54.232.194.103',
+      claraHost: '54.232.194.103',
       traceDiffHost: 'localhost',
 
       repairs: [],
@@ -225,7 +225,7 @@ class Feedback extends Component {
     })
       .then((response) => {
         this.toggleLoader();
-    
+
         if (response.isCorrect) {
           this.correctSubmission(response);
         } else {
@@ -252,8 +252,7 @@ class Feedback extends Component {
 
   claraRepairFeedback(attempt) {
     if (attempt.syntaxError) {
-      //DO NOTHING
-      //return;
+      return;
     }
 
     this.toggleLoader();
