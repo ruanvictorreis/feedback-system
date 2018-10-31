@@ -1,1 +1,1 @@
-O {0} lhe ajudou a entender o problema de programação proposto.
+O {0} lhe ajudou a obter um melhor entendimento sobre problema de programação proposto.
