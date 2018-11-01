@@ -467,7 +467,7 @@ class Feedback extends Component {
         this.toggleConditionThree();
         break;
       case 4:
-        ////this.toggleConditionFour();
+        //this.toggleConditionFour();
         break;
       default:
         this.toggleConditionOne();
