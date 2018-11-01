@@ -21,3 +21,14 @@ def fibonacci(n):
   >>> fibonacci(4) #
   3
   """
+---
+DICA: Utilize uma das estratégias abaixo para implementar o seu programa.
+ 
+>> Estratégia 1: Declare no seu programa duas variáveis: atual = 0 e proximo = 1. A partir dessas duas variáveis é possível calcular os elementos 
+>> seguintes da sequência de fibonacci.
+
+>> Estratégia 2: Declare no seu programa uma lista: fib_lista = [0, 1]. A partir dos dois últimos elementos da lista é possível calcular os elementos 
+>> seguintes da sequência de fibonacci.
+
+---
+ATENÇÃO: UTILIZE APENAS 2 ESPAÇOS PARA INDENTAÇÃO DO SEU CÓDIGO.

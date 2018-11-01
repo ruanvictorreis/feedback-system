@@ -9,8 +9,8 @@ def fibonacci(n):
   count = 0
   
   while (count < n):
-    atual = fib_list[len(fib_list) - 1]
-    anterior = fib_list[len(fib_list) - 2]
+    atual = fib_list[- 1]
+    anterior = fib_list[- 2]
     fib_list.append(atual + anterior)
     count = count + 1
   return fib_list[n]

@@ -17,3 +17,6 @@ def is_prime_number(n):
   >>> is_prime_number(4)
   False
   """
+
+---
+ATENÇÃO: UTILIZE APENAS 2 ESPAÇOS PARA INDENTAÇÃO DO SEU CÓDIGO.
