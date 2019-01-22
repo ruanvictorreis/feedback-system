@@ -22,8 +22,8 @@ class Feedback extends Component {
       obtained: 0,
       expected: 0,
 
-      uiHost: '54.233.240.61',
-      claraHost: '54.233.240.61',
+      uiHost: '18.231.184.37',
+      claraHost: '18.231.184.37',
       traceDiffHost: 'localhost',
 
       repairs: [],
@@ -66,6 +66,10 @@ class Feedback extends Component {
     window.cm = this.cm
 
     if (info) {
+
+      info.condition = 2;
+      info.register = "111210442";
+
       this.setState({ register: info.register });
       this.setState({ assignment: info.assignment });
       this.setState({ studentCode: info.templateCode });
